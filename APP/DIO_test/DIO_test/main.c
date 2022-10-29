@@ -16,10 +16,25 @@
 int main(void)
 {
 	DIO_setPinDirection(PA0,OUTPUT) ;
-    while (1) 
+	DIO_setPinDirection(PD0,INPUT_PULLUP) ; 
+    _Bool flag = 0 ; 
+	while (1) 
     {
-		DIO_setPinValue(PA0,TOGGLE) ;
-		_delay_ms(300) ;
+		if (flag)
+		{
+			DIO_setPinValue(PA0,TOGGLE) ;
+			_delay_ms(300) ;
+		}
+		
+		/* debouncing */
+		if (DIO_getPinValue(PD0)==0)
+		{
+			_delay_ms(300) ; 
+			if (DIO_getPinValue(PD0)==1)
+			{
+				flag = !flag ;
+			}
+		}
     }
 }
 

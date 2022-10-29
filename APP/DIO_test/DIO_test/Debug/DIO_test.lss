@@ -3,29 +3,29 @@ DIO_test.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000002ac  00000000  00000000  00000074  2**1
+  0 .text         0000035c  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000018  00800060  000002ac  00000320  2**0
+  1 .data         00000018  00800060  0000035c  000003d0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000338  2**0
+  2 .comment      00000030  00000000  00000000  000003e8  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000368  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000418  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000060  00000000  00000000  000003a4  2**0
+  4 .debug_aranges 00000060  00000000  00000000  00000454  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000b86  00000000  00000000  00000404  2**0
+  5 .debug_info   00000c1e  00000000  00000000  000004b4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000071a  00000000  00000000  00000f8a  2**0
+  6 .debug_abbrev 00000720  00000000  00000000  000010d2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   00000474  00000000  00000000  000016a4  2**0
+  7 .debug_line   0000049f  00000000  00000000  000017f2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000094  00000000  00000000  00001b18  2**2
+  8 .debug_frame  00000094  00000000  00000000  00001c94  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    000004af  00000000  00000000  00001bac  2**0
+  9 .debug_str    000004ba  00000000  00000000  00001d28  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000371  00000000  00000000  0000205b  2**0
+ 10 .debug_loc    00000420  00000000  00000000  000021e2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000040  00000000  00000000  000023cc  2**0
+ 11 .debug_ranges 00000040  00000000  00000000  00002602  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,16 +65,16 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ec ea       	ldi	r30, 0xAC	; 172
-  68:	f2 e0       	ldi	r31, 0x02	; 2
+  66:	ec e5       	ldi	r30, 0x5C	; 92
+  68:	f3 e0       	ldi	r31, 0x03	; 3
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
   70:	a8 37       	cpi	r26, 0x78	; 120
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
-  76:	0e 94 42 01 	call	0x284	; 0x284 <main>
-  7a:	0c 94 54 01 	jmp	0x2a8	; 0x2a8 <_exit>
+  76:	0e 94 7f 01 	call	0x2fe	; 0x2fe <main>
+  7a:	0c 94 ac 01 	jmp	0x358	; 0x358 <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -461,41 +461,184 @@ void DIO_setPinValue(EN_PinNumber_t pinNum, EN_Values_t value)
  280:	80 83       	st	Z, r24
  282:	08 95       	ret
 
-00000284 <main>:
+00000284 <DIO_getPinValue>:
+ * @param pinnum pin name
+ * @return uint8_t pin number 
+ */
+inline static uint8_t getPinNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    pinnum     ; 
+ 284:	88 30       	cpi	r24, 0x08	; 8
+ 286:	70 f0       	brcs	.+28     	; 0x2a4 <DIO_getPinValue+0x20>
+    else if (pinnum>=8  && pinnum<=15) return   (pinnum-8)  ; 
+ 288:	28 ef       	ldi	r18, 0xF8	; 248
+ 28a:	28 0f       	add	r18, r24
+ 28c:	28 30       	cpi	r18, 0x08	; 8
+ 28e:	58 f0       	brcs	.+22     	; 0x2a6 <DIO_getPinValue+0x22>
+    else if (pinnum>=16 && pinnum<=23) return   (pinnum-16) ;
+ 290:	20 ef       	ldi	r18, 0xF0	; 240
+ 292:	28 0f       	add	r18, r24
+ 294:	28 30       	cpi	r18, 0x08	; 8
+ 296:	38 f0       	brcs	.+14     	; 0x2a6 <DIO_getPinValue+0x22>
+    else if (pinnum>=24 && pinnum<=31) return   (pinnum-24) ;
+ 298:	28 ee       	ldi	r18, 0xE8	; 232
+ 29a:	28 0f       	add	r18, r24
+ 29c:	28 30       	cpi	r18, 0x08	; 8
+ 29e:	18 f0       	brcs	.+6      	; 0x2a6 <DIO_getPinValue+0x22>
+	return NC ; 
+ 2a0:	2f ef       	ldi	r18, 0xFF	; 255
+ 2a2:	01 c0       	rjmp	.+2      	; 0x2a6 <DIO_getPinValue+0x22>
+ * @param pinnum pin name
+ * @return uint8_t pin number 
+ */
+inline static uint8_t getPinNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    pinnum     ; 
+ 2a4:	28 2f       	mov	r18, r24
+ * @param pinnum pin name
+ * @return uint8_t port number 
+ */
+inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    PORTA  ; 
+ 2a6:	88 30       	cpi	r24, 0x08	; 8
+ 2a8:	68 f0       	brcs	.+26     	; 0x2c4 <DIO_getPinValue+0x40>
+    else if (pinnum>=8  && pinnum<=15) return    PORTB  ; 
+ 2aa:	98 ef       	ldi	r25, 0xF8	; 248
+ 2ac:	98 0f       	add	r25, r24
+ 2ae:	98 30       	cpi	r25, 0x08	; 8
+ 2b0:	58 f0       	brcs	.+22     	; 0x2c8 <DIO_getPinValue+0x44>
+    else if (pinnum>=16 && pinnum<=23) return    PORTC  ;
+ 2b2:	90 ef       	ldi	r25, 0xF0	; 240
+ 2b4:	98 0f       	add	r25, r24
+ 2b6:	98 30       	cpi	r25, 0x08	; 8
+ 2b8:	48 f0       	brcs	.+18     	; 0x2cc <DIO_getPinValue+0x48>
+    else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
+ 2ba:	88 51       	subi	r24, 0x18	; 24
+ 2bc:	88 30       	cpi	r24, 0x08	; 8
+ 2be:	40 f4       	brcc	.+16     	; 0x2d0 <DIO_getPinValue+0x4c>
+ 2c0:	83 e0       	ldi	r24, 0x03	; 3
+ 2c2:	07 c0       	rjmp	.+14     	; 0x2d2 <DIO_getPinValue+0x4e>
+ * @param pinnum pin name
+ * @return uint8_t port number 
+ */
+inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    PORTA  ; 
+ 2c4:	80 e0       	ldi	r24, 0x00	; 0
+ 2c6:	05 c0       	rjmp	.+10     	; 0x2d2 <DIO_getPinValue+0x4e>
+    else if (pinnum>=8  && pinnum<=15) return    PORTB  ; 
+ 2c8:	81 e0       	ldi	r24, 0x01	; 1
+ 2ca:	03 c0       	rjmp	.+6      	; 0x2d2 <DIO_getPinValue+0x4e>
+    else if (pinnum>=16 && pinnum<=23) return    PORTC  ;
+ 2cc:	82 e0       	ldi	r24, 0x02	; 2
+ 2ce:	01 c0       	rjmp	.+2      	; 0x2d2 <DIO_getPinValue+0x4e>
+    else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
+	return NC ;
+ 2d0:	8f ef       	ldi	r24, 0xFF	; 255
+{
+    /* get pin number and port number */
+    uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
+  
+   /* return pin value */
+    return getBit((*(DIO_Registers[port][2])) ,pin);
+ 2d2:	90 e0       	ldi	r25, 0x00	; 0
+ 2d4:	fc 01       	movw	r30, r24
+ 2d6:	ee 0f       	add	r30, r30
+ 2d8:	ff 1f       	adc	r31, r31
+ 2da:	e8 0f       	add	r30, r24
+ 2dc:	f9 1f       	adc	r31, r25
+ 2de:	ee 0f       	add	r30, r30
+ 2e0:	ff 1f       	adc	r31, r31
+ 2e2:	e0 5a       	subi	r30, 0xA0	; 160
+ 2e4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 2e6:	04 80       	ldd	r0, Z+4	; 0x04
+ 2e8:	f5 81       	ldd	r31, Z+5	; 0x05
+ 2ea:	e0 2d       	mov	r30, r0
+ 2ec:	80 81       	ld	r24, Z
+ 2ee:	90 e0       	ldi	r25, 0x00	; 0
+ 2f0:	02 c0       	rjmp	.+4      	; 0x2f6 <DIO_getPinValue+0x72>
+ 2f2:	95 95       	asr	r25
+ 2f4:	87 95       	ror	r24
+ 2f6:	2a 95       	dec	r18
+ 2f8:	e2 f7       	brpl	.-8      	; 0x2f2 <DIO_getPinValue+0x6e>
+}
+ 2fa:	81 70       	andi	r24, 0x01	; 1
+ 2fc:	08 95       	ret
+
+000002fe <main>:
 #include <util/delay.h>
 #include "DIO_INT.h"
 
 int main(void)
 {
 	DIO_setPinDirection(PA0,OUTPUT) ;
- 284:	61 e0       	ldi	r22, 0x01	; 1
- 286:	80 e0       	ldi	r24, 0x00	; 0
- 288:	0e 94 41 00 	call	0x82	; 0x82 <DIO_setPinDirection>
-    while (1) 
+ 2fe:	61 e0       	ldi	r22, 0x01	; 1
+ 300:	80 e0       	ldi	r24, 0x00	; 0
+ 302:	0e 94 41 00 	call	0x82	; 0x82 <DIO_setPinDirection>
+	DIO_setPinDirection(PD0,INPUT_PULLUP) ; 
+ 306:	62 e0       	ldi	r22, 0x02	; 2
+ 308:	88 e1       	ldi	r24, 0x18	; 24
+ 30a:	0e 94 41 00 	call	0x82	; 0x82 <DIO_setPinDirection>
+    _Bool flag = 0 ; 
+ 30e:	c0 e0       	ldi	r28, 0x00	; 0
+	while (1) 
     {
-		DIO_setPinValue(PA0,TOGGLE) ;
- 28c:	62 e0       	ldi	r22, 0x02	; 2
- 28e:	80 e0       	ldi	r24, 0x00	; 0
- 290:	0e 94 cc 00 	call	0x198	; 0x198 <DIO_setPinValue>
+		if (flag)
+ 310:	cc 23       	and	r28, r28
+ 312:	69 f0       	breq	.+26     	; 0x32e <main+0x30>
+		{
+			DIO_setPinValue(PA0,TOGGLE) ;
+ 314:	62 e0       	ldi	r22, 0x02	; 2
+ 316:	80 e0       	ldi	r24, 0x00	; 0
+ 318:	0e 94 cc 00 	call	0x198	; 0x198 <DIO_setPinValue>
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
- 294:	2f e5       	ldi	r18, 0x5F	; 95
- 296:	8a ee       	ldi	r24, 0xEA	; 234
- 298:	90 e0       	ldi	r25, 0x00	; 0
- 29a:	21 50       	subi	r18, 0x01	; 1
- 29c:	80 40       	sbci	r24, 0x00	; 0
- 29e:	90 40       	sbci	r25, 0x00	; 0
- 2a0:	e1 f7       	brne	.-8      	; 0x29a <main+0x16>
- 2a2:	00 c0       	rjmp	.+0      	; 0x2a4 <main+0x20>
- 2a4:	00 00       	nop
- 2a6:	f2 cf       	rjmp	.-28     	; 0x28c <main+0x8>
+ 31c:	2f e5       	ldi	r18, 0x5F	; 95
+ 31e:	8a ee       	ldi	r24, 0xEA	; 234
+ 320:	90 e0       	ldi	r25, 0x00	; 0
+ 322:	21 50       	subi	r18, 0x01	; 1
+ 324:	80 40       	sbci	r24, 0x00	; 0
+ 326:	90 40       	sbci	r25, 0x00	; 0
+ 328:	e1 f7       	brne	.-8      	; 0x322 <main+0x24>
+ 32a:	00 c0       	rjmp	.+0      	; 0x32c <main+0x2e>
+ 32c:	00 00       	nop
+			_delay_ms(300) ;
+		}
+		
+		/* debouncing */
+		if (DIO_getPinValue(PD0)==0)
+ 32e:	88 e1       	ldi	r24, 0x18	; 24
+ 330:	0e 94 42 01 	call	0x284	; 0x284 <DIO_getPinValue>
+ 334:	81 11       	cpse	r24, r1
+ 336:	ec cf       	rjmp	.-40     	; 0x310 <main+0x12>
+ 338:	2f e5       	ldi	r18, 0x5F	; 95
+ 33a:	8a ee       	ldi	r24, 0xEA	; 234
+ 33c:	90 e0       	ldi	r25, 0x00	; 0
+ 33e:	21 50       	subi	r18, 0x01	; 1
+ 340:	80 40       	sbci	r24, 0x00	; 0
+ 342:	90 40       	sbci	r25, 0x00	; 0
+ 344:	e1 f7       	brne	.-8      	; 0x33e <main+0x40>
+ 346:	00 c0       	rjmp	.+0      	; 0x348 <main+0x4a>
+ 348:	00 00       	nop
+		{
+			_delay_ms(300) ; 
+			if (DIO_getPinValue(PD0)==1)
+ 34a:	88 e1       	ldi	r24, 0x18	; 24
+ 34c:	0e 94 42 01 	call	0x284	; 0x284 <DIO_getPinValue>
+ 350:	81 30       	cpi	r24, 0x01	; 1
+ 352:	f1 f6       	brne	.-68     	; 0x310 <main+0x12>
+			{
+				flag = !flag ;
+ 354:	c8 27       	eor	r28, r24
+ 356:	dc cf       	rjmp	.-72     	; 0x310 <main+0x12>
 
-000002a8 <_exit>:
- 2a8:	f8 94       	cli
+00000358 <_exit>:
+ 358:	f8 94       	cli
 
-000002aa <__stop_program>:
- 2aa:	ff cf       	rjmp	.-2      	; 0x2aa <__stop_program>
+0000035a <__stop_program>:
+ 35a:	ff cf       	rjmp	.-2      	; 0x35a <__stop_program>
