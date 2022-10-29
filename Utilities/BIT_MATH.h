@@ -1,7 +1,7 @@
 /**
  * @file BIT_MATH.h
  * @author Youssef Abdelmajeed (youssefabdelmajeed77@gmail.com)
- * @brief Bit operation (set, clear ,get, toggle)
+ * @brief Bit operation (set, clear, get, toggle)
  * @version 0.1
  * @date 2022-10-29
  * 
