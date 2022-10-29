@@ -1,7 +1,7 @@
 /**
  * @file DIO_PRG.c
- * @author your name (you@domain.com)
- * @brief 
+ * @author Youssef Abdelmajeed (youssefabdelmajeed77@gmail.com)
+ * @brief Implemetation file 
  * @version 0.1
  * @date 2022-10-29
  * 
