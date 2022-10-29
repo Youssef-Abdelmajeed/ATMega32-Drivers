@@ -14,35 +14,35 @@
 
 
     /* PORT Register A*/
-#define PORTA   (*(uint8_t *) (0x3B))
+#define PORTA_REG   (*(uint8_t *) (0x3B))
     /* Data Direction Register A */
-#define DDRA    (*(uint8_t *) (0x3A))
+#define DDRA_REG    (*(uint8_t *) (0x3A))
     /* Port INput Register A */
-#define PINA    (*(uint8_t *) (0x39))
+#define PINA_REG   (*(uint8_t *) (0x39))
 
 
     /* PORT Register B*/
-#define PORTB   (*(uint8_t *) (0x38))
+#define PORTB_REG  (*(uint8_t *) (0x38))
     /* Data Direction Register B */
-#define DDRB    (*(uint8_t *) (0x37))
+#define DDRB_REG    (*(uint8_t *) (0x37))
     /* Port INput Register B */
-#define PINB    (*(uint8_t *) (0x36))
+#define PINB_REG    (*(uint8_t *) (0x36))
 
 
     /* PORT Register C*/
-#define PORTC   (*(uint8_t *) (0x35))
+#define PORTC_REG   (*(uint8_t *) (0x35))
     /* Data Direction Register C */
-#define DDRC    (*(uint8_t *) (0x34))
+#define DDRC_REG    (*(uint8_t *) (0x34))
     /* Port INput Register C */
-#define PINC    (*(uint8_t *) (0x33))
+#define PINC_REG    (*(uint8_t *) (0x33))
 
 
     /* PORT Register D*/
-#define PORTD   (*(uint8_t *) (0x32))
+#define PORTD_REG  (*(uint8_t *) (0x32))
     /* Data Direction Register D */
-#define DDRD    (*(uint8_t *) (0x31))
+#define DDRD_REG    (*(uint8_t *) (0x31))
     /* Port INput Register D */
-#define PIND    (*(uint8_t *) (0x30))
+#define PIND_REG    (*(uint8_t *) (0x30))
 
 
 #endif /* DIO_REG_H_ */
