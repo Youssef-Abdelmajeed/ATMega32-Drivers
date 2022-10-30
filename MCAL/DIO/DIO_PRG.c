@@ -54,22 +54,25 @@ void DIO_setPinDirection(EN_PinNumber_t pinNum,EN_Directions_t pinDirection)
 	
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
-
+	/* select DDRX Register */
+	volatile uint8_t  * DDRX =  (DIO_Registers[port][1]) ;
+	/* select PORTX Register */ 
+	volatile uint8_t  * PORTX = (DIO_Registers[port][0]) ;
     switch (pinDirection)
     {
     case INPUT:
         /* set DDRX to 0 to set as input  */
-        clearBit((*(DIO_Registers[port][1])),pin) ;
+        clearBit((*DDRX),pin) ;
         break;
     case OUTPUT:
         /* set PORTX to 1 to set as output */
-        setBit((*(DIO_Registers[port][1])),pin) ;
+        setBit((*DDRX),pin) ;
         break;
     case INPUT_PULLUP:
         /* set PORTX to 1 to active the pull up resistor */
-        setBit((*(DIO_Registers[port][0])),pin) ;  
+        setBit((*PORTX),pin) ;  
         /* set DDRX to 0 to set as input  */
-        clearBit((*(DIO_Registers[port][1])),pin) ;
+        clearBit((*DDRX),pin) ;
         break;
     default:
         /* do nothing */
@@ -82,21 +85,22 @@ void DIO_setPinValue(EN_PinNumber_t pinNum, EN_Values_t value)
 {
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
-   
+	/* select PORTX Register */
+   	volatile uint8_t  * PORTX = (DIO_Registers[port][0]) ;
     switch (value)
     {
         
     case LOW:
         /* set the selected pin to LOW */
-       clearBit((*(DIO_Registers[port][0])),pin) ;
+       clearBit((*PORTX),pin) ;
         break;    
     case HIGH:
         /* set the selected pin to HIGH */
-        setBit((*(DIO_Registers[port][0])),pin) ;
+        setBit((*PORTX),pin) ;
         break;
     case TOGGLE:
         /*TOGGLE the selected pin */
-        toggleBit((*(DIO_Registers[port][0])),pin) ;
+        toggleBit((*PORTX),pin) ;
         break;
     
     default:
@@ -109,29 +113,34 @@ uint8_t DIO_getPinValue(EN_PinNumber_t pinNum)
 {
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
-  
+	/* select PINX Register */ 
+	volatile uint8_t * PINX = (DIO_Registers[port][2]);
    /* return pin value */
-    return getBit((*(DIO_Registers[port][2])) ,pin);
+    return getBit((*PINX) ,pin);
 }
 
 void DIO_setPortDirection(EN_PortNumber_t portNum,EN_Directions_t pinDirection) 
 {
-
+	/* select DDRX Register */
+	volatile uint8_t  * DDRX =  (DIO_Registers[portNum][1]) ;
+	/* select PORTX Register */
+	volatile uint8_t  * PORTX = (DIO_Registers[portNum][0]) ;
+	
     switch (pinDirection)
     {
     case INPUT:
         /* set the whole port as input */
-        *(DIO_Registers[portNum][1]) = 0X00 ; 
+        *DDRX = 0X00 ; 
         break;
     case OUTPUT:
         /* set the whole port as output */
-       *(DIO_Registers[portNum][1])= 0XFF ; 
+       *DDRX= 0XFF ; 
         break;
     case INPUT_PULLUP:
         /* active pull up resistor for the whole port */
-       *(DIO_Registers[portNum][0]) =0xFF; 
+       *PORTX =0xFF; 
         /* set the whole port as input */
-      *(DIO_Registers[portNum][1]) = 0X00 ; 
+      *DDRX = 0X00 ; 
         break;
     default:
         /* do nothing */
@@ -141,6 +150,8 @@ void DIO_setPortDirection(EN_PortNumber_t portNum,EN_Directions_t pinDirection)
 
 void DIO_setPortValue(EN_PortNumber_t portNum,uint8_t value) 
 {
-    /* set the port value */
-    *(DIO_Registers[portNum][0]) = value ;
+	/* select PORTX Register */
+    volatile uint8_t  * PORTX = (DIO_Registers[portNum][0]) ;
+	/* set the port value */	
+    *PORTX = value ;
 }

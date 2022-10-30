@@ -13,7 +13,7 @@ Discarded input sections
  .data          0x00000000        0x0 DIO_PRG.o
  .bss           0x00000000        0x0 DIO_PRG.o
  .text.DIO_setPortDirection
-                0x00000000       0x80 DIO_PRG.o
+                0x00000000       0x4e DIO_PRG.o
  .text.DIO_setPortValue
                 0x00000000       0x1e DIO_PRG.o
  .text          0x00000000        0x0 main.o
@@ -178,7 +178,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x35c
+.text           0x00000000      0x2ea
  *(.vectors)
  .vectors       0x00000000       0x54 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -259,21 +259,21 @@ END GROUP
                 0x00000082                . = ALIGN (0x2)
  *(.text.*)
  .text.DIO_setPinDirection
-                0x00000082      0x116 DIO_PRG.o
+                0x00000082       0xd8 DIO_PRG.o
                 0x00000082                DIO_setPinDirection
  .text.DIO_setPinValue
-                0x00000198       0xec DIO_PRG.o
-                0x00000198                DIO_setPinValue
+                0x0000015a       0xb8 DIO_PRG.o
+                0x0000015a                DIO_setPinValue
  .text.DIO_getPinValue
-                0x00000284       0x7a DIO_PRG.o
-                0x00000284                DIO_getPinValue
- .text.main     0x000002fe       0x5a main.o
-                0x000002fe                main
-                0x00000358                . = ALIGN (0x2)
+                0x00000212       0x7a DIO_PRG.o
+                0x00000212                DIO_getPinValue
+ .text.main     0x0000028c       0x5a main.o
+                0x0000028c                main
+                0x000002e6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000358        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000358                _exit
-                0x00000358                exit
+ .fini9         0x000002e6        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000002e6                _exit
+                0x000002e6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -292,11 +292,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000358        0x4 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000002e6        0x4 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000035c                _etext = .
+                0x000002ea                _etext = .
 
-.data           0x00800060       0x18 load address 0x0000035c
+.data           0x00800060       0x18 load address 0x000002ea
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -317,8 +317,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 [!provide]                PROVIDE (__bss_end, .)
-                0x0000035c                __data_load_start = LOADADDR (.data)
-                0x00000374                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000002ea                __data_load_start = LOADADDR (.data)
+                0x00000302                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800078        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -400,41 +400,41 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0xc1e
+.debug_info     0x00000000      0xc9a
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x43b DIO_PRG.o
- .debug_info    0x00000921      0x2fd main.o
+ .debug_info    0x000004e6      0x4b7 DIO_PRG.o
+ .debug_info    0x0000099d      0x2fd main.o
 
-.debug_abbrev   0x00000000      0x720
+.debug_abbrev   0x00000000      0x715
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3      0x155 DIO_PRG.o
- .debug_abbrev  0x000005f8      0x128 main.o
+ .debug_abbrev  0x000004a3      0x14a DIO_PRG.o
+ .debug_abbrev  0x000005ed      0x128 main.o
 
-.debug_line     0x00000000      0x49f
+.debug_line     0x00000000      0x4c3
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000116      0x233 DIO_PRG.o
- .debug_line    0x00000349      0x156 main.o
+ .debug_line    0x00000116      0x257 DIO_PRG.o
+ .debug_line    0x0000036d      0x156 main.o
 
-.debug_frame    0x00000000       0x94
+.debug_frame    0x00000000       0x88
  *(.debug_frame)
- .debug_frame   0x00000000       0x70 DIO_PRG.o
- .debug_frame   0x00000070       0x24 main.o
+ .debug_frame   0x00000000       0x64 DIO_PRG.o
+ .debug_frame   0x00000064       0x24 main.o
 
-.debug_str      0x00000000      0x4ba
+.debug_str      0x00000000      0x4ca
  *(.debug_str)
  .debug_str     0x00000000      0x196 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x2bd DIO_PRG.o
-                                0x2dd (size before relaxing)
- .debug_str     0x00000453       0x67 main.o
+ .debug_str     0x00000196      0x2cd DIO_PRG.o
+                                0x2ed (size before relaxing)
+ .debug_str     0x00000463       0x67 main.o
                                 0x23d (size before relaxing)
 
-.debug_loc      0x00000000      0x420
+.debug_loc      0x00000000      0x3de
  *(.debug_loc)
- .debug_loc     0x00000000      0x371 DIO_PRG.o
- .debug_loc     0x00000371       0xaf main.o
+ .debug_loc     0x00000000      0x32f DIO_PRG.o
+ .debug_loc     0x0000032f       0xaf main.o
 
 .debug_macinfo
  *(.debug_macinfo)
