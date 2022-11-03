@@ -154,12 +154,12 @@ inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
     else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
 	return NC ;
   ce:	8f ef       	ldi	r24, 0xFF	; 255
-void DIO_setPinDirection(EN_PinNumber_t pinNum,EN_Directions_t pinDirection) 
 {
 	
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
-	volatile uint8_t  * DDRX =  (DIO_Registers[port][1]) ; 
+	/* select DDRX Register */
+	volatile uint8_t  * DDRX =  (DIO_Registers[port][1]) ;
   d0:	90 e0       	ldi	r25, 0x00	; 0
   d2:	fc 01       	movw	r30, r24
   d4:	ee 0f       	add	r30, r30
@@ -175,6 +175,7 @@ void DIO_setPinDirection(EN_PinNumber_t pinNum,EN_Directions_t pinDirection)
   e8:	0d 90       	ld	r0, X+
   ea:	bc 91       	ld	r27, X
   ec:	a0 2d       	mov	r26, r0
+	/* select PORTX Register */ 
 	volatile uint8_t  * PORTX = (DIO_Registers[port][0]) ;
   ee:	e8 0f       	add	r30, r24
   f0:	f9 1f       	adc	r31, r25
@@ -321,11 +322,11 @@ inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
     else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
 	return NC ;
  1a6:	8f ef       	ldi	r24, 0xFF	; 255
-
 void DIO_setPinValue(EN_PinNumber_t pinNum, EN_Values_t value) 
 {
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
+	/* select PORTX Register */
    	volatile uint8_t  * PORTX = (DIO_Registers[port][0]) ;
  1a8:	90 e0       	ldi	r25, 0x00	; 0
  1aa:	fc 01       	movw	r30, r24
@@ -470,11 +471,11 @@ inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
     else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
 	return NC ;
  25e:	8f ef       	ldi	r24, 0xFF	; 255
-
 uint8_t DIO_getPinValue(EN_PinNumber_t pinNum) 
 {
     /* get pin number and port number */
     uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
+	/* select PINX Register */ 
 	volatile uint8_t * PINX = (DIO_Registers[port][2]);
  260:	90 e0       	ldi	r25, 0x00	; 0
  262:	fc 01       	movw	r30, r24
