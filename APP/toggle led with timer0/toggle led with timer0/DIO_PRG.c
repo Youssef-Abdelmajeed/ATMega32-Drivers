@@ -70,7 +70,7 @@ void DIO_setPinDirection(EN_PinNumber_t pinNum,EN_Directions_t pinDirection)
         break;
     case INPUT_PULLUP:
         /* set PORTX to 1 to active the pull up resistor */
-        setBit((*PORTX),pin) ;  
+       setBit((*PORTX),pin) ;  
         /* set DDRX to 0 to set as input  */
         clearBit((*DDRX),pin) ;
         break;

@@ -13,17 +13,17 @@
 
 /* TIMER0 Registers */
 
-/* Timer/Counter Control Register */
+/* Timer0/Counter Control Register */
 #define TCCR0           (*(uint8_t *)(0x53)) 
-#define TCCR0_CS00      0 /* prescaler select */
-#define TCCR0_CS01      1 /* prescaler select */
-#define TCCR0_CS02      2 /* prescaler select */
-#define TCCR0_WGM01     3 /* wave genration select */
+#define TCCR0_CS00      0 /* Prescaler select */
+#define TCCR0_CS01      1 /* Prescaler select */
+#define TCCR0_CS02      2 /* Prescaler select */
+#define TCCR0_WGM01     3 /* wave generation select */
 #define TCCR0_COM00     4 /* Compare match output mode select */
 #define TCCR0_COM01     5 /* Compare match output mode select */
-#define TCCR0_WGM00     6 /* wave genration select */
+#define TCCR0_WGM00     6 /* wave generation select */
 
-/* Timer/Counter Register */
+/* Timer0/Counter Register */
 #define TCNT0           (*(uint8_t *)(0x52)) /* NORMAL Mode Register */
 
 /* Output Compare Register */ 

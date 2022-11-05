@@ -30,10 +30,10 @@
     Clock Select Bit Description
         No clock source (Timer/Counter stopped).                    0
         clkI/O/(No prescaling)                                      1
-        clkI/O/8 (From prescale                                     2
-        clkI/O/64 (From prescaler)                                  3
-        clkI/O/256 (From prescaler)                                 4
-        clkI/O/1024 (From prescaler)                                5
+        clkI/O/8 (From prescaler)                                     2
+        clkI/O/64 (From Prescaler)                                  3
+        clkI/O/256 (From Prescaler)                                 4
+        clkI/O/1024 (From Prescaler)                                5
         External clock source on T0 pin. Clock on falling edge.     6
         External clock source on T0 pin. Clock on rising edge.      7
 */

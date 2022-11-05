@@ -2,3 +2,4 @@
 - DIO (Digital Input/Output)
 - GIE (Global Interrupt Enable)
 - TIMERS (ONLY TIMER0 for now)
+- EXTI (External Interrupts)
