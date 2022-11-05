@@ -14,6 +14,10 @@
 
 #include "LIB/BIT_MATH.h"
 #include "LIB/STD_TYPES.h"
+/* corresponded Pins to Interrupts numbers */
+#define INT0_PIN PD2 
+#define INT1_PIN PD3 
+#define INT2_PIN PB2 
 
 /*External Intrrupt pins */
 typedef enum EN_EXTI_PINS 
@@ -64,7 +68,7 @@ void EXTI_ClearSIE(EN_EXTI_PINS_t pinNum) ;
  * @return EN_Errors_t 
  */
 EN_Errors_t EXTI_Setcallback(EN_EXTI_PINS_t pinNum,void(*Callback)(void)) ;
- 
+
 /**
  * @brief Sets an Interrupt on a specific pin with given callback 
  * 

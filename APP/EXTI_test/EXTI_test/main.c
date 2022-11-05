@@ -14,11 +14,11 @@
 #include "GIE_INT.h"
 #include "EXTI_INT.h"
 
-#define button_countup   PD2 
-#define button_countdown PD3
+#define button_countup   INT0_PIN
+#define button_countdown INT1_PIN
 #define PORT PORTA
 /* 8bit counter */ 
-volatile int8_t counter = 255 ; 
+volatile int8_t counter = 0; 
 
 void countup(void)
 {
