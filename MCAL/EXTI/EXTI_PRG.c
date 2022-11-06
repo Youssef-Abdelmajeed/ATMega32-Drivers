@@ -132,6 +132,7 @@ EN_Errors_t EXTI_Setcallback(EN_EXTI_PINS_t pinNum,void(*Callback)(void))
     }
     else 
     {
+        /* for INT2 avalible sense modes are Falling & rising only  */
         return senseModeError ;
     }
 
