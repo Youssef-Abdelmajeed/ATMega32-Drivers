@@ -1,7 +1,7 @@
 # ATMega32-Drivers
 - DIO    (Digital Input/Output)
 - GIE    (Global Interrupt Enable)
-- TIMERS (ONLY TIMER0 for now)
+- TIMERS (TIMER0 ,TIMER2 postbuild) , (TIMER0 prebulid)
 - EXTI   (External Interrupts)
 - ADC    (Analog to digital converter)
 
