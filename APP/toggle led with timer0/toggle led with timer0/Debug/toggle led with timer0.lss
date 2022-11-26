@@ -3,31 +3,31 @@ toggle led with timer0.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000033a  00000000  00000000  00000094  2**1
+  0 .text         00000520  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000018  00800060  0000033a  000003ce  2**0
+  1 .data         00000018  00800060  00000520  000005b4  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000006  00800078  00800078  000003e6  2**0
+  2 .bss          0000000c  00800078  00800078  000005cc  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  000003e6  2**0
+  3 .comment      00000030  00000000  00000000  000005cc  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000418  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000005fc  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000d0  00000000  00000000  00000454  2**0
+  5 .debug_aranges 00000108  00000000  00000000  00000638  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00000de8  00000000  00000000  00000524  2**0
+  6 .debug_info   00001198  00000000  00000000  00000740  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007c0  00000000  00000000  0000130c  2**0
+  7 .debug_abbrev 00000844  00000000  00000000  000018d8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000585  00000000  00000000  00001acc  2**0
+  8 .debug_line   0000072c  00000000  00000000  0000211c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  000001c0  00000000  00000000  00002054  2**2
+  9 .debug_frame  000002cc  00000000  00000000  00002848  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000549  00000000  00000000  00002214  2**0
+ 10 .debug_str    000006a6  00000000  00000000  00002b14  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000004c5  00000000  00000000  0000275d  2**0
+ 11 .debug_loc    00000825  00000000  00000000  000031ba  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000090  00000000  00000000  00002c22  2**0
+ 12 .debug_ranges 000000c8  00000000  00000000  000039df  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -37,14 +37,14 @@ Disassembly of section .text:
    4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
    8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
    c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 65 02 	jmp	0x4ca	; 0x4ca <__vector_4>
+  14:	0c 94 3c 02 	jmp	0x478	; 0x478 <__vector_5>
   18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  28:	0c 94 49 01 	jmp	0x292	; 0x292 <__vector_10>
-  2c:	0c 94 72 01 	jmp	0x2e4	; 0x2e4 <__vector_11>
+  28:	0c 94 13 02 	jmp	0x426	; 0x426 <__vector_10>
+  2c:	0c 94 ea 01 	jmp	0x3d4	; 0x3d4 <__vector_11>
   30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
@@ -67,8 +67,8 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea e3       	ldi	r30, 0x3A	; 58
-  68:	f3 e0       	ldi	r31, 0x03	; 3
+  66:	e0 e2       	ldi	r30, 0x20	; 32
+  68:	f5 e0       	ldi	r31, 0x05	; 5
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
@@ -86,11 +86,11 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	ae 37       	cpi	r26, 0x7E	; 126
+  80:	a4 38       	cpi	r26, 0x84	; 132
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 2e 01 	call	0x25c	; 0x25c <main>
-  8a:	0c 94 9b 01 	jmp	0x336	; 0x336 <_exit>
+  86:	0e 94 47 01 	call	0x28e	; 0x28e <main>
+  8a:	0c 94 8e 02 	jmp	0x51c	; 0x51c <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -243,7 +243,7 @@ inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
  148:	08 95       	ret
     case INPUT_PULLUP:
         /* set PORTX to 1 to active the pull up resistor */
-        setBit((*PORTX),pin) ;  
+       setBit((*PORTX),pin) ;  
  14a:	30 81       	ld	r19, Z
  14c:	81 e0       	ldi	r24, 0x01	; 1
  14e:	90 e0       	ldi	r25, 0x00	; 0
@@ -429,18 +429,18 @@ void LED (void)
 {
 	/* counter to count the number of compare matches */
 	static uint16_t counter = 0 ;
-	/* if the number of compare matches is 4 which is equal to 1 sec */
-	if (counter==4000)
- 22a:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__data_end>
- 22e:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__data_end+0x1>
- 232:	80 3a       	cpi	r24, 0xA0	; 160
- 234:	9f 40       	sbci	r25, 0x0F	; 15
+	/* if the number of compare matches is 2000 which is equal to 0.5 sec if the compare value was 250 */
+	if (counter==2000)
+ 22a:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <counter.1697>
+ 22e:	90 91 7b 00 	lds	r25, 0x007B	; 0x80007b <counter.1697+0x1>
+ 232:	80 3d       	cpi	r24, 0xD0	; 208
+ 234:	97 40       	sbci	r25, 0x07	; 7
  236:	41 f4       	brne	.+16     	; 0x248 <LED+0x1e>
 	{
 		/* reset the counter */
 		counter = 0 ;
- 238:	10 92 79 00 	sts	0x0079, r1	; 0x800079 <__data_end+0x1>
- 23c:	10 92 78 00 	sts	0x0078, r1	; 0x800078 <__data_end>
+ 238:	10 92 7b 00 	sts	0x007B, r1	; 0x80007b <counter.1697+0x1>
+ 23c:	10 92 7a 00 	sts	0x007A, r1	; 0x80007a <counter.1697>
 		/* toggle led pin */
 		DIO_setPinValue(ledpin,TOGGLE) ;
  240:	62 e0       	ldi	r22, 0x02	; 2
@@ -448,169 +448,470 @@ void LED (void)
  244:	0e 94 b5 00 	call	0x16a	; 0x16a <DIO_setPinValue>
 	}
 	counter++ ; 
- 248:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__data_end>
- 24c:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__data_end+0x1>
+ 248:	80 91 7a 00 	lds	r24, 0x007A	; 0x80007a <counter.1697>
+ 24c:	90 91 7b 00 	lds	r25, 0x007B	; 0x80007b <counter.1697+0x1>
  250:	01 96       	adiw	r24, 0x01	; 1
- 252:	90 93 79 00 	sts	0x0079, r25	; 0x800079 <__data_end+0x1>
- 256:	80 93 78 00 	sts	0x0078, r24	; 0x800078 <__data_end>
+ 252:	90 93 7b 00 	sts	0x007B, r25	; 0x80007b <counter.1697+0x1>
+ 256:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <counter.1697>
  25a:	08 95       	ret
 
-0000025c <main>:
-#define ledpin PA0 
+0000025c <LED2>:
+void LED2 (void)
+{
+	/* counter to count the number of compare matches */
+	static uint16_t counter = 0 ;
+	/* if the number of compare matches is 4000 which is equal to 1 sec if the compare value was 250 */
+	if (counter==4000)
+ 25c:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__data_end>
+ 260:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__data_end+0x1>
+ 264:	80 3a       	cpi	r24, 0xA0	; 160
+ 266:	9f 40       	sbci	r25, 0x0F	; 15
+ 268:	41 f4       	brne	.+16     	; 0x27a <LED2+0x1e>
+	{
+		/* reset the counter */
+		counter = 0 ;
+ 26a:	10 92 79 00 	sts	0x0079, r1	; 0x800079 <__data_end+0x1>
+ 26e:	10 92 78 00 	sts	0x0078, r1	; 0x800078 <__data_end>
+		/* toggle led pin */
+		DIO_setPinValue(ledpin2,TOGGLE) ;
+ 272:	62 e0       	ldi	r22, 0x02	; 2
+ 274:	81 e0       	ldi	r24, 0x01	; 1
+ 276:	0e 94 b5 00 	call	0x16a	; 0x16a <DIO_setPinValue>
+	}
+	counter++ ;
+ 27a:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__data_end>
+ 27e:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__data_end+0x1>
+ 282:	01 96       	adiw	r24, 0x01	; 1
+ 284:	90 93 79 00 	sts	0x0079, r25	; 0x800079 <__data_end+0x1>
+ 288:	80 93 78 00 	sts	0x0078, r24	; 0x800078 <__data_end>
+ 28c:	08 95       	ret
 
+0000028e <main>:
 void LED (void) ; 
+void LED2 (void);
+
 int main(void)
 {
     DIO_setPinDirection(ledpin,OUTPUT) ;
- 25c:	61 e0       	ldi	r22, 0x01	; 1
- 25e:	80 e0       	ldi	r24, 0x00	; 0
- 260:	0e 94 49 00 	call	0x92	; 0x92 <DIO_setPinDirection>
-	TIMER0_Init() ; 
- 264:	0e 94 3d 01 	call	0x27a	; 0x27a <TIMER0_Init>
-	TIMER0_SetCompareMatchISR(&LED) ; 
- 268:	85 e1       	ldi	r24, 0x15	; 21
- 26a:	91 e0       	ldi	r25, 0x01	; 1
- 26c:	0e 94 40 01 	call	0x280	; 0x280 <TIMER0_SetCompareMatchISR>
-	OCR0 = 250 ; /* set compare value */ 
- 270:	8a ef       	ldi	r24, 0xFA	; 250
- 272:	8c bf       	out	0x3c, r24	; 60
+ 28e:	61 e0       	ldi	r22, 0x01	; 1
+ 290:	80 e0       	ldi	r24, 0x00	; 0
+ 292:	0e 94 49 00 	call	0x92	; 0x92 <DIO_setPinDirection>
+	/*init timer 0 to be in CTC mode and Prescaler to none */
+	Timer_Init(TIMER0,Noprescaler,CTC) ;
+ 296:	42 e0       	ldi	r20, 0x02	; 2
+ 298:	61 e0       	ldi	r22, 0x01	; 1
+ 29a:	80 e0       	ldi	r24, 0x00	; 0
+ 29c:	0e 94 ba 01 	call	0x374	; 0x374 <Timer_Init>
+	/* set compare match ISR Callback */
+	Timer_SetCTC_Callback(TIMER0,&LED) ; 
+ 2a0:	65 e1       	ldi	r22, 0x15	; 21
+ 2a2:	71 e0       	ldi	r23, 0x01	; 1
+ 2a4:	80 e0       	ldi	r24, 0x00	; 0
+ 2a6:	0e 94 c7 01 	call	0x38e	; 0x38e <Timer_SetCTC_Callback>
+	/* set compare value */
+	Timer_SetCTCRegister(TIMER0,250) ; 
+ 2aa:	6a ef       	ldi	r22, 0xFA	; 250
+ 2ac:	80 e0       	ldi	r24, 0x00	; 0
+ 2ae:	0e 94 e1 01 	call	0x3c2	; 0x3c2 <Timer_SetCTCRegister>
+	/* turn on global interrupt enable */
+	
+	 DIO_setPinDirection(ledpin2,OUTPUT) ;
+ 2b2:	61 e0       	ldi	r22, 0x01	; 1
+ 2b4:	81 e0       	ldi	r24, 0x01	; 1
+ 2b6:	0e 94 49 00 	call	0x92	; 0x92 <DIO_setPinDirection>
+	 /*init timer 0 to be in CTC mode and Prescaler to none */
+	 Timer_Init(TIMER2,Noprescaler,CTC) ;
+ 2ba:	42 e0       	ldi	r20, 0x02	; 2
+ 2bc:	61 e0       	ldi	r22, 0x01	; 1
+ 2be:	81 e0       	ldi	r24, 0x01	; 1
+ 2c0:	0e 94 ba 01 	call	0x374	; 0x374 <Timer_Init>
+	 /* set compare match ISR Callback */
+	 Timer_SetCTC_Callback(TIMER2,&LED2) ;
+ 2c4:	6e e2       	ldi	r22, 0x2E	; 46
+ 2c6:	71 e0       	ldi	r23, 0x01	; 1
+ 2c8:	81 e0       	ldi	r24, 0x01	; 1
+ 2ca:	0e 94 c7 01 	call	0x38e	; 0x38e <Timer_SetCTC_Callback>
+	 /* set compare value */
+	 Timer_SetCTCRegister(TIMER2,250) ;
+ 2ce:	6a ef       	ldi	r22, 0xFA	; 250
+ 2d0:	81 e0       	ldi	r24, 0x01	; 1
+ 2d2:	0e 94 e1 01 	call	0x3c2	; 0x3c2 <Timer_SetCTCRegister>
+	 /* turn on global interrupt enable */
+	 
 	GIE_Enable() ; 
- 274:	0e 94 11 01 	call	0x222	; 0x222 <GIE_Enable>
- 278:	ff cf       	rjmp	.-2      	; 0x278 <main+0x1c>
+ 2d6:	0e 94 11 01 	call	0x222	; 0x222 <GIE_Enable>
+ 2da:	ff cf       	rjmp	.-2      	; 0x2da <main+0x4c>
 
-0000027a <TIMER0_Init>:
-    /* set overflow interrupt enable */
-    TIMSK |= (1<<TIMSK_TOIE0) ;
-    /* clear compare match interrupt enable */
-    TIMSK &= ~(1<<TIMSK_OCIE0) ;
-    /* set overflow ISR callback */
-    OverFlowISR = ISR ; 
- 27a:	81 e0       	ldi	r24, 0x01	; 1
- 27c:	83 bf       	out	0x33, r24	; 51
- 27e:	08 95       	ret
+000002dc <Timer_SetPrescaller>:
+        {
+        case TIMER0:
+            TCNT0= value ; 
+            break;
+        case TIMER2:
+            TCNT2= value ; 
+ 2dc:	88 23       	and	r24, r24
+ 2de:	19 f0       	breq	.+6      	; 0x2e6 <Timer_SetPrescaller+0xa>
+ 2e0:	81 30       	cpi	r24, 0x01	; 1
+ 2e2:	31 f0       	breq	.+12     	; 0x2f0 <Timer_SetPrescaller+0x14>
+ 2e4:	08 95       	ret
+ 2e6:	83 b7       	in	r24, 0x33	; 51
+ 2e8:	88 7f       	andi	r24, 0xF8	; 248
+ 2ea:	68 2b       	or	r22, r24
+ 2ec:	63 bf       	out	0x33, r22	; 51
+ 2ee:	08 95       	ret
+ 2f0:	85 b5       	in	r24, 0x25	; 37
+ 2f2:	88 7f       	andi	r24, 0xF8	; 248
+ 2f4:	68 2b       	or	r22, r24
+ 2f6:	65 bd       	out	0x25, r22	; 37
+ 2f8:	08 95       	ret
 
-00000280 <TIMER0_SetCompareMatchISR>:
- 280:	29 b7       	in	r18, 0x39	; 57
- 282:	22 60       	ori	r18, 0x02	; 2
- 284:	2e 7f       	andi	r18, 0xFE	; 254
- 286:	29 bf       	out	0x39, r18	; 57
- 288:	90 93 7d 00 	sts	0x007D, r25	; 0x80007d <compareMatchISR+0x1>
- 28c:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <compareMatchISR>
- 290:	08 95       	ret
+000002fa <Timer_SetWaveMode>:
+ 2fa:	88 23       	and	r24, r24
+ 2fc:	19 f0       	breq	.+6      	; 0x304 <Timer_SetWaveMode+0xa>
+ 2fe:	81 30       	cpi	r24, 0x01	; 1
+ 300:	e9 f0       	breq	.+58     	; 0x33c <Timer_SetWaveMode+0x42>
+ 302:	08 95       	ret
+ 304:	83 b7       	in	r24, 0x33	; 51
+ 306:	87 7b       	andi	r24, 0xB7	; 183
+ 308:	a6 2f       	mov	r26, r22
+ 30a:	a1 70       	andi	r26, 0x01	; 1
+ 30c:	b0 e0       	ldi	r27, 0x00	; 0
+ 30e:	00 24       	eor	r0, r0
+ 310:	b6 95       	lsr	r27
+ 312:	a7 95       	ror	r26
+ 314:	07 94       	ror	r0
+ 316:	b6 95       	lsr	r27
+ 318:	a7 95       	ror	r26
+ 31a:	07 94       	ror	r0
+ 31c:	ba 2f       	mov	r27, r26
+ 31e:	a0 2d       	mov	r26, r0
+ 320:	61 fb       	bst	r22, 1
+ 322:	44 27       	eor	r20, r20
+ 324:	40 f9       	bld	r20, 0
+ 326:	50 e0       	ldi	r21, 0x00	; 0
+ 328:	44 0f       	add	r20, r20
+ 32a:	55 1f       	adc	r21, r21
+ 32c:	44 0f       	add	r20, r20
+ 32e:	55 1f       	adc	r21, r21
+ 330:	44 0f       	add	r20, r20
+ 332:	55 1f       	adc	r21, r21
+ 334:	4a 2b       	or	r20, r26
+ 336:	48 2b       	or	r20, r24
+ 338:	43 bf       	out	0x33, r20	; 51
+ 33a:	08 95       	ret
+ 33c:	85 b5       	in	r24, 0x25	; 37
+ 33e:	87 7b       	andi	r24, 0xB7	; 183
+ 340:	e6 2f       	mov	r30, r22
+ 342:	e1 70       	andi	r30, 0x01	; 1
+ 344:	f0 e0       	ldi	r31, 0x00	; 0
+ 346:	00 24       	eor	r0, r0
+ 348:	f6 95       	lsr	r31
+ 34a:	e7 95       	ror	r30
+ 34c:	07 94       	ror	r0
+ 34e:	f6 95       	lsr	r31
+ 350:	e7 95       	ror	r30
+ 352:	07 94       	ror	r0
+ 354:	fe 2f       	mov	r31, r30
+ 356:	e0 2d       	mov	r30, r0
+ 358:	61 fb       	bst	r22, 1
+ 35a:	22 27       	eor	r18, r18
+ 35c:	20 f9       	bld	r18, 0
+ 35e:	30 e0       	ldi	r19, 0x00	; 0
+ 360:	22 0f       	add	r18, r18
+ 362:	33 1f       	adc	r19, r19
+ 364:	22 0f       	add	r18, r18
+ 366:	33 1f       	adc	r19, r19
+ 368:	22 0f       	add	r18, r18
+ 36a:	33 1f       	adc	r19, r19
+ 36c:	2e 2b       	or	r18, r30
+ 36e:	28 2b       	or	r18, r24
+ 370:	25 bd       	out	0x25, r18	; 37
+ 372:	08 95       	ret
 
-00000292 <__vector_10>:
- * @brief TIMER0 Compare Match ISR
- * 
- */
-void __vector_10(void) __attribute__((signal)) ; 
-void __vector_10(void)
+00000374 <Timer_Init>:
+ 374:	cf 93       	push	r28
+ 376:	df 93       	push	r29
+ 378:	c8 2f       	mov	r28, r24
+ 37a:	d4 2f       	mov	r29, r20
+ 37c:	0e 94 6e 01 	call	0x2dc	; 0x2dc <Timer_SetPrescaller>
+ 380:	6d 2f       	mov	r22, r29
+ 382:	8c 2f       	mov	r24, r28
+ 384:	0e 94 7d 01 	call	0x2fa	; 0x2fa <Timer_SetWaveMode>
+ 388:	df 91       	pop	r29
+ 38a:	cf 91       	pop	r28
+ 38c:	08 95       	ret
+
+0000038e <Timer_SetCTC_Callback>:
+ 38e:	61 15       	cp	r22, r1
+ 390:	71 05       	cpc	r23, r1
+ 392:	b1 f0       	breq	.+44     	; 0x3c0 <Timer_SetCTC_Callback+0x32>
+ 394:	88 23       	and	r24, r24
+ 396:	19 f0       	breq	.+6      	; 0x39e <Timer_SetCTC_Callback+0x10>
+ 398:	81 30       	cpi	r24, 0x01	; 1
+ 39a:	51 f0       	breq	.+20     	; 0x3b0 <Timer_SetCTC_Callback+0x22>
+ 39c:	08 95       	ret
+ 39e:	89 b7       	in	r24, 0x39	; 57
+ 3a0:	82 60       	ori	r24, 0x02	; 2
+ 3a2:	8e 7f       	andi	r24, 0xFE	; 254
+ 3a4:	89 bf       	out	0x39, r24	; 57
+ 3a6:	70 93 7d 00 	sts	0x007D, r23	; 0x80007d <TIMERS_CTC_ISR+0x1>
+ 3aa:	60 93 7c 00 	sts	0x007C, r22	; 0x80007c <TIMERS_CTC_ISR>
+ 3ae:	08 95       	ret
+ 3b0:	89 b7       	in	r24, 0x39	; 57
+ 3b2:	80 68       	ori	r24, 0x80	; 128
+ 3b4:	8f 7b       	andi	r24, 0xBF	; 191
+ 3b6:	89 bf       	out	0x39, r24	; 57
+ 3b8:	70 93 7f 00 	sts	0x007F, r23	; 0x80007f <TIMERS_CTC_ISR+0x3>
+ 3bc:	60 93 7e 00 	sts	0x007E, r22	; 0x80007e <TIMERS_CTC_ISR+0x2>
+ 3c0:	08 95       	ret
+
+000003c2 <Timer_SetCTCRegister>:
+        }
+}
+void Timer_SetCTCRegister(Timers_t timer,uint8_t value)
 {
- 292:	1f 92       	push	r1
- 294:	0f 92       	push	r0
- 296:	0f b6       	in	r0, 0x3f	; 63
- 298:	0f 92       	push	r0
- 29a:	11 24       	eor	r1, r1
- 29c:	2f 93       	push	r18
- 29e:	3f 93       	push	r19
- 2a0:	4f 93       	push	r20
- 2a2:	5f 93       	push	r21
- 2a4:	6f 93       	push	r22
- 2a6:	7f 93       	push	r23
- 2a8:	8f 93       	push	r24
- 2aa:	9f 93       	push	r25
- 2ac:	af 93       	push	r26
- 2ae:	bf 93       	push	r27
- 2b0:	ef 93       	push	r30
- 2b2:	ff 93       	push	r31
-    if(compareMatchISR!= NULL)
- 2b4:	e0 91 7c 00 	lds	r30, 0x007C	; 0x80007c <compareMatchISR>
- 2b8:	f0 91 7d 00 	lds	r31, 0x007D	; 0x80007d <compareMatchISR+0x1>
- 2bc:	30 97       	sbiw	r30, 0x00	; 0
- 2be:	09 f0       	breq	.+2      	; 0x2c2 <__vector_10+0x30>
+     /* set value to the corresponding Timer CTC register  */
+     switch (timer)
+ 3c2:	88 23       	and	r24, r24
+ 3c4:	19 f0       	breq	.+6      	; 0x3cc <Timer_SetCTCRegister+0xa>
+ 3c6:	81 30       	cpi	r24, 0x01	; 1
+ 3c8:	19 f0       	breq	.+6      	; 0x3d0 <Timer_SetCTCRegister+0xe>
+ 3ca:	08 95       	ret
+        {
+        case TIMER0:
+            OCR0= value ; 
+ 3cc:	6c bf       	out	0x3c, r22	; 60
+            break;
+ 3ce:	08 95       	ret
+
+        case TIMER2:
+            OCR2= value ; 
+ 3d0:	63 bd       	out	0x23, r22	; 35
+ 3d2:	08 95       	ret
+
+000003d4 <__vector_11>:
+}
+
+/* Timer0 Overflow ISR */
+void __vector_11 (void) __attribute__ ((signal,used)) ; 
+void __vector_11 (void) 
+{
+ 3d4:	1f 92       	push	r1
+ 3d6:	0f 92       	push	r0
+ 3d8:	0f b6       	in	r0, 0x3f	; 63
+ 3da:	0f 92       	push	r0
+ 3dc:	11 24       	eor	r1, r1
+ 3de:	2f 93       	push	r18
+ 3e0:	3f 93       	push	r19
+ 3e2:	4f 93       	push	r20
+ 3e4:	5f 93       	push	r21
+ 3e6:	6f 93       	push	r22
+ 3e8:	7f 93       	push	r23
+ 3ea:	8f 93       	push	r24
+ 3ec:	9f 93       	push	r25
+ 3ee:	af 93       	push	r26
+ 3f0:	bf 93       	push	r27
+ 3f2:	ef 93       	push	r30
+ 3f4:	ff 93       	push	r31
+    if(TIMERS_NORMAL_ISR[0] != ((void *)0))
+ 3f6:	e0 91 80 00 	lds	r30, 0x0080	; 0x800080 <TIMERS_NORMAL_ISR>
+ 3fa:	f0 91 81 00 	lds	r31, 0x0081	; 0x800081 <TIMERS_NORMAL_ISR+0x1>
+ 3fe:	30 97       	sbiw	r30, 0x00	; 0
+ 400:	09 f0       	breq	.+2      	; 0x404 <__EEPROM_REGION_LENGTH__+0x4>
     {
-        compareMatchISR() ;
- 2c0:	09 95       	icall
+        TIMERS_NORMAL_ISR[0]() ;
+ 402:	09 95       	icall
     }
-    else 
+    else
     {
-        /* Do Nothing*/
+        /* do nothing */
     }
 }
- 2c2:	ff 91       	pop	r31
- 2c4:	ef 91       	pop	r30
- 2c6:	bf 91       	pop	r27
- 2c8:	af 91       	pop	r26
- 2ca:	9f 91       	pop	r25
- 2cc:	8f 91       	pop	r24
- 2ce:	7f 91       	pop	r23
- 2d0:	6f 91       	pop	r22
- 2d2:	5f 91       	pop	r21
- 2d4:	4f 91       	pop	r20
- 2d6:	3f 91       	pop	r19
- 2d8:	2f 91       	pop	r18
- 2da:	0f 90       	pop	r0
- 2dc:	0f be       	out	0x3f, r0	; 63
- 2de:	0f 90       	pop	r0
- 2e0:	1f 90       	pop	r1
- 2e2:	18 95       	reti
+ 404:	ff 91       	pop	r31
+ 406:	ef 91       	pop	r30
+ 408:	bf 91       	pop	r27
+ 40a:	af 91       	pop	r26
+ 40c:	9f 91       	pop	r25
+ 40e:	8f 91       	pop	r24
+ 410:	7f 91       	pop	r23
+ 412:	6f 91       	pop	r22
+ 414:	5f 91       	pop	r21
+ 416:	4f 91       	pop	r20
+ 418:	3f 91       	pop	r19
+ 41a:	2f 91       	pop	r18
+ 41c:	0f 90       	pop	r0
+ 41e:	0f be       	out	0x3f, r0	; 63
+ 420:	0f 90       	pop	r0
+ 422:	1f 90       	pop	r1
+ 424:	18 95       	reti
 
-000002e4 <__vector_11>:
- * @brief TIMER0 overflow ISR
- * 
- */
-void __vector_11(void) __attribute__((signal)) ; 
-void __vector_11(void)
+00000426 <__vector_10>:
+
+/* Timer0 CompareMatch ISR */
+void __vector_10 (void) __attribute__ ((signal,used)) ; 
+void __vector_10 (void) 
 {
- 2e4:	1f 92       	push	r1
- 2e6:	0f 92       	push	r0
- 2e8:	0f b6       	in	r0, 0x3f	; 63
- 2ea:	0f 92       	push	r0
- 2ec:	11 24       	eor	r1, r1
- 2ee:	2f 93       	push	r18
- 2f0:	3f 93       	push	r19
- 2f2:	4f 93       	push	r20
- 2f4:	5f 93       	push	r21
- 2f6:	6f 93       	push	r22
- 2f8:	7f 93       	push	r23
- 2fa:	8f 93       	push	r24
- 2fc:	9f 93       	push	r25
- 2fe:	af 93       	push	r26
- 300:	bf 93       	push	r27
- 302:	ef 93       	push	r30
- 304:	ff 93       	push	r31
-    if(OverFlowISR!=NULL)
- 306:	e0 91 7a 00 	lds	r30, 0x007A	; 0x80007a <OverFlowISR>
- 30a:	f0 91 7b 00 	lds	r31, 0x007B	; 0x80007b <OverFlowISR+0x1>
- 30e:	30 97       	sbiw	r30, 0x00	; 0
- 310:	09 f0       	breq	.+2      	; 0x314 <__vector_11+0x30>
+ 426:	1f 92       	push	r1
+ 428:	0f 92       	push	r0
+ 42a:	0f b6       	in	r0, 0x3f	; 63
+ 42c:	0f 92       	push	r0
+ 42e:	11 24       	eor	r1, r1
+ 430:	2f 93       	push	r18
+ 432:	3f 93       	push	r19
+ 434:	4f 93       	push	r20
+ 436:	5f 93       	push	r21
+ 438:	6f 93       	push	r22
+ 43a:	7f 93       	push	r23
+ 43c:	8f 93       	push	r24
+ 43e:	9f 93       	push	r25
+ 440:	af 93       	push	r26
+ 442:	bf 93       	push	r27
+ 444:	ef 93       	push	r30
+ 446:	ff 93       	push	r31
+    if(TIMERS_CTC_ISR[0] != ((void *)0))
+ 448:	e0 91 7c 00 	lds	r30, 0x007C	; 0x80007c <TIMERS_CTC_ISR>
+ 44c:	f0 91 7d 00 	lds	r31, 0x007D	; 0x80007d <TIMERS_CTC_ISR+0x1>
+ 450:	30 97       	sbiw	r30, 0x00	; 0
+ 452:	09 f0       	breq	.+2      	; 0x456 <__vector_10+0x30>
     {
-        OverFlowISR() ;
- 312:	09 95       	icall
+        TIMERS_CTC_ISR[0]() ;
+ 454:	09 95       	icall
     }
-    else 
+    else
     {
-         /* Do Nothing*/
+        /* do nothing */
     }
- 314:	ff 91       	pop	r31
- 316:	ef 91       	pop	r30
- 318:	bf 91       	pop	r27
- 31a:	af 91       	pop	r26
- 31c:	9f 91       	pop	r25
- 31e:	8f 91       	pop	r24
- 320:	7f 91       	pop	r23
- 322:	6f 91       	pop	r22
- 324:	5f 91       	pop	r21
- 326:	4f 91       	pop	r20
- 328:	3f 91       	pop	r19
- 32a:	2f 91       	pop	r18
- 32c:	0f 90       	pop	r0
- 32e:	0f be       	out	0x3f, r0	; 63
- 330:	0f 90       	pop	r0
- 332:	1f 90       	pop	r1
- 334:	18 95       	reti
+}
+ 456:	ff 91       	pop	r31
+ 458:	ef 91       	pop	r30
+ 45a:	bf 91       	pop	r27
+ 45c:	af 91       	pop	r26
+ 45e:	9f 91       	pop	r25
+ 460:	8f 91       	pop	r24
+ 462:	7f 91       	pop	r23
+ 464:	6f 91       	pop	r22
+ 466:	5f 91       	pop	r21
+ 468:	4f 91       	pop	r20
+ 46a:	3f 91       	pop	r19
+ 46c:	2f 91       	pop	r18
+ 46e:	0f 90       	pop	r0
+ 470:	0f be       	out	0x3f, r0	; 63
+ 472:	0f 90       	pop	r0
+ 474:	1f 90       	pop	r1
+ 476:	18 95       	reti
 
-00000336 <_exit>:
- 336:	f8 94       	cli
+00000478 <__vector_5>:
 
-00000338 <__stop_program>:
- 338:	ff cf       	rjmp	.-2      	; 0x338 <__stop_program>
+/* Timer2 Overflow ISR */
+void __vector_5 (void) __attribute__ ((signal,used)) ; 
+void __vector_5 (void) 
+{
+ 478:	1f 92       	push	r1
+ 47a:	0f 92       	push	r0
+ 47c:	0f b6       	in	r0, 0x3f	; 63
+ 47e:	0f 92       	push	r0
+ 480:	11 24       	eor	r1, r1
+ 482:	2f 93       	push	r18
+ 484:	3f 93       	push	r19
+ 486:	4f 93       	push	r20
+ 488:	5f 93       	push	r21
+ 48a:	6f 93       	push	r22
+ 48c:	7f 93       	push	r23
+ 48e:	8f 93       	push	r24
+ 490:	9f 93       	push	r25
+ 492:	af 93       	push	r26
+ 494:	bf 93       	push	r27
+ 496:	ef 93       	push	r30
+ 498:	ff 93       	push	r31
+    if(TIMERS_NORMAL_ISR[1] != ((void *)0))
+ 49a:	e0 91 82 00 	lds	r30, 0x0082	; 0x800082 <TIMERS_NORMAL_ISR+0x2>
+ 49e:	f0 91 83 00 	lds	r31, 0x0083	; 0x800083 <TIMERS_NORMAL_ISR+0x3>
+ 4a2:	30 97       	sbiw	r30, 0x00	; 0
+ 4a4:	09 f0       	breq	.+2      	; 0x4a8 <__vector_5+0x30>
+    {
+        TIMERS_NORMAL_ISR[1]() ;
+ 4a6:	09 95       	icall
+    }
+    else
+    {
+        /* do nothing */
+    }
+}
+ 4a8:	ff 91       	pop	r31
+ 4aa:	ef 91       	pop	r30
+ 4ac:	bf 91       	pop	r27
+ 4ae:	af 91       	pop	r26
+ 4b0:	9f 91       	pop	r25
+ 4b2:	8f 91       	pop	r24
+ 4b4:	7f 91       	pop	r23
+ 4b6:	6f 91       	pop	r22
+ 4b8:	5f 91       	pop	r21
+ 4ba:	4f 91       	pop	r20
+ 4bc:	3f 91       	pop	r19
+ 4be:	2f 91       	pop	r18
+ 4c0:	0f 90       	pop	r0
+ 4c2:	0f be       	out	0x3f, r0	; 63
+ 4c4:	0f 90       	pop	r0
+ 4c6:	1f 90       	pop	r1
+ 4c8:	18 95       	reti
+
+000004ca <__vector_4>:
+
+/* Timer2 CompareMatch ISR */
+void __vector_4 (void) __attribute__ ((signal,used)) ; 
+void __vector_4 (void) 
+{
+ 4ca:	1f 92       	push	r1
+ 4cc:	0f 92       	push	r0
+ 4ce:	0f b6       	in	r0, 0x3f	; 63
+ 4d0:	0f 92       	push	r0
+ 4d2:	11 24       	eor	r1, r1
+ 4d4:	2f 93       	push	r18
+ 4d6:	3f 93       	push	r19
+ 4d8:	4f 93       	push	r20
+ 4da:	5f 93       	push	r21
+ 4dc:	6f 93       	push	r22
+ 4de:	7f 93       	push	r23
+ 4e0:	8f 93       	push	r24
+ 4e2:	9f 93       	push	r25
+ 4e4:	af 93       	push	r26
+ 4e6:	bf 93       	push	r27
+ 4e8:	ef 93       	push	r30
+ 4ea:	ff 93       	push	r31
+    if(TIMERS_CTC_ISR[1] != ((void *)0))
+ 4ec:	e0 91 7e 00 	lds	r30, 0x007E	; 0x80007e <TIMERS_CTC_ISR+0x2>
+ 4f0:	f0 91 7f 00 	lds	r31, 0x007F	; 0x80007f <TIMERS_CTC_ISR+0x3>
+ 4f4:	30 97       	sbiw	r30, 0x00	; 0
+ 4f6:	09 f0       	breq	.+2      	; 0x4fa <__vector_4+0x30>
+    {
+        TIMERS_CTC_ISR[1]() ;
+ 4f8:	09 95       	icall
+    }
+    else
+    {
+        /* do nothing */
+    }
+}
+ 4fa:	ff 91       	pop	r31
+ 4fc:	ef 91       	pop	r30
+ 4fe:	bf 91       	pop	r27
+ 500:	af 91       	pop	r26
+ 502:	9f 91       	pop	r25
+ 504:	8f 91       	pop	r24
+ 506:	7f 91       	pop	r23
+ 508:	6f 91       	pop	r22
+ 50a:	5f 91       	pop	r21
+ 50c:	4f 91       	pop	r20
+ 50e:	3f 91       	pop	r19
+ 510:	2f 91       	pop	r18
+ 512:	0f 90       	pop	r0
+ 514:	0f be       	out	0x3f, r0	; 63
+ 516:	0f 90       	pop	r0
+ 518:	1f 90       	pop	r1
+ 51a:	18 95       	reti
+
+0000051c <_exit>:
+ 51c:	f8 94       	cli
+
+0000051e <__stop_program>:
+ 51e:	ff cf       	rjmp	.-2      	; 0x51e <__stop_program>

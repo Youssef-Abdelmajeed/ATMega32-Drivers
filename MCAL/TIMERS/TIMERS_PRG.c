@@ -28,7 +28,7 @@ void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode)
         /* clear Timer0 clock selection bits */
         TCCR0 &= 0XF8 ;
         /* set Timer0 new clock mode  */
-        TCCR0 |= Pmode
+        TCCR0 |= Pmode ;
         break;
     case TIMER2:
         /* clear Timer2 clock selection bits */
@@ -81,19 +81,19 @@ inline void Timer_SetOverflow_Callback(Timers_t timer , void(*callback)(void))
         switch (timer)
         {
         case TIMER0:
-            /* set overflow Intrrupt Enable 0 */
+            /* set overflow Interrupt Enable 0 */
             setBit(TIMSK,TIMSK_TOIE0) ; 
-            /* clear CTC Intrrupt Enable 0 */
+            /* clear CTC Interrupt Enable 0 */
             clearBit(TIMSK,TIMSK_OCIE0) ;
-            /* setcallback */
+            /* set callback */
             TIMERS_NORMAL_ISR[0] = callback ; 
             break;
         case TIMER2:
-            /* set overflow Intrrupt Enable 2 */
+            /* set overflow Interrupt Enable 2 */
             setBit(TIMSK,TIMSK_TOIE2) ; 
-            /* clear CTC Intrrupt Enable 2*/
+            /* clear CTC Interrupt Enable 2*/
             clearBit(TIMSK,TIMSK_OCIE2) ;
-            /* setcallback */
+            /* set callback */
             TIMERS_NORMAL_ISR[1] = callback ; 
             break;
         default:
@@ -115,19 +115,19 @@ inline void Timer_SetCTC_Callback(Timers_t timer , void(*callback)(void))
         switch (timer)
         {
         case TIMER0:
-            /* set CTC Intrrupt Enable 0 */
+            /* set CTC Interrupt Enable 0 */
             setBit(TIMSK,TIMSK_OCIE0) ; 
-            /* clear overflow Intrrupt Enable 0 */
+            /* clear overflow Interrupt Enable 0 */
             clearBit(TIMSK,TIMSK_TOIE0) ;
-            /* setcallback */
+            /* set callback */
             TIMERS_CTC_ISR[0] = callback ; 
             break;
         case TIMER2:
-            /* set CTC Intrrupt Enable 2 */
+            /* set CTC Interrupt Enable 2 */
             setBit(TIMSK,TIMSK_OCIE2) ;
-            /* clear overflow Intrrupt Enable 2 */
+            /* clear overflow Interrupt Enable 2 */
             clearBit(TIMSK,TIMSK_TOIE2) ;
-            /* setcallback */
+            /* set callback */
             TIMERS_CTC_ISR[1] = callback ;
         default:
             /*do nothing*/
@@ -141,7 +141,7 @@ inline void Timer_SetCTC_Callback(Timers_t timer , void(*callback)(void))
 }
 void Timer_SetOVFRegister(Timers_t timer,uint8_t value)
 {
-    /* set value to the corresponding Timer overflow rgister  */
+    /* set value to the corresponding Timer overflow register  */
      switch (timer)
         {
         case TIMER0:
@@ -156,7 +156,7 @@ void Timer_SetOVFRegister(Timers_t timer,uint8_t value)
 }
 void Timer_SetCTCRegister(Timers_t timer,uint8_t value)
 {
-     /* set value to the corresponding Timer ctc rgister  */
+     /* set value to the corresponding Timer CTC register  */
      switch (timer)
         {
         case TIMER0:

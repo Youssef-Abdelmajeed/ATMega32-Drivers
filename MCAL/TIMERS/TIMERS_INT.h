@@ -23,7 +23,7 @@ typedef enum waveModes
     Normal, PWM_PhaseCorrect, CTC, Fast_PWM 
 }waveModes_t ; 
 
-/* timers in AVR32 */
+/* 8 bit timers in AVR ATMEGA32 */
 typedef  enum Timers
 {
     TIMER0, TIMER2 
@@ -60,7 +60,7 @@ void Timer_Init(Timers_t timer , prescalerModes_t Pmode ,  waveModes_t Wmode) ;
  * @param timer TIMER0, TIMER2
  * @param isr callback function (called when timer overflow happen)
  */
-void Timer_SetOverflowISR(Timers_t timer , void(*isr)(void)) ;
+void Timer_SetOverflow_Callback(Timers_t timer , void(*isr)(void)) ;
 
 /**
  * @brief set timer in CTC mode (Compare match mode) and set callback to it 
@@ -68,7 +68,7 @@ void Timer_SetOverflowISR(Timers_t timer , void(*isr)(void)) ;
  * @param timer TIMER0, TIMER2
  * @param isr callback function (called when timer compare match happen)
  */
-void Timer_SetCTCISR(Timers_t timer , void(*isr)(void)) ; 
+void Timer_SetCTC_Callback(Timers_t timer , void(*isr)(void)) ; 
 
 /**
  * @brief preload timer register in normal mode 
