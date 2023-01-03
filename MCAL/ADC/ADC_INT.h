@@ -15,8 +15,11 @@
 /******************* ADC_CONFIG *******************/
 #define ADC_TIMEOUT 50000 
 /* ADC Error states */
-#define ADC_OK      1
+#define ADC_OK                1
 #define ADC_TIMEOUT_EXCEEDED  2 
+#define ADC_NULL              3 
+#define ADC_IDLE              4
+#define ADC_BUSY              5
 /***************************************************/
 
 /* ADC channels */
@@ -76,7 +79,7 @@ void ADC_SelectPrescaller(uint8_t prescaller) ;
 /**
  * @brief Select a channel to read from (0 - 7)
  * 
- * @param channel 
+ * @param channel ADC channel 
  */
 void  ADC_SelectChannel(uint8_t channel) ; 
 
@@ -92,7 +95,7 @@ uint8_t ADC_Init(EN_ADC_Ref_t refmode, uint8_t prescaller) ;
 /**
  * @brief read ADC single channel 10 bit mode  
  * 
- * @param channel 
+ * @param channel ADC channel 
  * @param adcReading 
  * @return uint8_t ADC_Error state  
  */
@@ -101,10 +104,19 @@ uint8_t ADC_Read(uint8_t channel,uint16_t * adcReading) ;
 /**
  * @brief read ADC single channel 8 bit mode  
  * 
- * @param channel 
+ * @param channel ADC channel 
  * @param adcReading 
  * @return uint8_t ADC_Error state  
  */
 uint8_t ADC_Read8Bit(uint8_t channel,uint8_t * adcReading) ; 
+/**
+ * @brief Initialize ADC reading Asynchronously (global Interrupt Enable must be set)
+ * 
+ * @param channel ADC channel 
+ * @param adcReading 
+ * @param notification notification function to be called in case of conversion complete 
+ * @return uint8_t 
+ */
+uint8_t ADC_ReadAsync(uint8_t channel,uint16_t *adcReading,void(*notification)(void)) ;
 
 #endif /* ADC_INT_H_ */

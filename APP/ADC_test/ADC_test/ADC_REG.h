@@ -11,23 +11,29 @@
 #ifndef ADC_REG_H_ 
 #define ADC_REG_H_ 
 
-
+/* ADC Multiplexer Selection Register */
 #define ADMUX           (*(volatile uint8_t *) 0x27) 
-/*ADC result left adjust mode */
+/*ADC result left adjust bit*/
 #define ADMUX_ADLAR     5
 
+/*ADC Control and Status Register A */
 #define ADCSRA          (*(volatile uint8_t *) 0x26) 
+/* ADC Interrupt Enable */
+#define ADCSRA_ADIE     3
 /* ADC Interrupt flag */
 #define ADCSRA_ADIF     4
+/* ADC Auto Trigger Enable */
+#define ADCSRA_ADATE	5
 /* ADC Start conversion */
 #define ADCSRA_ADSC     6
 /* ADC Enable */
 #define ADCSRA_ADEN     7 
 
-/* ADCL & ADCH */
+
+/* ADC Whole Data Register H&L */
 #define ADC_Result      (*(volatile uint16_t *) 0x24) 
 
-/* ADCL */
+/* ADC LOW Byte Data Register */
 #define ADCL            (*(volatile uint8_t *) 0x24) 
 
 #endif /* ADC_REG_H_ */

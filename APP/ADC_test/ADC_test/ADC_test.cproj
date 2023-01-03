@@ -138,6 +138,15 @@
     <Compile Include="DIO_REG.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="GIE_INT.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="GIE_PRG.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="GIE_REG.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LIB\BIT_MATH.h">
       <SubType>compile</SubType>
     </Compile>
