@@ -143,4 +143,5 @@ uint8_t ADC_Read8Bit(uint8_t channel,uint8_t *adcReading)
     /* everything is working ok flag */
     return ADC_OK ;
 }
+/* Synchronous mode functions End*/
 

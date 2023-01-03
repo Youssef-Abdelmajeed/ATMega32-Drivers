@@ -105,6 +105,6 @@ uint8_t ADC_Read(uint8_t channel,uint16_t * adcReading) ;
  * @param adcReading 
  * @return uint8_t ADC_Error state  
  */
-uint8_t ADC_Read8Bit(uint8_t channel,uint16_t * adcReading) ; 
+uint8_t ADC_Read8Bit(uint8_t channel,uint8_t * adcReading) ; 
 
 #endif /* ADC_INT_H_ */

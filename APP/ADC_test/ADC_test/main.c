@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2022
  * 
  */
+#include "LIB/STD_TYPES.h"
 #include "DIO_INT.h"
 #include "ADC_INT.h"
 
@@ -24,9 +25,13 @@ int main(void)
 	uint16_t reading =0 ; 
  	while (1) 
     {
-		reading = ADC_Read(ADC0) ; 
-		DIO_setPortValue(PORTB,reading) ;
-		DIO_setPortValue(PORTC,reading>>8) ;
+		if (ADC_Read(ADC0,&reading)==ADC_OK)
+		{
+			DIO_setPortValue(PORTB,reading) ;
+			DIO_setPortValue(PORTC,reading>>8) ;
+		}
+
+		
     }
 }
 
