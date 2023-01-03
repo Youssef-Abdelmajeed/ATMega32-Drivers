@@ -11,10 +11,14 @@
 #include "ADC_INT.h"
 #include "ADC_REG.h"
 
+#include "LIB\BIT_MATH.h"
+#include "LIB\STD_TYPES.h"
+
 inline void ADC_Start (void) 
 {
     setBit(ADCSRA,ADCSRA_ADEN) ; 
 }
+
 inline void ADC_Stop(void)
 {
     clearBit(ADCSRA,ADCSRA_ADEN) ;
@@ -38,19 +42,8 @@ inline void ADC_SelectPrescaller(uint8_t prescaller)
 
     /* set prescaller value */
     ADCSRA |= prescaller ;
-}
-
-void ADC_Init(EN_ADC_Ref_t refmode, uint8_t prescaller)
-{
-    /* Start ADC */
-    ADC_Start() ;
-
-    /* Select ADC Voltage reference mode */
-    ADC_SelectRefMode(refmode) ; 
-
-    /* Select ADC Clock prescaller */
-    ADC_SelectPrescaller(prescaller) ; 
-
+    
+    
 }
 
 inline void  ADC_SelectChannel(uint8_t channel)
@@ -65,30 +58,27 @@ inline void  ADC_SelectChannel(uint8_t channel)
     ADMUX |= channel ;
 }
 
-uint16_t ADC_Read(uint8_t channel)
+uint8_t ADC_Init(EN_ADC_Ref_t refmode, uint8_t prescaller)
 {
-    /* set the result register to be in right adjust mode   */
-    clearBit(ADMUX,ADMUX_ADLAR) ; 
+    /* Start ADC */
+    ADC_Start() ;
 
-    /* select the channel to read from */
-     ADC_SelectChannel(channel) ;
-   
-    /* Start conversion */
-    setBit(ADCSRA,ADCSRA_ADSC) ; 
-   
-    /* polling on ADC Interrupt flag */
-    while (getBit(ADCSRA,ADCSRA_ADIF)!= 1 ) ; 
-    
-    /* clear ADC Interrupt flag */
-    setBit(ADCSRA,ADCSRA_ADIF) ; 
+    /* Select ADC Voltage reference mode */
+    ADC_SelectRefMode(refmode) ; 
 
-    return ADC_Result ;
+    /* Select ADC Clock prescaller */
+    ADC_SelectPrescaller(prescaller) ; 
 
+    return ADC_OK ;
 }
-uint8_t ADC_Read8Bit(uint8_t channel)
+
+/* Synchronous mode functions */
+uint8_t ADC_Read(uint8_t channel,uint16_t *adcReading)
 {
-    /* set the result register to be in left adjust mode   */
-    setBit(ADMUX,ADMUX_ADLAR) ; 
+    /* initialing counter to add timeout option to ADC polling */
+    uint32_t counter = 0 ; 
+    /* set the result register to be in right adjust mode */
+    clearBit(ADMUX,ADMUX_ADLAR) ; 
 
     /* select the channel to read from */
     ADC_SelectChannel(channel) ;
@@ -96,12 +86,61 @@ uint8_t ADC_Read8Bit(uint8_t channel)
     /* Start conversion */
     setBit(ADCSRA,ADCSRA_ADSC) ; 
    
-    /* polling on ADC Interrupt flag */
-    while (getBit(ADCSRA,ADCSRA_ADIF)!= 1 ) ; 
+    /* polling on ADC Interrupt flag or ADC timeout */
+    while ((getBit(ADCSRA,ADCSRA_ADIF)!= 1 )&&(counter!=ADC_TIMEOUT)) 
+    {
+        counter++;
+    }
+    if(counter==ADC_TIMEOUT)
+    {
+        /* return exceeded timeout flag */
+        return ADC_TIMEOUT_EXCEEDED ;
+    }
+    else
+    {
+        /* clear ADC Interrupt flag */
+        setBit(ADCSRA,ADCSRA_ADIF) ;
     
-    /* clear ADC Interrupt flag */
-    setBit(ADCSRA,ADCSRA_ADIF) ; 
+        /* update ADC reading */ 
+        *adcReading = ADC_Result ; 
+    }
+    /* everything is working ok flag */
+    return ADC_OK ;
 
-    return ADCL ;
+}
+uint8_t ADC_Read8Bit(uint8_t channel,uint8_t *adcReading)
+{
+    /* initialing counter to add timeout option to ADC polling */
+    uint32_t counter = 0 ; 
+    
+    /* set the result register to be in left adjust mode */
+    setBit(ADMUX,ADMUX_ADLAR) ; 
+    
+    /* select the channel to read from */
+    ADC_SelectChannel(channel) ;
+   
+    /* Start conversion */
+    setBit(ADCSRA,ADCSRA_ADSC) ; 
+   
+    /* polling on ADC Interrupt flag or ADC timeout */
+    while ((getBit(ADCSRA,ADCSRA_ADIF)!= 1 )&&(counter!=ADC_TIMEOUT)) 
+    {
+        counter++;
+    }
+    if(counter==ADC_TIMEOUT)
+    {
+        /* return exceeded timeout flag */
+        return ADC_TIMEOUT_EXCEEDED ;
+    }
+    else
+    {
+        /* clear ADC Interrupt flag */
+        setBit(ADCSRA,ADCSRA_ADIF) ;
+    
+        /* update ADC reading */ 
+        *adcReading = ADCL ; 
+    }
+    /* everything is working ok flag */
+    return ADC_OK ;
 }
 

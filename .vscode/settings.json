@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "std_types.h": "c",
+        "timers_config.h": "c",
+        "stdlib.h": "c",
+        "exti_int.h": "c",
+        "ADC_PRG.C": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cSpell.words": [
+        "Abdelmajeed"
+    ]
+}

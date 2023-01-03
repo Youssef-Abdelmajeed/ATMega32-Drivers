@@ -28,17 +28,15 @@ int main(void)
 	Timer_SetCTC_Callback(TIMER0,&LED) ; 
 	/* set compare value */
 	Timer_SetCTCRegister(TIMER0,250) ; 
-	/* turn on global interrupt enable */
 	
-	 DIO_setPinDirection(ledpin2,OUTPUT) ;
-	 /*init timer 0 to be in CTC mode and Prescaler to none */
-	 Timer_Init(TIMER2,Noprescaler,CTC) ;
-	 /* set compare match ISR Callback */
-	 Timer_SetCTC_Callback(TIMER2,&LED2) ;
-	 /* set compare value */
-	 Timer_SetCTCRegister(TIMER2,250) ;
-	 /* turn on global interrupt enable */
-	 
+	DIO_setPinDirection(ledpin2,OUTPUT) ;
+	/*init timer 2 to be in CTC mode and Prescaler to none */
+	Timer_Init(TIMER2,Noprescaler,CTC) ;
+	/* set compare match ISR Callback */
+	Timer_SetCTC_Callback(TIMER2,&LED2) ;
+	/* set compare value */
+	Timer_SetCTCRegister(TIMER2,250) ; 
+	/* turn on global interrupt enable */
 	GIE_Enable() ; 
     while (1) 
     {

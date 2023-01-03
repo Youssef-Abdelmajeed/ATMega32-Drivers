@@ -12,8 +12,12 @@
 #ifndef ADC_INT_H_ 
 #define ADC_INT_H_ 
 
-#include "LIB\BIT_MATH.h"
-#include "LIB\STD_TYPES.h"
+/******************* ADC_CONFIG *******************/
+#define ADC_TIMEOUT 50000 
+/* ADC Error states */
+#define ADC_OK      1
+#define ADC_TIMEOUT_EXCEEDED  2 
+/***************************************************/
 
 /* ADC channels */
 #define ADC0            0 
@@ -70,34 +74,37 @@ void ADC_Stop  (void)  ;
 void ADC_SelectPrescaller(uint8_t prescaller) ; 
 
 /**
+ * @brief Select a channel to read from (0 - 7)
+ * 
+ * @param channel 
+ */
+void  ADC_SelectChannel(uint8_t channel) ; 
+
+/**
  * @brief Initialize ADC 
  * 
  * @param refmode [ AREF, AVCC, Internal ] 
  * @param prescaller [ 2, 8, 16, 32, 64, 128 ]
+ * @return uint8_t ADC_Error state 
  */
-void ADC_Init(EN_ADC_Ref_t refmode, uint8_t prescaller) ; 
+uint8_t ADC_Init(EN_ADC_Ref_t refmode, uint8_t prescaller) ; 
 
 /**
- * @brief Select a channal to read from (0 - 7)
+ * @brief read ADC single channel 10 bit mode  
  * 
- * @param channal 
+ * @param channel 
+ * @param adcReading 
+ * @return uint8_t ADC_Error state  
  */
-void  ADC_SelectChannel(uint8_t channal) ; 
+uint8_t ADC_Read(uint8_t channel,uint16_t * adcReading) ; 
 
 /**
- * @brief read ADC single channal 10 bit mode  
+ * @brief read ADC single channel 8 bit mode  
  * 
- * @param channal 
- * @return uint16_t 
+ * @param channel 
+ * @param adcReading 
+ * @return uint8_t ADC_Error state  
  */
-uint16_t ADC_Read(uint8_t channal) ; 
-
-/**
- * @brief read ADC single channal 8 bit mode  
- * 
- * @param channal 
- * @return uint16_t 
- */
-uint8_t ADC_Read8Bit(uint8_t channal) ; 
+uint8_t ADC_Read8Bit(uint8_t channel,uint16_t * adcReading) ; 
 
 #endif /* ADC_INT_H_ */
