@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
+#include "LIB/BIT_MATH.h"
+#include "LIB/STD_TYPES.h"
 #include "EXTI_INT.h"
 #include "EXTI_REG.h"
 
@@ -132,7 +133,7 @@ EN_Errors_t EXTI_Setcallback(EN_EXTI_PINS_t pinNum,void(*Callback)(void))
     }
     else 
     {
-        /* for INT2 avalible sense modes are Falling & rising only  */
+        /* for INT2 available sense modes are Falling & rising only  */
         return senseModeError ;
     }
 

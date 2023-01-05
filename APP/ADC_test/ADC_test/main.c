@@ -44,7 +44,7 @@ int main(void)
  	while (1) 
     {
 		#if debug == sync
-		/* if ADC conversion is ok*/
+		/* if ADC conversion is OK*/
 		if (ADC_Read(ADC0,&reading)==ADC_OK)
 		{
 			/*Write the first 8 bit to portB*/

@@ -12,8 +12,7 @@
 #ifndef TIMERS_INT_H_
 #define TIMERS_INT_H_
 
-#include "LIB/BIT_MATH.h"
-#include "LIB/STD_TYPES.h"
+
 #include "TIMERS_config.h"
 #include "TIMERS_REG.h"
 /**

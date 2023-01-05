@@ -4,7 +4,8 @@
         "timers_config.h": "c",
         "stdlib.h": "c",
         "exti_int.h": "c",
-        "ADC_PRG.C": "cpp"
+        "ADC_PRG.C": "cpp",
+        "bit_math.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "cSpell.words": [

@@ -13,7 +13,7 @@
 #define GIE_REG_H_
 
 /* Special Register */
-#define SREG            (*(uint8_t *)(0x5F))  /* To Do ( sepreate Global Interrupt Enable drive ) */
+#define SREG            (*(uint8_t *)(0x5F))  
 #define SREG_I          7  /* Global Interrupt Enable */
 
 #endif /* GIC_REG_H */

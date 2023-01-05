@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
+#include "LIB/BIT_MATH.h"
+#include "LIB/STD_TYPES.h"
 #include "TIMERS_INT.h"
 
 #define NULL ((void *)0) 

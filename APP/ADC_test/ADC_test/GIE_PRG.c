@@ -12,7 +12,6 @@
 #include "GIE_INT.h"
 #include "GIE_REG.h"
 
-
 inline void GIE_Enable(void)  {SREG |=  (1<<SREG_I) ;}
 
 inline void GIE_Disable(void) {SREG &= ~(1<<SREG_I) ;}
