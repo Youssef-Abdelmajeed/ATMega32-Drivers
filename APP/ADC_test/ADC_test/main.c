@@ -11,15 +11,27 @@
 #include "DIO_INT.h"
 #include "ADC_INT.h"
 #include "GIE_INT.h"
-#define sync	1 
-#define async	2 
 
-#define  debug sync
-//#define  debug async
+#define Sync		1 
+#define Async		2 
+#define chainAsync	3
+
+//#define  debug sync
+#define  debug chainAsync
 
 uint16_t reading =0 ;
+uint16_t channelsReadings[2]= {PA0,PA1} ;
+uint8_t channelsarr[2] = {0,1} ;
+	 
+#if debug==chainAsync
+void ADC_happend(void)
+{
+	DIO_setPortValue(PORTC,channelsReadings[0]) ;
+	DIO_setPortValue(PORTB,channelsReadings[1]) ;
+}
+#endif
 
-#if debug==async
+#if debug==Async
 void ADC_happend(void)
 {
 	/*Write the first 8 bit to portC*/
@@ -31,19 +43,23 @@ void ADC_happend(void)
 
 int main(void)
 {
+	
 	/* Set ADC0 pin to input  */
 	DIO_setPinDirection(PA0,INPUT) ;
+	/* Set ADC1 pin to input  */
+	DIO_setPinDirection(PA1,INPUT) ;
+
 	/* set two ports as outputs */
 	DIO_setPortDirection(PORTB,OUTPUT) ;
 	DIO_setPortDirection(PORTC,OUTPUT) ; 
-	
+		
 	GIE_Enable() ;
 
 	/* init ADC  */
 	ADC_Init(AREF,prescaller128) ; 
  	while (1) 
     {
-		#if debug == sync
+		#if debug == Sync
 		/* if ADC conversion is OK*/
 		if (ADC_Read(ADC0,&reading)==ADC_OK)
 		{
@@ -54,8 +70,13 @@ int main(void)
 		}
 		#endif
 		
-		#if debug == async
+		#if debug == Async
 		ADC_ReadAsync(ADC0,&reading,&ADC_happend) ;
+		#endif
+		
+		#if debug == chainAsync
+		ST_ADC_Chain_t chain1 = {.channelsArr=channelsarr,.length = 2 , .results=channelsReadings,&ADC_happend} ;
+		ADC_ReadChainAsync(&chain1) ;
 		#endif
 		
     }

@@ -20,6 +20,9 @@
 #define ADC_NULL              3 
 #define ADC_IDLE              4
 #define ADC_BUSY              5
+/* ADC ISR SOURCE */
+#define ISR_SINGLE_CHANNEL  1
+#define ISR_CHAIN			2 
 /***************************************************/
 
 /* ADC channels */
@@ -46,6 +49,14 @@ typedef enum EN_ADC_Ref
 {
     AREF, AVCC, Internal=3
 } EN_ADC_Ref_t;
+
+typedef struct ST_ADC_Chain
+{
+    uint8_t	length  ;			// number of ADC Channels 
+	uint8_t *channelsArr ;		//arr of channels to read through 
+    uint16_t *results ;			// array to store the readings 
+    void (*notifcation)(void) ;	//conversions complete notification function 
+}ST_ADC_Chain_t;
 
 /**
  * @brief Enable ADC 
@@ -109,14 +120,25 @@ uint8_t ADC_Read(uint8_t channel,uint16_t * adcReading) ;
  * @return uint8_t ADC_Error state  
  */
 uint8_t ADC_Read8Bit(uint8_t channel,uint8_t * adcReading) ; 
+
 /**
- * @brief Initialize ADC reading Asynchronously (global Interrupt Enable must be set)
+ * @brief ADC reading Asynchronously 10 bit   (global Interrupt Enable must be set)
  * 
  * @param channel ADC channel 
  * @param adcReading 
  * @param notification notification function to be called in case of conversion complete 
- * @return uint8_t 
+ * @return uint8_t ADC_Error state 
  */
 uint8_t ADC_ReadAsync(uint8_t channel,uint16_t *adcReading,void(*notification)(void)) ;
+
+/**
+ * @brief ADC reading Asynchronously 10 bit on multiple channels 
+ * (global Interrupt Enable must be set)
+ * 
+ * @param chain ADC Chain type 
+ * @return uint8_t ADC_Error state 
+ */
+uint8_t ADC_ReadChainAsync(ST_ADC_Chain_t *chain) ; 
+
 
 #endif /* ADC_INT_H_ */
