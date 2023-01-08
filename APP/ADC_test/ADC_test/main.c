@@ -20,8 +20,8 @@
 #define  debug chainAsync
 
 uint16_t reading =0 ;
-uint16_t channelsReadings[2]= {PA0,PA1} ;
-uint8_t channelsarr[2] = {0,1} ;
+uint16_t channelsReadings[2]= {0,0} ;
+uint8_t channelsarr[2] = {PA0,PA1} ;
 	 
 #if debug==chainAsync
 void ADC_happend(void)
