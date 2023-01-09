@@ -13,13 +13,13 @@
 #include "LIB/STD_TYPES.h"
 #include "TIMERS_INT.h"
 #include "TIMERS_REG.h"
-
+#define NULL ((void *)0) 
 /*place holder for timers overflow callback */
-void (*TIMERS_NORMAL_ISR[2])(void) = {((void *)0),((void *)0)} ;
+void (*TIMERS_NORMAL_ISR[2])(void) = {NULL,NULL} ;
 /*place holder for timers compare match callback */
-void (*TIMERS_CTC_ISR[2])(void) = {((void *)0),((void *)0)} ;
+void (*TIMERS_CTC_ISR[2])(void) = {NULL,NULL} ;
 
-void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode)
+inline void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode)
 {
     /* set the clock mode to the corresponding Timer  */
     switch (timer)
@@ -41,7 +41,7 @@ void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode)
         break;
     }
 }
-void Timer_SetWaveMode(Timers_t timer , waveModes_t Wmode)
+inline void Timer_SetWaveMode(Timers_t timer , waveModes_t Wmode)
 {
     /* set the wave mode to the corresponding Timer  */
     switch (timer)
@@ -65,17 +65,18 @@ void Timer_SetWaveMode(Timers_t timer , waveModes_t Wmode)
     }
 }
 
-inline void Timer_Init(Timers_t timer , prescalerModes_t Pmode ,  waveModes_t Wmode)
+void Timer_Init(Timers_t timer , prescalerModes_t Pmode ,  waveModes_t Wmode)
 {
     /* set timer clock mode */
     Timer_SetPrescaller(timer,Pmode) ; 
     /* set timer wave mode */
     Timer_SetWaveMode(timer,Wmode) ;
 }
+
 inline void Timer_SetOverflow_Callback(Timers_t timer , void(*callback)(void)) 
 {
     /*if callback isn't NULL */
-    if(callback!=((void *)0))
+    if(callback!=NULL)
     {
         /* set callback to the corresponding Timer  */
         switch (timer)
@@ -109,7 +110,7 @@ inline void Timer_SetOverflow_Callback(Timers_t timer , void(*callback)(void))
 inline void Timer_SetCTC_Callback(Timers_t timer , void(*callback)(void)) 
 {
     /*if callback isn't NULL */
-    if(callback!=((void *)0))
+    if(callback!=NULL)
     {
         /* set callback to the corresponding Timer  */
         switch (timer)
@@ -139,7 +140,7 @@ inline void Timer_SetCTC_Callback(Timers_t timer , void(*callback)(void))
         /* do nothing */
     }
 }
-void Timer_SetOVFRegister(Timers_t timer,uint8_t value)
+inline void Timer_SetOVFRegister(Timers_t timer,uint8_t value)
 {
     /* set value to the corresponding Timer overflow register  */
      switch (timer)
@@ -154,7 +155,7 @@ void Timer_SetOVFRegister(Timers_t timer,uint8_t value)
             break;
         }
 }
-void Timer_SetCTCRegister(Timers_t timer,uint8_t value)
+inline void Timer_SetCTCRegister(Timers_t timer,uint8_t value)
 {
      /* set value to the corresponding Timer CTC register  */
      switch (timer)
@@ -175,7 +176,7 @@ void Timer_SetCTCRegister(Timers_t timer,uint8_t value)
 void __vector_11 (void) __attribute__ ((signal,used)) ; 
 void __vector_11 (void) 
 {
-    if(TIMERS_NORMAL_ISR[0] != ((void *)0))
+    if(TIMERS_NORMAL_ISR[0] != NULL)
     {
         TIMERS_NORMAL_ISR[0]() ;
     }
@@ -203,7 +204,7 @@ void __vector_10 (void)
 void __vector_5 (void) __attribute__ ((signal,used)) ; 
 void __vector_5 (void) 
 {
-    if(TIMERS_NORMAL_ISR[1] != ((void *)0))
+    if(TIMERS_NORMAL_ISR[1] != NULL)
     {
         TIMERS_NORMAL_ISR[1]() ;
     }
@@ -217,7 +218,7 @@ void __vector_5 (void)
 void __vector_4 (void) __attribute__ ((signal,used)) ; 
 void __vector_4 (void) 
 {
-    if(TIMERS_CTC_ISR[1] != ((void *)0))
+    if(TIMERS_CTC_ISR[1] != NULL)
     {
         TIMERS_CTC_ISR[1]() ;
     }
