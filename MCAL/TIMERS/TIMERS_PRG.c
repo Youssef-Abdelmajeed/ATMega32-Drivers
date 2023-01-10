@@ -14,12 +14,13 @@
 #include "TIMERS_INT.h"
 #include "TIMERS_REG.h"
 #define NULL ((void *)0) 
+
 /*place holder for timers overflow callback */
 void (*TIMERS_NORMAL_ISR[2])(void) = {NULL,NULL} ;
 /*place holder for timers compare match callback */
 void (*TIMERS_CTC_ISR[2])(void) = {NULL,NULL} ;
 
-inline void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode)
+inline void Timer_SetPrescaler(Timers_t timer , prescalerModes_t Pmode)
 {
     /* set the clock mode to the corresponding Timer  */
     switch (timer)
@@ -68,7 +69,7 @@ inline void Timer_SetWaveMode(Timers_t timer , waveModes_t Wmode)
 void Timer_Init(Timers_t timer , prescalerModes_t Pmode ,  waveModes_t Wmode)
 {
     /* set timer clock mode */
-    Timer_SetPrescaller(timer,Pmode) ; 
+    Timer_SetPrescaler(timer,Pmode) ; 
     /* set timer wave mode */
     Timer_SetWaveMode(timer,Wmode) ;
 }

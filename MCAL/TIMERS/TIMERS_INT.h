@@ -30,12 +30,12 @@ typedef  enum Timers
 }Timers_t ; 
 
 /**
- * @brief set timer prescaller mode 
+ * @brief set timer prescaler mode 
  * 
  * @param timer TIMER0, TIMER2 
  * @param Pmode CounterMode, Noprescaler,prescaler8, prescaler64, prescaler256, prescaler1024, ExFalling, ExRising 
  */
-void Timer_SetPrescaller(Timers_t timer , prescalerModes_t Pmode) ;
+void Timer_SetPrescaler(Timers_t timer , prescalerModes_t Pmode) ;
 
 /**
  * @brief set timer wave mode 
@@ -48,7 +48,7 @@ void Timer_SetWaveMode(Timers_t timer , waveModes_t Wmode) ;
 /**
  * @brief 
  * 
- * @param timer set timer wave mode and prescaller 
+ * @param timer set timer wave mode and prescaler 
  * @param Pmode CounterMode, Noprescaler,prescaler8, prescaler64, prescaler256, prescaler1024, ExFalling, ExRising 
  * @param Wmode Normal, PWM_PhaseCorrect, CTC, Fast_PWM
  */

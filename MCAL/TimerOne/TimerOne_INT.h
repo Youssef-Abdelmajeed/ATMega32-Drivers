@@ -11,8 +11,27 @@
 #ifndef TIMER_1_INT_H_ 
 #define TIMER_1_INT_H_ 
 
-
-
-
+/**
+ * @brief Set Timer1 prescaler mode 
+ * 
+ * @param Pmode Timer Prescaler [ Stoped, NoPrescaler, Prescaler8, Prescaler64, Prescaler256, Prescaler1024, External_onRising, External_onFalling ]
+ * @return uint8_t uint8_t TimerOk in case if the prescaler is successfully set and WrongSelection otherwise 
+ */
+uint8_t Timer1_SetPrescaler(uint8_t Pmode) ; 
+/**
+ * @brief Set Timer1 wave generation mode 
+ * 
+ * @param Wmode Timer wave mode
+ * @return uint8_t TimerOk in case if the wave mode  is successfully set and WrongSelection otherwise 
+ */
+uint8_t Timer1_SetWaveMode(uint8_t Wmode) ; 
+/**
+ * @brief Initialize Timer1 Prescaler and Wave generation mode 
+ * 
+ * @param Pmode Timer Prescaler [ Stoped, NoPrescaler, Prescaler8, Prescaler64, Prescaler256, Prescaler1024, External_onRising, External_onFalling ]
+ * @param Wmode Timer wave mode 
+ * @return uint8_t TimerOk in case if the timer got successfully initalized and WrongSelection otherwise  
+ */
+uint8_t Timer1_init(uint8_t Pmode,uint8_t Wmode) ; 
 
 #endif /* TIMER_1_INT_H_ */
