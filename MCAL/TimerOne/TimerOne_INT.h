@@ -55,6 +55,14 @@ uint8_t Timer1_SetOutputCompareA_Callback(void(*callback)(void));
  */
 uint8_t Timer1_SetOutputCompareB_Callback(void(*callback)(void)); 
 /**
+ * @brief set Timer mode on channel A, ChannelB in output compare mode  
+ * 
+ * @param channel channel A, ChannelB (Timer pins)
+ * @param mode [Toggle_on_Compare, Clear_on_Compare, Set_on_Compare, Inverting, NonInverting]  
+ * @return uint8_t TimerOk in case if the channel mode is successfully set and WrongSelection otherwise 
+ */
+uint8_t Timer1_SetOutputCompareMode(uint8_t channel, uint8_t mode) ; 
+/**
  * @brief set overflow register value 
  * 
  * @param value 

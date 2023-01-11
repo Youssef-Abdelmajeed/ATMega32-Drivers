@@ -14,7 +14,7 @@
 
 /* Timer Waveform Generation */ 
 
-#define Normal                          0   
+#define Normal_Mode                     0   
 #define PWM_PhaseCorrect_8bit           1
 #define PWM_PhaseCorrect_9bit           2
 #define PWM_PhaseCorrect_10bit          3
@@ -36,4 +36,26 @@
 #define WrongSelection                   2
 #define NULL_POINTER                     3
 
+/* output compare modes */
+
+#define disconnected                     0 
+
+/* non-PWM */
+
+#define Toggle_on_Compare                1
+#define Clear_on_Compare                 2
+#define Set_on_Compare                   3
+
+/* fast/phase correct PWM */
+
+#define Inverting                        2
+#define NonInverting                     3
+
+/* output compare OC1A */
+#define ChannelA                         1
+/* output compare OC1B */
+#define ChannelB                         2
+
 #endif /* TIMER_1_PRIVATE_H_ */
+
+                   

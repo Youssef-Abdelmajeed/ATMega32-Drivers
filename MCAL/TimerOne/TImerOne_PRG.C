@@ -119,6 +119,38 @@ uint8_t Timer1_SetOutputCompareB_Callback(void(*callback)(void))
     }
     return ErrorState ;
 }
+uint8_t Timer1_SetOutputCompareMode(uint8_t channel, uint8_t mode)
+{
+    uint8_t ErrorState ; 
+    if(mode<0||mode>3)
+    {
+        ErrorState = WrongSelection ; // wrong mode 
+    }
+    else 
+    {
+        switch (channel)
+        {
+        case ChannelA:
+            /* Clear bits 7:6 Compare Output Mode for Channel A bits */
+            TCCR1A &= 0x3F ; 
+            /*set mode in bits 7:6 Compare Output Mode for Channel A bits*/
+            TCCR1A |= (mode<<6) ; 
+            ErrorState = TimerOK ; 
+            break;
+        case ChannelB:
+            /* Clear bits 7:6 Compare Output Mode for Channel A bits */
+            TCCR1A &= 0xCF ; 
+            /*set mode in bits 7:6 Compare Output Mode for Channel A bits*/
+            TCCR1A |= (mode<<4) ; 
+            ErrorState = TimerOK ; 
+            break;
+        default:
+            ErrorState = WrongSelection ; // Wrong channel 
+            break;
+        }
+    }
+    return ErrorState ; 
+}
 inline uint8_t Timer1_SetOverFlowRegister(uint16_t value)
 {
     TCNT1 = value ;
