@@ -172,6 +172,11 @@ inline uint8_t Timer1_SetOutputCompareRegisterB(uint16_t value)
     OCR1B = value ; 
     return TimerOK ; 
 }
+inline uint8_t Timer1_SetInputCaptureRegister(uint16_t value)
+{
+    ICR1 = value ; 
+    return TimerOK ; 
+}
 /* Timer1 COMPA ISR */
 void __vector7(void)__attribute__((signal)) ; 
 void __vector7(void)

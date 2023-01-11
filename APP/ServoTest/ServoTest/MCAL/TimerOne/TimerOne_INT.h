@@ -83,5 +83,12 @@ uint8_t Timer1_SetOutputCompareRegisterA(uint16_t value);
  * @return uint8_t TimerOK 
  */
 uint8_t Timer1_SetOutputCompareRegisterB(uint16_t value); 
+/**
+ * @brief set Input Capture Register value
+ * 
+ * @param value 
+ * @return uint8_t TimerOK 
+ */
+uint8_t Timer1_SetInputCaptureRegister(uint16_t value); 
 
 #endif /* TIMER_1_INT_H_ */

@@ -88,6 +88,8 @@ Discarded input sections
                 0x00000000        0x8 MCAL/TimerOne/TimerOne_PRG.o
  .text.Timer1_SetOutputCompareRegisterB
                 0x00000000        0x8 MCAL/TimerOne/TimerOne_PRG.o
+ .text.Timer1_SetInputCaptureRegister
+                0x00000000        0x8 MCAL/TimerOne/TimerOne_PRG.o
  .text.__vector7
                 0x00000000       0x52 MCAL/TimerOne/TimerOne_PRG.o
  .text.__vector8
@@ -100,16 +102,16 @@ Discarded input sections
                 0x00000000        0x2 MCAL/TimerOne/TimerOne_PRG.o
  .bss.COMPA_Callback
                 0x00000000        0x2 MCAL/TimerOne/TimerOne_PRG.o
- .debug_info    0x00000000      0x3cd MCAL/TimerOne/TimerOne_PRG.o
+ .debug_info    0x00000000      0x3fb MCAL/TimerOne/TimerOne_PRG.o
  .debug_abbrev  0x00000000      0x13b MCAL/TimerOne/TimerOne_PRG.o
- .debug_loc     0x00000000      0x66b MCAL/TimerOne/TimerOne_PRG.o
+ .debug_loc     0x00000000      0x68f MCAL/TimerOne/TimerOne_PRG.o
  .debug_aranges
-                0x00000000       0x80 MCAL/TimerOne/TimerOne_PRG.o
- .debug_ranges  0x00000000       0x70 MCAL/TimerOne/TimerOne_PRG.o
- .debug_line    0x00000000      0x316 MCAL/TimerOne/TimerOne_PRG.o
- .debug_str     0x00000000      0x322 MCAL/TimerOne/TimerOne_PRG.o
+                0x00000000       0x88 MCAL/TimerOne/TimerOne_PRG.o
+ .debug_ranges  0x00000000       0x78 MCAL/TimerOne/TimerOne_PRG.o
+ .debug_line    0x00000000      0x333 MCAL/TimerOne/TimerOne_PRG.o
+ .debug_str     0x00000000      0x341 MCAL/TimerOne/TimerOne_PRG.o
  .comment       0x00000000       0x31 MCAL/TimerOne/TimerOne_PRG.o
- .debug_frame   0x00000000      0x1bc MCAL/TimerOne/TimerOne_PRG.o
+ .debug_frame   0x00000000      0x1cc MCAL/TimerOne/TimerOne_PRG.o
  .text          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .data          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .bss           0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)

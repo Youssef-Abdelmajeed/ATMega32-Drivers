@@ -50,25 +50,31 @@
 
 /* Timer/Counter1 Register */ 
 #define TCNT1  (*(volatile uint16_t *)(0x4C))
-/* Timer/Counter1 Register High byte */ 
+/* Timer/Counter1 Register High Byte */ 
 #define TCNT1H (*(volatile uint8_t *)(0x4D))
-/* Timer/Counter1 Register Low byte */ 
+/* Timer/Counter1 Register Low Byte */ 
 #define TCNT1L (*(volatile uint8_t *)(0x4C))
 
 /* Output Compare Register 1 A */
 #define OCR1A  (*(volatile uint16_t *)(0x4A))
-/*Output Compare Register 1 A High byte */
+/*Output Compare Register 1 A High Byte */
 #define OCR1AH (*(volatile uint8_t *)(0x4B))
-/*Output Compare Register 1 A Low byte */
+/*Output Compare Register 1 A Low Byte */
 #define OCR1AL (*(volatile uint8_t *)(0x4A))
 
 /* Output Compare Register 1 B */
 #define OCR1B  (*(volatile uint16_t *)(0x48))
-/* Output Compare Register 1 B High byte */
+/* Output Compare Register 1 B High Byte */
 #define OCR1BH (*(volatile uint8_t *)(0x49))
-/* Output Compare Register 1 B Low byte */
+/* Output Compare Register 1 B Low Byte */
 #define OCR1BL (*(volatile uint8_t *)(0x48))
 
+/* Timer/Counter1 – Input Capture Register */
+#define ICR1  (*(volatile uint16_t *)(0x46))
+/* Timer/Counter1 – Input Capture Register High Byte */
+#define ICR1H  (*(volatile uint8_t *)(0x47))
+/* Timer/Counter1 – Input Capture Register Low Byte */
+#define ICR1L  (*(volatile uint8_t *)(0x46))
 
     /* Shared Registers */
 
