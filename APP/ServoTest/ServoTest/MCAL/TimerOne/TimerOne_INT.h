@@ -30,7 +30,7 @@ uint8_t Timer1_SetWaveMode(uint8_t Wmode) ;
  * 
  * @param Pmode Timer Prescaler [ Stoped, NoPrescaler, Prescaler8, Prescaler64, Prescaler256, Prescaler1024, External_onRising, External_onFalling ]
  * @param Wmode Timer wave mode 
- * @return uint8_t TimerOk in case if the timer got successfully initalized and WrongSelection otherwise  
+ * @return uint8_t TimerOk in case if the timer got successfully initialized and WrongSelection otherwise  
  */
 uint8_t Timer1_init(uint8_t Pmode,uint8_t Wmode) ; 
 /**

@@ -3,27 +3,29 @@ ServoTest.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000098  00000000  00000000  00000054  2**1
+  0 .text         00000462  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000000  00800060  00800060  000000ec  2**0
+  1 .data         00000018  00800060  00000462  000004d6  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000000ec  2**0
+  2 .comment      00000030  00000000  00000000  000004ee  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000011c  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000520  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000158  2**0
+  4 .debug_aranges 00000140  00000000  00000000  0000055c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   00000532  00000000  00000000  00000178  2**0
+  5 .debug_info   000013a0  00000000  00000000  0000069c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000004e1  00000000  00000000  000006aa  2**0
+  6 .debug_abbrev 00000944  00000000  00000000  00001a3c  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000014d  00000000  00000000  00000b8b  2**0
+  7 .debug_line   00000941  00000000  00000000  00002380  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  00000cd8  2**2
+  8 .debug_frame  00000354  00000000  00000000  00002cc4  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000299  00000000  00000000  00000cfc  2**0
+  9 .debug_str    000006d1  00000000  00000000  00003018  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000010  00000000  00000000  00000f95  2**0
+ 10 .debug_loc    00000d1d  00000000  00000000  000036e9  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000108  00000000  00000000  00004406  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -63,18 +65,18 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e8 e9       	ldi	r30, 0x98	; 152
-  68:	f0 e0       	ldi	r31, 0x00	; 0
+  66:	e2 e6       	ldi	r30, 0x62	; 98
+  68:	f4 e0       	ldi	r31, 0x04	; 4
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a0 36       	cpi	r26, 0x60	; 96
+  70:	a8 37       	cpi	r26, 0x78	; 120
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
   76:	20 e0       	ldi	r18, 0x00	; 0
-  78:	a0 e6       	ldi	r26, 0x60	; 96
+  78:	a8 e7       	ldi	r26, 0x78	; 120
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -82,24 +84,685 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a0 36       	cpi	r26, 0x60	; 96
+  80:	a8 37       	cpi	r26, 0x78	; 120
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 49 00 	call	0x92	; 0x92 <main>
-  8a:	0c 94 4a 00 	jmp	0x94	; 0x94 <_exit>
+  86:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <main>
+  8a:	0c 94 2f 02 	jmp	0x45e	; 0x45e <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000092 <main>:
+00000092 <Servo_Init>:
+#include "Servo_private.h"
+
+void Servo_Init(void) 
+{
+	/*Set Global Interrupt enable */
+	GIE_Enable() ; 
+  92:	0e 94 61 01 	call	0x2c2	; 0x2c2 <GIE_Enable>
+	Timer1_SetOutputCompareMode(ChannelB,NonInverting) ;
+	#endif /*_USE_PD4_*/
+	
+	/*if pin PD5 (Timer Channel A) is used to control a servo */
+	#if _USE_PD5_ == 1 
+	DIO_setPinDirection(PD5,OUTPUT) ;
+  96:	61 e0       	ldi	r22, 0x01	; 1
+  98:	8d e1       	ldi	r24, 0x1D	; 29
+  9a:	0e 94 f5 00 	call	0x1ea	; 0x1ea <DIO_setPinDirection>
+	Timer1_SetOutputCompareMode(ChannelA,NonInverting) ;
+  9e:	62 e0       	ldi	r22, 0x02	; 2
+  a0:	81 e0       	ldi	r24, 0x01	; 1
+  a2:	0e 94 95 01 	call	0x32a	; 0x32a <Timer1_SetOutputCompareMode>
+ 	#endif /*_USE_PD5_*/
+	
+	/*set Timer1 input capture Register to 20000 to achieve period of 20ms*/
+	Timer1_SetInputCaptureRegister(20000) ;
+  a6:	80 e2       	ldi	r24, 0x20	; 32
+  a8:	9e e4       	ldi	r25, 0x4E	; 78
+  aa:	0e 94 c0 01 	call	0x380	; 0x380 <Timer1_SetInputCaptureRegister>
+	 
+	/*set timer mode to be fast PWM  and The top is ICR1 Register */
+	Timer1_init(Prescaler8,Fast_PWM_ICR) ;
+  ae:	6e e0       	ldi	r22, 0x0E	; 14
+  b0:	82 e0       	ldi	r24, 0x02	; 2
+  b2:	0e 94 65 01 	call	0x2ca	; 0x2ca <Timer1_init>
+  b6:	08 95       	ret
+
+000000b8 <MAP>:
+
+	
+}
+int32_t MAP (int32_t x, int32_t min1, int32_t max1, int32_t min2, int32_t max2) {
+  b8:	4f 92       	push	r4
+  ba:	5f 92       	push	r5
+  bc:	6f 92       	push	r6
+  be:	7f 92       	push	r7
+  c0:	af 92       	push	r10
+  c2:	bf 92       	push	r11
+  c4:	cf 92       	push	r12
+  c6:	df 92       	push	r13
+  c8:	ef 92       	push	r14
+  ca:	ff 92       	push	r15
+  cc:	0f 93       	push	r16
+  ce:	1f 93       	push	r17
+  d0:	cf 93       	push	r28
+  d2:	df 93       	push	r29
+  d4:	cd b7       	in	r28, 0x3d	; 61
+  d6:	de b7       	in	r29, 0x3e	; 62
+  d8:	29 01       	movw	r4, r18
+  da:	3a 01       	movw	r6, r20
+	return (x - min1) * (max2 - min2) / (max1 - min1) + min2;
+  dc:	9b 01       	movw	r18, r22
+  de:	ac 01       	movw	r20, r24
+  e0:	24 19       	sub	r18, r4
+  e2:	35 09       	sbc	r19, r5
+  e4:	46 09       	sbc	r20, r6
+  e6:	57 09       	sbc	r21, r7
+  e8:	89 89       	ldd	r24, Y+17	; 0x11
+  ea:	9a 89       	ldd	r25, Y+18	; 0x12
+  ec:	ab 89       	ldd	r26, Y+19	; 0x13
+  ee:	bc 89       	ldd	r27, Y+20	; 0x14
+  f0:	bc 01       	movw	r22, r24
+  f2:	cd 01       	movw	r24, r26
+  f4:	6a 19       	sub	r22, r10
+  f6:	7b 09       	sbc	r23, r11
+  f8:	8c 09       	sbc	r24, r12
+  fa:	9d 09       	sbc	r25, r13
+  fc:	0e 94 c4 01 	call	0x388	; 0x388 <__mulsi3>
+ 100:	a8 01       	movw	r20, r16
+ 102:	97 01       	movw	r18, r14
+ 104:	24 19       	sub	r18, r4
+ 106:	35 09       	sbc	r19, r5
+ 108:	46 09       	sbc	r20, r6
+ 10a:	57 09       	sbc	r21, r7
+ 10c:	0e 94 d4 01 	call	0x3a8	; 0x3a8 <__divmodsi4>
+ 110:	c6 01       	movw	r24, r12
+ 112:	b5 01       	movw	r22, r10
+ 114:	62 0f       	add	r22, r18
+ 116:	73 1f       	adc	r23, r19
+ 118:	84 1f       	adc	r24, r20
+ 11a:	95 1f       	adc	r25, r21
+}
+ 11c:	df 91       	pop	r29
+ 11e:	cf 91       	pop	r28
+ 120:	1f 91       	pop	r17
+ 122:	0f 91       	pop	r16
+ 124:	ff 90       	pop	r15
+ 126:	ef 90       	pop	r14
+ 128:	df 90       	pop	r13
+ 12a:	cf 90       	pop	r12
+ 12c:	bf 90       	pop	r11
+ 12e:	af 90       	pop	r10
+ 130:	7f 90       	pop	r7
+ 132:	6f 90       	pop	r6
+ 134:	5f 90       	pop	r5
+ 136:	4f 90       	pop	r4
+ 138:	08 95       	ret
+
+0000013a <Servo_Move>:
+uint8_t Servo_Move(uint8_t pin,int16_t angle) 
+{
+ 13a:	af 92       	push	r10
+ 13c:	bf 92       	push	r11
+ 13e:	cf 92       	push	r12
+ 140:	df 92       	push	r13
+ 142:	ef 92       	push	r14
+ 144:	ff 92       	push	r15
+ 146:	0f 93       	push	r16
+ 148:	1f 93       	push	r17
+ 14a:	cf 93       	push	r28
+	uint8_t ErrorState ; 
+	if(angle<-90||angle>90)
+ 14c:	9b 01       	movw	r18, r22
+ 14e:	26 5a       	subi	r18, 0xA6	; 166
+ 150:	3f 4f       	sbci	r19, 0xFF	; 255
+ 152:	25 3b       	cpi	r18, 0xB5	; 181
+ 154:	31 05       	cpc	r19, r1
+ 156:	80 f5       	brcc	.+96     	; 0x1b8 <Servo_Move+0x7e>
+ 158:	c8 2f       	mov	r28, r24
+		ErrorState =WRONG_ANGLE ;
+	}
+	else
+	{
+		/* map the given angle against the compare match value */ 
+		uint16_t CompValue = MAP(angle,-90,90,MIN_CONTROL_VALUE_US,MAX_CONTROL_VALUE_US); 
+ 15a:	07 2e       	mov	r0, r23
+ 15c:	00 0c       	add	r0, r0
+ 15e:	88 0b       	sbc	r24, r24
+ 160:	99 0b       	sbc	r25, r25
+ 162:	1f 92       	push	r1
+ 164:	1f 92       	push	r1
+ 166:	27 e0       	ldi	r18, 0x07	; 7
+ 168:	2f 93       	push	r18
+ 16a:	20 ed       	ldi	r18, 0xD0	; 208
+ 16c:	2f 93       	push	r18
+ 16e:	0f 2e       	mov	r0, r31
+ 170:	f8 ee       	ldi	r31, 0xE8	; 232
+ 172:	af 2e       	mov	r10, r31
+ 174:	f3 e0       	ldi	r31, 0x03	; 3
+ 176:	bf 2e       	mov	r11, r31
+ 178:	c1 2c       	mov	r12, r1
+ 17a:	d1 2c       	mov	r13, r1
+ 17c:	f0 2d       	mov	r31, r0
+ 17e:	1a e5       	ldi	r17, 0x5A	; 90
+ 180:	e1 2e       	mov	r14, r17
+ 182:	f1 2c       	mov	r15, r1
+ 184:	00 e0       	ldi	r16, 0x00	; 0
+ 186:	10 e0       	ldi	r17, 0x00	; 0
+ 188:	26 ea       	ldi	r18, 0xA6	; 166
+ 18a:	3f ef       	ldi	r19, 0xFF	; 255
+ 18c:	4f ef       	ldi	r20, 0xFF	; 255
+ 18e:	5f ef       	ldi	r21, 0xFF	; 255
+ 190:	0e 94 5c 00 	call	0xb8	; 0xb8 <MAP>
+ 194:	0f 90       	pop	r0
+ 196:	0f 90       	pop	r0
+ 198:	0f 90       	pop	r0
+ 19a:	0f 90       	pop	r0
+
+		switch (pin)
+ 19c:	cc 31       	cpi	r28, 0x1C	; 28
+ 19e:	39 f0       	breq	.+14     	; 0x1ae <Servo_Move+0x74>
+ 1a0:	cd 31       	cpi	r28, 0x1D	; 29
+ 1a2:	61 f4       	brne	.+24     	; 0x1bc <Servo_Move+0x82>
+		{
+		case  PD5:
+			Timer1_SetOutputCompareRegisterA(CompValue) ; 
+ 1a4:	cb 01       	movw	r24, r22
+ 1a6:	0e 94 b8 01 	call	0x370	; 0x370 <Timer1_SetOutputCompareRegisterA>
+			ErrorState =SERVO_OK ;
+ 1aa:	82 e0       	ldi	r24, 0x02	; 2
+			break;
+ 1ac:	08 c0       	rjmp	.+16     	; 0x1be <Servo_Move+0x84>
+		case PD4:
+			Timer1_SetOutputCompareRegisterB(CompValue) ; 
+ 1ae:	cb 01       	movw	r24, r22
+ 1b0:	0e 94 bc 01 	call	0x378	; 0x378 <Timer1_SetOutputCompareRegisterB>
+			ErrorState =SERVO_OK ; 
+ 1b4:	82 e0       	ldi	r24, 0x02	; 2
+			break;
+ 1b6:	03 c0       	rjmp	.+6      	; 0x1be <Servo_Move+0x84>
+uint8_t Servo_Move(uint8_t pin,int16_t angle) 
+{
+	uint8_t ErrorState ; 
+	if(angle<-90||angle>90)
+	{
+		ErrorState =WRONG_ANGLE ;
+ 1b8:	83 e0       	ldi	r24, 0x03	; 3
+ 1ba:	01 c0       	rjmp	.+2      	; 0x1be <Servo_Move+0x84>
+		case PD4:
+			Timer1_SetOutputCompareRegisterB(CompValue) ; 
+			ErrorState =SERVO_OK ; 
+			break;
+		default:
+			ErrorState = WRONG_PIN ; 
+ 1bc:	81 e0       	ldi	r24, 0x01	; 1
+			break;
+		}
+	}
+	return ErrorState ; 
+ 1be:	cf 91       	pop	r28
+ 1c0:	1f 91       	pop	r17
+ 1c2:	0f 91       	pop	r16
+ 1c4:	ff 90       	pop	r15
+ 1c6:	ef 90       	pop	r14
+ 1c8:	df 90       	pop	r13
+ 1ca:	cf 90       	pop	r12
+ 1cc:	bf 90       	pop	r11
+ 1ce:	af 90       	pop	r10
+ 1d0:	08 95       	ret
+
+000001d2 <main>:
+#include "MCAL/TimerOne/TimerOne_INT.h"
 #include "HAL/Servo/Servo_INT.h"
 
 int main(void)
 {
-  92:	ff cf       	rjmp	.-2      	; 0x92 <main>
+	Servo_Init() ; 
+ 1d2:	0e 94 49 00 	call	0x92	; 0x92 <Servo_Init>
+	DIO_setPinDirection(PA0,OUTPUT) ; 
+ 1d6:	61 e0       	ldi	r22, 0x01	; 1
+ 1d8:	80 e0       	ldi	r24, 0x00	; 0
+ 1da:	0e 94 f5 00 	call	0x1ea	; 0x1ea <DIO_setPinDirection>
+    while (1) 
+    {
+		Servo_Move(PD5,90) ;
+ 1de:	6a e5       	ldi	r22, 0x5A	; 90
+ 1e0:	70 e0       	ldi	r23, 0x00	; 0
+ 1e2:	8d e1       	ldi	r24, 0x1D	; 29
+ 1e4:	0e 94 9d 00 	call	0x13a	; 0x13a <Servo_Move>
+ 1e8:	fa cf       	rjmp	.-12     	; 0x1de <main+0xc>
 
-00000094 <_exit>:
-  94:	f8 94       	cli
+000001ea <DIO_setPinDirection>:
+ * @param pinnum pin name
+ * @return uint8_t pin number 
+ */
+inline static uint8_t getPinNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    pinnum     ; 
+ 1ea:	88 30       	cpi	r24, 0x08	; 8
+ 1ec:	70 f0       	brcs	.+28     	; 0x20a <DIO_setPinDirection+0x20>
+    else if (pinnum>=8  && pinnum<=15) return   (pinnum-8)  ; 
+ 1ee:	28 ef       	ldi	r18, 0xF8	; 248
+ 1f0:	28 0f       	add	r18, r24
+ 1f2:	28 30       	cpi	r18, 0x08	; 8
+ 1f4:	58 f0       	brcs	.+22     	; 0x20c <DIO_setPinDirection+0x22>
+    else if (pinnum>=16 && pinnum<=23) return   (pinnum-16) ;
+ 1f6:	20 ef       	ldi	r18, 0xF0	; 240
+ 1f8:	28 0f       	add	r18, r24
+ 1fa:	28 30       	cpi	r18, 0x08	; 8
+ 1fc:	38 f0       	brcs	.+14     	; 0x20c <DIO_setPinDirection+0x22>
+    else if (pinnum>=24 && pinnum<=31) return   (pinnum-24) ;
+ 1fe:	28 ee       	ldi	r18, 0xE8	; 232
+ 200:	28 0f       	add	r18, r24
+ 202:	28 30       	cpi	r18, 0x08	; 8
+ 204:	18 f0       	brcs	.+6      	; 0x20c <DIO_setPinDirection+0x22>
+	return NC ; 
+ 206:	2f ef       	ldi	r18, 0xFF	; 255
+ 208:	01 c0       	rjmp	.+2      	; 0x20c <DIO_setPinDirection+0x22>
+ * @param pinnum pin name
+ * @return uint8_t pin number 
+ */
+inline static uint8_t getPinNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    pinnum     ; 
+ 20a:	28 2f       	mov	r18, r24
+ * @param pinnum pin name
+ * @return uint8_t port number 
+ */
+inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    PORTA  ; 
+ 20c:	88 30       	cpi	r24, 0x08	; 8
+ 20e:	68 f0       	brcs	.+26     	; 0x22a <DIO_setPinDirection+0x40>
+    else if (pinnum>=8  && pinnum<=15) return    PORTB  ; 
+ 210:	98 ef       	ldi	r25, 0xF8	; 248
+ 212:	98 0f       	add	r25, r24
+ 214:	98 30       	cpi	r25, 0x08	; 8
+ 216:	58 f0       	brcs	.+22     	; 0x22e <DIO_setPinDirection+0x44>
+    else if (pinnum>=16 && pinnum<=23) return    PORTC  ;
+ 218:	90 ef       	ldi	r25, 0xF0	; 240
+ 21a:	98 0f       	add	r25, r24
+ 21c:	98 30       	cpi	r25, 0x08	; 8
+ 21e:	48 f0       	brcs	.+18     	; 0x232 <DIO_setPinDirection+0x48>
+    else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
+ 220:	88 51       	subi	r24, 0x18	; 24
+ 222:	88 30       	cpi	r24, 0x08	; 8
+ 224:	40 f4       	brcc	.+16     	; 0x236 <DIO_setPinDirection+0x4c>
+ 226:	83 e0       	ldi	r24, 0x03	; 3
+ 228:	07 c0       	rjmp	.+14     	; 0x238 <DIO_setPinDirection+0x4e>
+ * @param pinnum pin name
+ * @return uint8_t port number 
+ */
+inline static uint8_t getPortNumber(EN_PinNumber_t pinnum)
+{
+    if(pinnum>=0 && pinnum<=7)         return    PORTA  ; 
+ 22a:	80 e0       	ldi	r24, 0x00	; 0
+ 22c:	05 c0       	rjmp	.+10     	; 0x238 <DIO_setPinDirection+0x4e>
+    else if (pinnum>=8  && pinnum<=15) return    PORTB  ; 
+ 22e:	81 e0       	ldi	r24, 0x01	; 1
+ 230:	03 c0       	rjmp	.+6      	; 0x238 <DIO_setPinDirection+0x4e>
+    else if (pinnum>=16 && pinnum<=23) return    PORTC  ;
+ 232:	82 e0       	ldi	r24, 0x02	; 2
+ 234:	01 c0       	rjmp	.+2      	; 0x238 <DIO_setPinDirection+0x4e>
+    else if (pinnum>=24 && pinnum<=31) return    PORTD  ;
+	return NC ;
+ 236:	8f ef       	ldi	r24, 0xFF	; 255
+{
+	
+    /* get pin number and port number */
+    uint8_t pin = getPinNumber(pinNum) , port = getPortNumber(pinNum) ;
+	/* select DDRX Register */
+	volatile uint8_t  * DDRX =  (DIO_Registers[port][1]) ;
+ 238:	90 e0       	ldi	r25, 0x00	; 0
+ 23a:	fc 01       	movw	r30, r24
+ 23c:	ee 0f       	add	r30, r30
+ 23e:	ff 1f       	adc	r31, r31
+ 240:	df 01       	movw	r26, r30
+ 242:	a8 0f       	add	r26, r24
+ 244:	b9 1f       	adc	r27, r25
+ 246:	aa 0f       	add	r26, r26
+ 248:	bb 1f       	adc	r27, r27
+ 24a:	a0 5a       	subi	r26, 0xA0	; 160
+ 24c:	bf 4f       	sbci	r27, 0xFF	; 255
+ 24e:	12 96       	adiw	r26, 0x02	; 2
+ 250:	0d 90       	ld	r0, X+
+ 252:	bc 91       	ld	r27, X
+ 254:	a0 2d       	mov	r26, r0
+	/* select PORTX Register */ 
+	volatile uint8_t  * PORTX = (DIO_Registers[port][0]) ;
+ 256:	e8 0f       	add	r30, r24
+ 258:	f9 1f       	adc	r31, r25
+ 25a:	ee 0f       	add	r30, r30
+ 25c:	ff 1f       	adc	r31, r31
+ 25e:	e0 5a       	subi	r30, 0xA0	; 160
+ 260:	ff 4f       	sbci	r31, 0xFF	; 255
+ 262:	01 90       	ld	r0, Z+
+ 264:	f0 81       	ld	r31, Z
+ 266:	e0 2d       	mov	r30, r0
+    switch (pinDirection)
+ 268:	61 30       	cpi	r22, 0x01	; 1
+ 26a:	81 f0       	breq	.+32     	; 0x28c <DIO_setPinDirection+0xa2>
+ 26c:	18 f0       	brcs	.+6      	; 0x274 <DIO_setPinDirection+0x8a>
+ 26e:	62 30       	cpi	r22, 0x02	; 2
+ 270:	c1 f0       	breq	.+48     	; 0x2a2 <DIO_setPinDirection+0xb8>
+ 272:	08 95       	ret
+    {
+    case INPUT:
+        /* set DDRX to 0 to set as input  */
+        clearBit((*DDRX),pin) ;
+ 274:	3c 91       	ld	r19, X
+ 276:	81 e0       	ldi	r24, 0x01	; 1
+ 278:	90 e0       	ldi	r25, 0x00	; 0
+ 27a:	02 c0       	rjmp	.+4      	; 0x280 <DIO_setPinDirection+0x96>
+ 27c:	88 0f       	add	r24, r24
+ 27e:	99 1f       	adc	r25, r25
+ 280:	2a 95       	dec	r18
+ 282:	e2 f7       	brpl	.-8      	; 0x27c <DIO_setPinDirection+0x92>
+ 284:	80 95       	com	r24
+ 286:	83 23       	and	r24, r19
+ 288:	8c 93       	st	X, r24
+        break;
+ 28a:	08 95       	ret
+    case OUTPUT:
+        /* set PORTX to 1 to set as output */
+        setBit((*DDRX),pin) ;
+ 28c:	3c 91       	ld	r19, X
+ 28e:	81 e0       	ldi	r24, 0x01	; 1
+ 290:	90 e0       	ldi	r25, 0x00	; 0
+ 292:	02 c0       	rjmp	.+4      	; 0x298 <DIO_setPinDirection+0xae>
+ 294:	88 0f       	add	r24, r24
+ 296:	99 1f       	adc	r25, r25
+ 298:	2a 95       	dec	r18
+ 29a:	e2 f7       	brpl	.-8      	; 0x294 <DIO_setPinDirection+0xaa>
+ 29c:	83 2b       	or	r24, r19
+ 29e:	8c 93       	st	X, r24
+        break;
+ 2a0:	08 95       	ret
+    case INPUT_PULLUP:
+        /* set PORTX to 1 to active the pull up resistor */
+        setBit((*PORTX),pin) ;  
+ 2a2:	30 81       	ld	r19, Z
+ 2a4:	81 e0       	ldi	r24, 0x01	; 1
+ 2a6:	90 e0       	ldi	r25, 0x00	; 0
+ 2a8:	02 c0       	rjmp	.+4      	; 0x2ae <DIO_setPinDirection+0xc4>
+ 2aa:	88 0f       	add	r24, r24
+ 2ac:	99 1f       	adc	r25, r25
+ 2ae:	2a 95       	dec	r18
+ 2b0:	e2 f7       	brpl	.-8      	; 0x2aa <DIO_setPinDirection+0xc0>
+ 2b2:	93 2f       	mov	r25, r19
+ 2b4:	98 2b       	or	r25, r24
+ 2b6:	90 83       	st	Z, r25
+        /* set DDRX to 0 to set as input  */
+        clearBit((*DDRX),pin) ;
+ 2b8:	9c 91       	ld	r25, X
+ 2ba:	80 95       	com	r24
+ 2bc:	89 23       	and	r24, r25
+ 2be:	8c 93       	st	X, r24
+ 2c0:	08 95       	ret
 
-00000096 <__stop_program>:
-  96:	ff cf       	rjmp	.-2      	; 0x96 <__stop_program>
+000002c2 <GIE_Enable>:
+#include "GIE_INT.h"
+#include "GIE_REG.h"
+#include "../../LIB/STD_TYPES.h"
+
+
+inline void GIE_Enable(void)  {SREG |=  (1<<SREG_I) ;}
+ 2c2:	8f b7       	in	r24, 0x3f	; 63
+ 2c4:	80 68       	ori	r24, 0x80	; 128
+ 2c6:	8f bf       	out	0x3f, r24	; 63
+ 2c8:	08 95       	ret
+
+000002ca <Timer1_init>:
+}
+inline uint8_t Timer1_SetOverFlowRegister(uint16_t value)
+{
+    TCNT1 = value ;
+    return TimerOK; 
+}
+ 2ca:	88 30       	cpi	r24, 0x08	; 8
+ 2cc:	40 f4       	brcc	.+16     	; 0x2de <Timer1_init+0x14>
+ 2ce:	9e b5       	in	r25, 0x2e	; 46
+ 2d0:	98 7f       	andi	r25, 0xF8	; 248
+ 2d2:	9e bd       	out	0x2e, r25	; 46
+ 2d4:	9e b5       	in	r25, 0x2e	; 46
+ 2d6:	89 2b       	or	r24, r25
+ 2d8:	8e bd       	out	0x2e, r24	; 46
+ 2da:	81 e0       	ldi	r24, 0x01	; 1
+ 2dc:	01 c0       	rjmp	.+2      	; 0x2e0 <Timer1_init+0x16>
+ 2de:	82 e0       	ldi	r24, 0x02	; 2
+ 2e0:	81 30       	cpi	r24, 0x01	; 1
+ 2e2:	f9 f4       	brne	.+62     	; 0x322 <Timer1_init+0x58>
+ 2e4:	60 31       	cpi	r22, 0x10	; 16
+ 2e6:	b8 f4       	brcc	.+46     	; 0x316 <Timer1_init+0x4c>
+ 2e8:	6d 30       	cpi	r22, 0x0D	; 13
+ 2ea:	b9 f0       	breq	.+46     	; 0x31a <Timer1_init+0x50>
+ 2ec:	8f b5       	in	r24, 0x2f	; 47
+ 2ee:	8c 7f       	andi	r24, 0xFC	; 252
+ 2f0:	8f bd       	out	0x2f, r24	; 47
+ 2f2:	8e b5       	in	r24, 0x2e	; 46
+ 2f4:	87 7e       	andi	r24, 0xE7	; 231
+ 2f6:	8e bd       	out	0x2e, r24	; 46
+ 2f8:	8f b5       	in	r24, 0x2f	; 47
+ 2fa:	96 2f       	mov	r25, r22
+ 2fc:	93 70       	andi	r25, 0x03	; 3
+ 2fe:	89 2b       	or	r24, r25
+ 300:	8f bd       	out	0x2f, r24	; 47
+ 302:	2e b5       	in	r18, 0x2e	; 46
+ 304:	86 2f       	mov	r24, r22
+ 306:	90 e0       	ldi	r25, 0x00	; 0
+ 308:	88 0f       	add	r24, r24
+ 30a:	99 1f       	adc	r25, r25
+ 30c:	88 71       	andi	r24, 0x18	; 24
+ 30e:	82 2b       	or	r24, r18
+ 310:	8e bd       	out	0x2e, r24	; 46
+ 312:	81 e0       	ldi	r24, 0x01	; 1
+ 314:	03 c0       	rjmp	.+6      	; 0x31c <Timer1_init+0x52>
+ 316:	82 e0       	ldi	r24, 0x02	; 2
+ 318:	01 c0       	rjmp	.+2      	; 0x31c <Timer1_init+0x52>
+ 31a:	82 e0       	ldi	r24, 0x02	; 2
+ 31c:	81 30       	cpi	r24, 0x01	; 1
+ 31e:	19 f4       	brne	.+6      	; 0x326 <Timer1_init+0x5c>
+ 320:	08 95       	ret
+ 322:	82 e0       	ldi	r24, 0x02	; 2
+ 324:	08 95       	ret
+ 326:	82 e0       	ldi	r24, 0x02	; 2
+ 328:	08 95       	ret
+
+0000032a <Timer1_SetOutputCompareMode>:
+ 32a:	64 30       	cpi	r22, 0x04	; 4
+ 32c:	e8 f4       	brcc	.+58     	; 0x368 <Timer1_SetOutputCompareMode+0x3e>
+ 32e:	81 30       	cpi	r24, 0x01	; 1
+ 330:	19 f0       	breq	.+6      	; 0x338 <Timer1_SetOutputCompareMode+0xe>
+ 332:	82 30       	cpi	r24, 0x02	; 2
+ 334:	69 f0       	breq	.+26     	; 0x350 <Timer1_SetOutputCompareMode+0x26>
+ 336:	1a c0       	rjmp	.+52     	; 0x36c <Timer1_SetOutputCompareMode+0x42>
+ 338:	8f b5       	in	r24, 0x2f	; 47
+ 33a:	8f 73       	andi	r24, 0x3F	; 63
+ 33c:	8f bd       	out	0x2f, r24	; 47
+ 33e:	8f b5       	in	r24, 0x2f	; 47
+ 340:	90 e4       	ldi	r25, 0x40	; 64
+ 342:	69 9f       	mul	r22, r25
+ 344:	b0 01       	movw	r22, r0
+ 346:	11 24       	eor	r1, r1
+ 348:	68 2b       	or	r22, r24
+ 34a:	6f bd       	out	0x2f, r22	; 47
+ 34c:	81 e0       	ldi	r24, 0x01	; 1
+ 34e:	08 95       	ret
+ 350:	8f b5       	in	r24, 0x2f	; 47
+ 352:	8f 7c       	andi	r24, 0xCF	; 207
+ 354:	8f bd       	out	0x2f, r24	; 47
+ 356:	8f b5       	in	r24, 0x2f	; 47
+ 358:	90 e1       	ldi	r25, 0x10	; 16
+ 35a:	69 9f       	mul	r22, r25
+ 35c:	b0 01       	movw	r22, r0
+ 35e:	11 24       	eor	r1, r1
+ 360:	68 2b       	or	r22, r24
+ 362:	6f bd       	out	0x2f, r22	; 47
+ 364:	81 e0       	ldi	r24, 0x01	; 1
+ 366:	08 95       	ret
+ 368:	82 e0       	ldi	r24, 0x02	; 2
+ 36a:	08 95       	ret
+ 36c:	82 e0       	ldi	r24, 0x02	; 2
+ 36e:	08 95       	ret
+
+00000370 <Timer1_SetOutputCompareRegisterA>:
+inline uint8_t Timer1_SetOutputCompareRegisterA(uint16_t value)
+{
+    OCR1A = value ; 
+ 370:	9b bd       	out	0x2b, r25	; 43
+ 372:	8a bd       	out	0x2a, r24	; 42
+    return TimerOK ; 
+}
+ 374:	81 e0       	ldi	r24, 0x01	; 1
+ 376:	08 95       	ret
+
+00000378 <Timer1_SetOutputCompareRegisterB>:
+inline uint8_t Timer1_SetOutputCompareRegisterB(uint16_t value)
+{
+    OCR1B = value ; 
+ 378:	99 bd       	out	0x29, r25	; 41
+ 37a:	88 bd       	out	0x28, r24	; 40
+    return TimerOK ; 
+}
+ 37c:	81 e0       	ldi	r24, 0x01	; 1
+ 37e:	08 95       	ret
+
+00000380 <Timer1_SetInputCaptureRegister>:
+inline uint8_t Timer1_SetInputCaptureRegister(uint16_t value)
+{
+    ICR1 = value ; 
+ 380:	97 bd       	out	0x27, r25	; 39
+ 382:	86 bd       	out	0x26, r24	; 38
+    return TimerOK ; 
+}
+ 384:	81 e0       	ldi	r24, 0x01	; 1
+ 386:	08 95       	ret
+
+00000388 <__mulsi3>:
+ 388:	db 01       	movw	r26, r22
+ 38a:	8f 93       	push	r24
+ 38c:	9f 93       	push	r25
+ 38e:	0e 94 f3 01 	call	0x3e6	; 0x3e6 <__muluhisi3>
+ 392:	bf 91       	pop	r27
+ 394:	af 91       	pop	r26
+ 396:	a2 9f       	mul	r26, r18
+ 398:	80 0d       	add	r24, r0
+ 39a:	91 1d       	adc	r25, r1
+ 39c:	a3 9f       	mul	r26, r19
+ 39e:	90 0d       	add	r25, r0
+ 3a0:	b2 9f       	mul	r27, r18
+ 3a2:	90 0d       	add	r25, r0
+ 3a4:	11 24       	eor	r1, r1
+ 3a6:	08 95       	ret
+
+000003a8 <__divmodsi4>:
+ 3a8:	05 2e       	mov	r0, r21
+ 3aa:	97 fb       	bst	r25, 7
+ 3ac:	1e f4       	brtc	.+6      	; 0x3b4 <__divmodsi4+0xc>
+ 3ae:	00 94       	com	r0
+ 3b0:	0e 94 eb 01 	call	0x3d6	; 0x3d6 <__negsi2>
+ 3b4:	57 fd       	sbrc	r21, 7
+ 3b6:	07 d0       	rcall	.+14     	; 0x3c6 <__divmodsi4_neg2>
+ 3b8:	0e 94 fe 01 	call	0x3fc	; 0x3fc <__udivmodsi4>
+ 3bc:	07 fc       	sbrc	r0, 7
+ 3be:	03 d0       	rcall	.+6      	; 0x3c6 <__divmodsi4_neg2>
+ 3c0:	4e f4       	brtc	.+18     	; 0x3d4 <__divmodsi4_exit>
+ 3c2:	0c 94 eb 01 	jmp	0x3d6	; 0x3d6 <__negsi2>
+
+000003c6 <__divmodsi4_neg2>:
+ 3c6:	50 95       	com	r21
+ 3c8:	40 95       	com	r20
+ 3ca:	30 95       	com	r19
+ 3cc:	21 95       	neg	r18
+ 3ce:	3f 4f       	sbci	r19, 0xFF	; 255
+ 3d0:	4f 4f       	sbci	r20, 0xFF	; 255
+ 3d2:	5f 4f       	sbci	r21, 0xFF	; 255
+
+000003d4 <__divmodsi4_exit>:
+ 3d4:	08 95       	ret
+
+000003d6 <__negsi2>:
+ 3d6:	90 95       	com	r25
+ 3d8:	80 95       	com	r24
+ 3da:	70 95       	com	r23
+ 3dc:	61 95       	neg	r22
+ 3de:	7f 4f       	sbci	r23, 0xFF	; 255
+ 3e0:	8f 4f       	sbci	r24, 0xFF	; 255
+ 3e2:	9f 4f       	sbci	r25, 0xFF	; 255
+ 3e4:	08 95       	ret
+
+000003e6 <__muluhisi3>:
+ 3e6:	0e 94 20 02 	call	0x440	; 0x440 <__umulhisi3>
+ 3ea:	a5 9f       	mul	r26, r21
+ 3ec:	90 0d       	add	r25, r0
+ 3ee:	b4 9f       	mul	r27, r20
+ 3f0:	90 0d       	add	r25, r0
+ 3f2:	a4 9f       	mul	r26, r20
+ 3f4:	80 0d       	add	r24, r0
+ 3f6:	91 1d       	adc	r25, r1
+ 3f8:	11 24       	eor	r1, r1
+ 3fa:	08 95       	ret
+
+000003fc <__udivmodsi4>:
+ 3fc:	a1 e2       	ldi	r26, 0x21	; 33
+ 3fe:	1a 2e       	mov	r1, r26
+ 400:	aa 1b       	sub	r26, r26
+ 402:	bb 1b       	sub	r27, r27
+ 404:	fd 01       	movw	r30, r26
+ 406:	0d c0       	rjmp	.+26     	; 0x422 <__udivmodsi4_ep>
+
+00000408 <__udivmodsi4_loop>:
+ 408:	aa 1f       	adc	r26, r26
+ 40a:	bb 1f       	adc	r27, r27
+ 40c:	ee 1f       	adc	r30, r30
+ 40e:	ff 1f       	adc	r31, r31
+ 410:	a2 17       	cp	r26, r18
+ 412:	b3 07       	cpc	r27, r19
+ 414:	e4 07       	cpc	r30, r20
+ 416:	f5 07       	cpc	r31, r21
+ 418:	20 f0       	brcs	.+8      	; 0x422 <__udivmodsi4_ep>
+ 41a:	a2 1b       	sub	r26, r18
+ 41c:	b3 0b       	sbc	r27, r19
+ 41e:	e4 0b       	sbc	r30, r20
+ 420:	f5 0b       	sbc	r31, r21
+
+00000422 <__udivmodsi4_ep>:
+ 422:	66 1f       	adc	r22, r22
+ 424:	77 1f       	adc	r23, r23
+ 426:	88 1f       	adc	r24, r24
+ 428:	99 1f       	adc	r25, r25
+ 42a:	1a 94       	dec	r1
+ 42c:	69 f7       	brne	.-38     	; 0x408 <__udivmodsi4_loop>
+ 42e:	60 95       	com	r22
+ 430:	70 95       	com	r23
+ 432:	80 95       	com	r24
+ 434:	90 95       	com	r25
+ 436:	9b 01       	movw	r18, r22
+ 438:	ac 01       	movw	r20, r24
+ 43a:	bd 01       	movw	r22, r26
+ 43c:	cf 01       	movw	r24, r30
+ 43e:	08 95       	ret
+
+00000440 <__umulhisi3>:
+ 440:	a2 9f       	mul	r26, r18
+ 442:	b0 01       	movw	r22, r0
+ 444:	b3 9f       	mul	r27, r19
+ 446:	c0 01       	movw	r24, r0
+ 448:	a3 9f       	mul	r26, r19
+ 44a:	70 0d       	add	r23, r0
+ 44c:	81 1d       	adc	r24, r1
+ 44e:	11 24       	eor	r1, r1
+ 450:	91 1d       	adc	r25, r1
+ 452:	b2 9f       	mul	r27, r18
+ 454:	70 0d       	add	r23, r0
+ 456:	81 1d       	adc	r24, r1
+ 458:	11 24       	eor	r1, r1
+ 45a:	91 1d       	adc	r25, r1
+ 45c:	08 95       	ret
+
+0000045e <_exit>:
+ 45e:	f8 94       	cli
+
+00000460 <__stop_program>:
+ 460:	ff cf       	rjmp	.-2      	; 0x460 <__stop_program>

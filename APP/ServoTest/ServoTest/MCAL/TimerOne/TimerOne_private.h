@@ -59,8 +59,8 @@
 
 /* fast/phase correct PWM */
 
-#define Inverting                        2
-#define NonInverting                     3
+#define Inverting                        3
+#define NonInverting                     2
 
 /* output compare OC1A */
 #define ChannelA                         1

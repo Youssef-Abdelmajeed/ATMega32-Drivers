@@ -126,7 +126,7 @@
     <Compile Include="HAL\Servo\Servo_PRG.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="HAL\Servo\Sevro_private.h">
+    <Compile Include="HAL\Servo\Servo_private.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LIB\BIT_MATH.h">
