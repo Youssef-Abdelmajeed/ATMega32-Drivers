@@ -12,9 +12,6 @@
 #ifndef DIO_INT_H_
 #define DIO_INT_H_
 
-#include "LIB/STD_TYPES.h"
-#include "LIB/BIT_MATH.h"
-
 #define NC 255
 
 typedef enum EN_PinNumber 

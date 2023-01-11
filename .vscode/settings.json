@@ -6,7 +6,9 @@
         "exti_int.h": "c",
         "ADC_PRG.C": "cpp",
         "bit_math.h": "c",
-        "TImerOne_PRG.C": "cpp"
+        "TImerOne_PRG.C": "cpp",
+        "gie_reg.h": "c",
+        "dio_int.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "cSpell.words": [

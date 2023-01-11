@@ -11,7 +11,7 @@
 
 #include "GIE_INT.h"
 #include "GIE_REG.h"
-
+#include "LIB/STD_TYPES.h"
 
 inline void GIE_Enable(void)  {SREG |=  (1<<SREG_I) ;}
 

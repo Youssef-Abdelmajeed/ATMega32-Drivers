@@ -12,8 +12,6 @@
 #ifndef GIE_INT_H_ 
 #define GIE_INT_H_
 
-#include "LIB/STD_TYPES.h"
-
 /* Global Interrupt Enable */
 void GIE_Enable(void)  ; 
 

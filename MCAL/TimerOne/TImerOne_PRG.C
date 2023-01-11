@@ -1,5 +1,5 @@
 /**
- * @file TImerOne_PRG.c
+ * @file TimerOne_PRG.c
  * @author Youssef Abdelmajeed (youssefabdelmajeed77@gmail.com)
  * @brief Timer one implementation file 
  * @version 0.1
@@ -12,7 +12,7 @@
 #include "LIB\STD_TYPES.h"
 #include "TimerOne_REG.h"
 #include "TimerOne_private.h"
-#include "TIMERS_INT.h"
+#include "TimerOne_INT.h"
 
 #define NULL ((void*)0) 
 
@@ -54,7 +54,7 @@ inline uint8_t Timer1_SetWaveMode(uint8_t Wmode)
         /* clear wave generation bits in TCCR1A, TCCR1B */
         TCCR1A &= 0xFC ;
         TCCR1B &= 0xE7 ; 
-        /* Set wave generation bits in TCCR1A,TCCR1B in the right postion */
+        /* Set wave generation bits in TCCR1A,TCCR1B in the right position */
         TCCR1A |= (Wmode&0x03) ;        // Put the LSB bits of Wmode in TCCR1A Bit 1:0
         TCCR1B |= ((Wmode<<1)&(0x18)) ; // Put the MSB bits of Wmode in TCCR1B Bit 4:3 
         ErrorState = TimerOK ; 

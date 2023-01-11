@@ -8,7 +8,8 @@
  * @copyright Copyright (c) 2022
  * 
  */
-
+#include "LIB/STD_TYPES.h"
+#include "LIB/BIT_MATH.h"
 #include "DIO_INT.h"
 #include "DIO_REG.h"
 

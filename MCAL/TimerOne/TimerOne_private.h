@@ -1,3 +1,14 @@
+/**
+ * @file TimeOne_private.h
+ * @author Youssef Abdelmajeed (youssefabdelmajeed77@gmail.com)
+ * @brief Timer one private file 
+ * @version 0.1
+ * @date 2023-01-09
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef TIMER_1_PRIVATE_H_  
 #define TIMER_1_PRIVATE_H_  
 
