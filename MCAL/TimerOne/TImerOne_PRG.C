@@ -80,7 +80,9 @@ uint8_t Timer1_SetOverFlow_Callback(void(*callback)(void))
     /* checks for NULL pointer */
     if (callback!=NULL)
     {
-        NormalMode_Callback = callback ; 
+        NormalMode_Callback = callback ;
+        /*Set Overflow Interrupt Enable */ 
+        setBit(TIMSK1,TIMSK1_TOIE1) ; 
         ErrorState = TimerOK ; 
     }
     else 
@@ -96,6 +98,8 @@ uint8_t Timer1_SetOutputCompareA_Callback(void(*callback)(void))
     if (callback!=NULL)
     {
         COMPA_Callback = callback ; 
+        /*Set Output Compare A Match Interrupt Enable */ 
+        setBit(TIMSK1,TIMSK1_OCIE1A) ; 
         ErrorState = TimerOK ; 
     }
     else 
@@ -111,6 +115,8 @@ uint8_t Timer1_SetOutputCompareB_Callback(void(*callback)(void))
     if (callback!=NULL)
     {
         COMPB_Callback = callback ; 
+        /*Set Output Compare B Match Interrupt Enable */ 
+        setBit(TIMSK1,TIMSK1_OCIE1B) ; 
         ErrorState = TimerOK ; 
     }
     else 
