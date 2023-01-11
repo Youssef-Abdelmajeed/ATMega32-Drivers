@@ -43,7 +43,7 @@ void Servo_Init(void)
 
 	
 }
-int32_t MAP (int32_t x, int32_t min1, int32_t max1, int32_t min2, int32_t max2) {
+static int32_t MAP (int32_t x, int32_t min1, int32_t max1, int32_t min2, int32_t max2) {
 	return (x - min1) * (max2 - min2) / (max1 - min1) + min2;
 }
 uint8_t Servo_Move(uint8_t pin,int16_t angle) 
