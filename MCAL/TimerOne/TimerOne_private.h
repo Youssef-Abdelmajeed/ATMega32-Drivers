@@ -34,5 +34,6 @@
 
 #define TimerOK                          1
 #define WrongSelection                   2
+#define NULL_POINTER                     3
 
 #endif /* TIMER_1_PRIVATE_H_ */

@@ -22,7 +22,7 @@ uint8_t Timer1_SetPrescaler(uint8_t Pmode) ;
  * @brief Set Timer1 wave generation mode 
  * 
  * @param Wmode Timer wave mode
- * @return uint8_t TimerOk in case if the wave mode  is successfully set and WrongSelection otherwise 
+ * @return uint8_t TimerOk in case if the wave mode is successfully set and WrongSelection otherwise 
  */
 uint8_t Timer1_SetWaveMode(uint8_t Wmode) ; 
 /**
@@ -33,5 +33,47 @@ uint8_t Timer1_SetWaveMode(uint8_t Wmode) ;
  * @return uint8_t TimerOk in case if the timer got successfully initalized and WrongSelection otherwise  
  */
 uint8_t Timer1_init(uint8_t Pmode,uint8_t Wmode) ; 
+/**
+ * @brief Set the callback function of the timer1 in Normal mode 
+ * 
+ * @param callback address of the callback function 
+ * @return uint8_t TimerOk in case if the callback successfully got set and NULL_POINTER otherwise 
+ */
+uint8_t  Timer1_SetOverFlow_Callback(void(*callback)(void)) ; 
+/**
+ * @brief Set the output compare match A callback function
+ * 
+ * @param callback address of the callback function 
+ * @return uint8_t TimerOk in case if the callback successfully got set and NULL_POINTER otherwise 
+ */
+uint8_t Timer1_SetOutputCompareA_Callback(void(*callback)(void));
+/**
+ * @brief Set the output compare match B callback function
+ * 
+ * @param callback address of the callback function 
+ * @return uint8_t TimerOk in case if the callback successfully got set and NULL_POINTER otherwise 
+ */
+uint8_t Timer1_SetOutputCompareB_Callback(void(*callback)(void)); 
+/**
+ * @brief set overflow register value 
+ * 
+ * @param value 
+ * @return uint8_t TimerOK 
+ */
+uint8_t Timer1_SetOverFlowRegister(uint16_t value) ; 
+/**
+ * @brief set output compare match A register value 
+ * 
+ * @param value 
+ * @return uint8_t TimerOK 
+ */
+uint8_t Timer1_SetOutputCompareRegisterA(uint16_t value);
+/**
+ * @brief set output compare match B register value 
+ * 
+ * @param value 
+ * @return uint8_t TimerOK 
+ */
+uint8_t Timer1_SetOutputCompareRegisterB(uint16_t value); 
 
 #endif /* TIMER_1_INT_H_ */
