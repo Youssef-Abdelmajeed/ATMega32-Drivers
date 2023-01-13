@@ -8,18 +8,20 @@
 int main(void)
 {
 	Servo_Init() ; 
-	DIO_setPinDirection(PA0,OUTPUT) ; 
+
     while (1) 
     {
 		int i  ; 
 		for(i = -90 ; i<=90 ; i++)
 		{
+			Servo_Move(PD4,(i*-1)) ;
 			Servo_Move(PD5,i) ;
 			_delay_ms(DELAY_TIME) ; 
 		}
 		_delay_ms(DELAY_TIME+50) ;
 		for(i = 90 ; i>=-90 ; i--)
 		{
+			Servo_Move(PD4,(i*-1)) ;
 			Servo_Move(PD5,i) ;
 			_delay_ms(DELAY_TIME) ;
 		}

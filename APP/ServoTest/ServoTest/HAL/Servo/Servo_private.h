@@ -13,7 +13,7 @@
 #define SERVO_PRIVATE_H_
 
 /*Timer1 Channel B*/
-#define  _USE_PD4_			0
+#define  _USE_PD4_			1
 
 /*Timer1 Channel A*/
 #define  _USE_PD5_			1 

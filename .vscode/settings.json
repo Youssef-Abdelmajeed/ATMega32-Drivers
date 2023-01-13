@@ -17,6 +17,7 @@
         "Noprescaler",
         "pmode",
         "prescaler",
+        "USART",
         "Wmode"
     ]
 }
