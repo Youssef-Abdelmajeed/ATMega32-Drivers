@@ -1,0 +1,356 @@
+
+USART_TEST.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         0000023a  00000000  00000000  00000074  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000000  00800060  00800060  000002ae  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000002  00800060  00800060  000002ae  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000002ae  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000002e0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000078  00000000  00000000  0000031c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   00000936  00000000  00000000  00000394  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000006ca  00000000  00000000  00000cca  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000004a9  00000000  00000000  00001394  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000000d0  00000000  00000000  00001840  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    0000043c  00000000  00000000  00001910  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00000361  00000000  00000000  00001d4c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000058  00000000  00000000  000020ad  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   8:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+   c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  10:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  14:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  18:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  1c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  20:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  24:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  28:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  2c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  30:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  34:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  38:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  3c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  40:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  44:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  48:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  4c:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+  50:	0c 94 3c 00 	jmp	0x78	; 0x78 <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_clear_bss>:
+  60:	20 e0       	ldi	r18, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	01 c0       	rjmp	.+2      	; 0x6a <.do_clear_bss_start>
+
+00000068 <.do_clear_bss_loop>:
+  68:	1d 92       	st	X+, r1
+
+0000006a <.do_clear_bss_start>:
+  6a:	a2 36       	cpi	r26, 0x62	; 98
+  6c:	b2 07       	cpc	r27, r18
+  6e:	e1 f7       	brne	.-8      	; 0x68 <.do_clear_bss_loop>
+  70:	0e 94 3e 00 	call	0x7c	; 0x7c <main>
+  74:	0c 94 1b 01 	jmp	0x236	; 0x236 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+0000007c <main>:
+
+void sendString(int8_t * string) ; 
+
+int main(void)
+{
+    USART_Init(USART_8bit,disableParity,oneStopBit);
+  7c:	40 e0       	ldi	r20, 0x00	; 0
+  7e:	60 e0       	ldi	r22, 0x00	; 0
+  80:	83 e0       	ldi	r24, 0x03	; 3
+  82:	0e 94 9c 00 	call	0x138	; 0x138 <USART_Init>
+	USART_SetBaudRate(9600); 
+  86:	80 e8       	ldi	r24, 0x80	; 128
+  88:	95 e2       	ldi	r25, 0x25	; 37
+  8a:	0e 94 c3 00 	call	0x186	; 0x186 <USART_SetBaudRate>
+	 
+	//sendString("Hi I am Youssef") ;
+	
+    while (1) 
+    {
+		USART_Send((int8_t)'A') ;
+  8e:	81 e4       	ldi	r24, 0x41	; 65
+  90:	90 e0       	ldi	r25, 0x00	; 0
+  92:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <USART_Send>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  96:	2f ef       	ldi	r18, 0xFF	; 255
+  98:	89 e6       	ldi	r24, 0x69	; 105
+  9a:	98 e1       	ldi	r25, 0x18	; 24
+  9c:	21 50       	subi	r18, 0x01	; 1
+  9e:	80 40       	sbci	r24, 0x00	; 0
+  a0:	90 40       	sbci	r25, 0x00	; 0
+  a2:	e1 f7       	brne	.-8      	; 0x9c <main+0x20>
+  a4:	00 c0       	rjmp	.+0      	; 0xa6 <main+0x2a>
+  a6:	00 00       	nop
+  a8:	f2 cf       	rjmp	.-28     	; 0x8e <main+0x12>
+
+000000aa <USART_SelectDataSize>:
+        /* Frame Error */
+        return FRAME_ERROR ; 
+   }
+
+   return UART_OK ; 
+}
+  aa:	88 30       	cpi	r24, 0x08	; 8
+  ac:	c0 f4       	brcc	.+48     	; 0xde <USART_SelectDataSize+0x34>
+  ae:	84 30       	cpi	r24, 0x04	; 4
+  b0:	c1 f0       	breq	.+48     	; 0xe2 <USART_SelectDataSize+0x38>
+  b2:	85 30       	cpi	r24, 0x05	; 5
+  b4:	c1 f0       	breq	.+48     	; 0xe6 <USART_SelectDataSize+0x3c>
+  b6:	86 30       	cpi	r24, 0x06	; 6
+  b8:	c1 f0       	breq	.+48     	; 0xea <USART_SelectDataSize+0x40>
+  ba:	80 93 61 00 	sts	0x0061, r24	; 0x800061 <global_No_of_Bits>
+  be:	9b b1       	in	r25, 0x0b	; 11
+  c0:	28 2f       	mov	r18, r24
+  c2:	24 70       	andi	r18, 0x04	; 4
+  c4:	92 2b       	or	r25, r18
+  c6:	9b b9       	out	0x0b, r25	; 11
+  c8:	83 70       	andi	r24, 0x03	; 3
+  ca:	90 e0       	ldi	r25, 0x00	; 0
+  cc:	88 0f       	add	r24, r24
+  ce:	99 1f       	adc	r25, r25
+  d0:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  d4:	89 2b       	or	r24, r25
+  d6:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+  da:	82 e0       	ldi	r24, 0x02	; 2
+  dc:	08 95       	ret
+  de:	81 e0       	ldi	r24, 0x01	; 1
+  e0:	08 95       	ret
+  e2:	81 e0       	ldi	r24, 0x01	; 1
+  e4:	08 95       	ret
+  e6:	81 e0       	ldi	r24, 0x01	; 1
+  e8:	08 95       	ret
+  ea:	81 e0       	ldi	r24, 0x01	; 1
+  ec:	08 95       	ret
+
+000000ee <USART_SetParity>:
+  ee:	84 30       	cpi	r24, 0x04	; 4
+  f0:	68 f4       	brcc	.+26     	; 0x10c <USART_SetParity+0x1e>
+  f2:	81 30       	cpi	r24, 0x01	; 1
+  f4:	69 f0       	breq	.+26     	; 0x110 <USART_SetParity+0x22>
+  f6:	20 e1       	ldi	r18, 0x10	; 16
+  f8:	82 9f       	mul	r24, r18
+  fa:	c0 01       	movw	r24, r0
+  fc:	11 24       	eor	r1, r1
+  fe:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 102:	89 2b       	or	r24, r25
+ 104:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 108:	82 e0       	ldi	r24, 0x02	; 2
+ 10a:	08 95       	ret
+ 10c:	83 e0       	ldi	r24, 0x03	; 3
+ 10e:	08 95       	ret
+ 110:	83 e0       	ldi	r24, 0x03	; 3
+ 112:	08 95       	ret
+
+00000114 <USART_SetStopBits>:
+ 114:	82 30       	cpi	r24, 0x02	; 2
+ 116:	70 f4       	brcc	.+28     	; 0x134 <USART_SetStopBits+0x20>
+ 118:	90 e0       	ldi	r25, 0x00	; 0
+ 11a:	88 0f       	add	r24, r24
+ 11c:	99 1f       	adc	r25, r25
+ 11e:	88 0f       	add	r24, r24
+ 120:	99 1f       	adc	r25, r25
+ 122:	88 0f       	add	r24, r24
+ 124:	99 1f       	adc	r25, r25
+ 126:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 12a:	89 2b       	or	r24, r25
+ 12c:	80 93 60 00 	sts	0x0060, r24	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 130:	82 e0       	ldi	r24, 0x02	; 2
+ 132:	08 95       	ret
+ 134:	84 e0       	ldi	r24, 0x04	; 4
+ 136:	08 95       	ret
+
+00000138 <USART_Init>:
+ 138:	cf 93       	push	r28
+ 13a:	df 93       	push	r29
+ 13c:	c6 2f       	mov	r28, r22
+ 13e:	d4 2f       	mov	r29, r20
+ 140:	90 e8       	ldi	r25, 0x80	; 128
+ 142:	90 93 60 00 	sts	0x0060, r25	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 146:	9a b1       	in	r25, 0x0a	; 10
+ 148:	98 60       	ori	r25, 0x08	; 8
+ 14a:	9a b9       	out	0x0a, r25	; 10
+ 14c:	9a b1       	in	r25, 0x0a	; 10
+ 14e:	92 60       	ori	r25, 0x02	; 2
+ 150:	9a b9       	out	0x0a, r25	; 10
+ 152:	0e 94 55 00 	call	0xaa	; 0xaa <USART_SelectDataSize>
+ 156:	82 30       	cpi	r24, 0x02	; 2
+ 158:	71 f4       	brne	.+28     	; 0x176 <USART_Init+0x3e>
+ 15a:	8c 2f       	mov	r24, r28
+ 15c:	0e 94 77 00 	call	0xee	; 0xee <USART_SetParity>
+ 160:	82 30       	cpi	r24, 0x02	; 2
+ 162:	59 f4       	brne	.+22     	; 0x17a <USART_Init+0x42>
+ 164:	8d 2f       	mov	r24, r29
+ 166:	0e 94 8a 00 	call	0x114	; 0x114 <USART_SetStopBits>
+ 16a:	82 30       	cpi	r24, 0x02	; 2
+ 16c:	41 f4       	brne	.+16     	; 0x17e <USART_Init+0x46>
+ 16e:	90 91 60 00 	lds	r25, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+ 172:	90 bd       	out	0x20, r25	; 32
+ 174:	05 c0       	rjmp	.+10     	; 0x180 <USART_Init+0x48>
+ 176:	81 e0       	ldi	r24, 0x01	; 1
+ 178:	03 c0       	rjmp	.+6      	; 0x180 <USART_Init+0x48>
+ 17a:	83 e0       	ldi	r24, 0x03	; 3
+ 17c:	01 c0       	rjmp	.+2      	; 0x180 <USART_Init+0x48>
+ 17e:	84 e0       	ldi	r24, 0x04	; 4
+ 180:	df 91       	pop	r29
+ 182:	cf 91       	pop	r28
+ 184:	08 95       	ret
+
+00000186 <USART_SetBaudRate>:
+ 186:	a0 e0       	ldi	r26, 0x00	; 0
+ 188:	b0 e0       	ldi	r27, 0x00	; 0
+ 18a:	88 0f       	add	r24, r24
+ 18c:	99 1f       	adc	r25, r25
+ 18e:	aa 1f       	adc	r26, r26
+ 190:	bb 1f       	adc	r27, r27
+ 192:	88 0f       	add	r24, r24
+ 194:	99 1f       	adc	r25, r25
+ 196:	aa 1f       	adc	r26, r26
+ 198:	bb 1f       	adc	r27, r27
+ 19a:	9c 01       	movw	r18, r24
+ 19c:	ad 01       	movw	r20, r26
+ 19e:	22 0f       	add	r18, r18
+ 1a0:	33 1f       	adc	r19, r19
+ 1a2:	44 1f       	adc	r20, r20
+ 1a4:	55 1f       	adc	r21, r21
+ 1a6:	22 0f       	add	r18, r18
+ 1a8:	33 1f       	adc	r19, r19
+ 1aa:	44 1f       	adc	r20, r20
+ 1ac:	55 1f       	adc	r21, r21
+ 1ae:	60 e0       	ldi	r22, 0x00	; 0
+ 1b0:	72 e1       	ldi	r23, 0x12	; 18
+ 1b2:	8a e7       	ldi	r24, 0x7A	; 122
+ 1b4:	90 e0       	ldi	r25, 0x00	; 0
+ 1b6:	0e 94 f9 00 	call	0x1f2	; 0x1f2 <__udivmodsi4>
+ 1ba:	21 50       	subi	r18, 0x01	; 1
+ 1bc:	31 09       	sbc	r19, r1
+ 1be:	21 15       	cp	r18, r1
+ 1c0:	80 e1       	ldi	r24, 0x10	; 16
+ 1c2:	38 07       	cpc	r19, r24
+ 1c4:	20 f4       	brcc	.+8      	; 0x1ce <USART_SetBaudRate+0x48>
+ 1c6:	29 b9       	out	0x09, r18	; 9
+ 1c8:	30 bd       	out	0x20, r19	; 32
+ 1ca:	82 e0       	ldi	r24, 0x02	; 2
+ 1cc:	08 95       	ret
+ 1ce:	85 e0       	ldi	r24, 0x05	; 5
+ 1d0:	08 95       	ret
+
+000001d2 <USART_Send>:
+uint8_t USART_Send(int16_t data)
+{
+    /* wait till data register is empty */
+    while (!getBit(UCSRA,UCSRA_UDRE)); 
+ 1d2:	5d 9b       	sbis	0x0b, 5	; 11
+ 1d4:	fe cf       	rjmp	.-4      	; 0x1d2 <USART_Send>
+
+    if(global_No_of_Bits==USART_9bit)
+ 1d6:	20 91 61 00 	lds	r18, 0x0061	; 0x800061 <global_No_of_Bits>
+ 1da:	27 30       	cpi	r18, 0x07	; 7
+ 1dc:	39 f4       	brne	.+14     	; 0x1ec <USART_Send+0x1a>
+    {
+        /*clear the ninth data bit of data*/
+        UCSRB &= UCSRB_TXB8_MASK ; 
+ 1de:	2a b1       	in	r18, 0x0a	; 10
+ 1e0:	2e 7f       	andi	r18, 0xFE	; 254
+ 1e2:	2a b9       	out	0x0a, r18	; 10
+        
+        /* Set the new ninth data bit */
+        UCSRB|= getBit(data,8) ; 
+ 1e4:	2a b1       	in	r18, 0x0a	; 10
+ 1e6:	91 70       	andi	r25, 0x01	; 1
+ 1e8:	92 2b       	or	r25, r18
+ 1ea:	9a b9       	out	0x0a, r25	; 10
+    }
+
+    /* send the first 8 bit of data */
+    UDR = (uint8_t)data ;  
+ 1ec:	8c b9       	out	0x0c, r24	; 12
+
+	return UART_OK ; 
+ 1ee:	82 e0       	ldi	r24, 0x02	; 2
+ 1f0:	08 95       	ret
+
+000001f2 <__udivmodsi4>:
+ 1f2:	a1 e2       	ldi	r26, 0x21	; 33
+ 1f4:	1a 2e       	mov	r1, r26
+ 1f6:	aa 1b       	sub	r26, r26
+ 1f8:	bb 1b       	sub	r27, r27
+ 1fa:	fd 01       	movw	r30, r26
+ 1fc:	0d c0       	rjmp	.+26     	; 0x218 <__udivmodsi4_ep>
+
+000001fe <__udivmodsi4_loop>:
+ 1fe:	aa 1f       	adc	r26, r26
+ 200:	bb 1f       	adc	r27, r27
+ 202:	ee 1f       	adc	r30, r30
+ 204:	ff 1f       	adc	r31, r31
+ 206:	a2 17       	cp	r26, r18
+ 208:	b3 07       	cpc	r27, r19
+ 20a:	e4 07       	cpc	r30, r20
+ 20c:	f5 07       	cpc	r31, r21
+ 20e:	20 f0       	brcs	.+8      	; 0x218 <__udivmodsi4_ep>
+ 210:	a2 1b       	sub	r26, r18
+ 212:	b3 0b       	sbc	r27, r19
+ 214:	e4 0b       	sbc	r30, r20
+ 216:	f5 0b       	sbc	r31, r21
+
+00000218 <__udivmodsi4_ep>:
+ 218:	66 1f       	adc	r22, r22
+ 21a:	77 1f       	adc	r23, r23
+ 21c:	88 1f       	adc	r24, r24
+ 21e:	99 1f       	adc	r25, r25
+ 220:	1a 94       	dec	r1
+ 222:	69 f7       	brne	.-38     	; 0x1fe <__udivmodsi4_loop>
+ 224:	60 95       	com	r22
+ 226:	70 95       	com	r23
+ 228:	80 95       	com	r24
+ 22a:	90 95       	com	r25
+ 22c:	9b 01       	movw	r18, r22
+ 22e:	ac 01       	movw	r20, r24
+ 230:	bd 01       	movw	r22, r26
+ 232:	cf 01       	movw	r24, r30
+ 234:	08 95       	ret
+
+00000236 <_exit>:
+ 236:	f8 94       	cli
+
+00000238 <__stop_program>:
+ 238:	ff cf       	rjmp	.-2      	; 0x238 <__stop_program>
