@@ -74,12 +74,12 @@ uint8_t USART_Init(uint8_t dataSize, uint8_t parityMode, uint8_t stopBits)
 {
     /* initialized UCSRC placeholder and select UCSRC */
     UCSRC_TEMP = 0 ;
-	
+	/* Select UCSRC Register */ 
 	setBit(UCSRC_TEMP,UCSRC_URSEL) ;
-	
+	/* TX enable */
 	setBit(UCSRB,UCSRB_TXEN) ;
-	
-	setBit(UCSRB,UCSRB_RXB8) ;
+	/* RX enable */
+	setBit(UCSRB,UCSRB_RXEN) ;
 
     if(USART_SelectDataSize(dataSize)!=UART_OK)
     {
@@ -110,25 +110,17 @@ uint8_t USART_SetBaudRate(uint16_t baudRate)
     {
         errorState = UART_OK ;
         /* Set LSB */ 
-        UBRRL = UBRR_Value ; 
+        UBRRL = (uint8_t)UBRR_Value ; 
         /* Set MSB */
-        UBRRH = UBRR_Value>>8 ;
+        UBRRH = (uint8_t)UBRR_Value>>8 ;
     }
     return errorState ; 
 }
-uint8_t USART_Receive(int16_t *result)
+uint8_t USART_Receive(uint16_t *data)
 {
-    
     /* wait for data */
     while (!getBit(UCSRA,UCSRA_RXC)) ; 
-    
-    *result = UDR ;  
-    
-    if(global_No_of_Bits==USART_9bit)
-    {
-        /* Get the ninth data bit of the received character */
-        *result |= (getBit(UCSRB,UCSRB_RXB8)<<8); 
-    }
+  
     if(getBit(UCSRA,UCSRA_PE))
     {
         /* Parity Error */
@@ -141,13 +133,20 @@ uint8_t USART_Receive(int16_t *result)
     }
     if(getBit(UCSRA,UCSRA_FE))
    {
-        /* Frame Error */
+		/* Frame Error */
         return FRAME_ERROR ; 
    }
-
+   
+   *data = UDR ; 
+   if(global_No_of_Bits==USART_9bit)
+   {
+		/* Get the ninth data bit of the received character */
+		*data |= (getBit(UCSRB,UCSRB_RXB8)<<8);
+   }
+ 
    return UART_OK ; 
 }
-uint8_t USART_Send(int16_t data)
+uint8_t USART_Send(uint16_t data)
 {
     /* wait till data register is empty */
     while (!getBit(UCSRA,UCSRA_UDRE)); 

@@ -4,12 +4,15 @@ d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
                               USART_PRG.o (__udivmodsi4)
 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
                               D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o (exit)
+d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+                              DIO_PRG.o (__do_copy_data)
 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                              USART_PRG.o (__do_clear_bss)
+                              main.o (__do_clear_bss)
 
 Allocating common symbols
 Common symbol       size              file
 
+Data_in             0x2               main.o
 UCSRC_TEMP          0x1               USART_PRG.o
 global_No_of_Bits   0x1               USART_PRG.o
 
@@ -17,16 +20,21 @@ Discarded input sections
 
  .data          0x00000000        0x0 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
  .bss           0x00000000        0x0 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
+ .text          0x00000000        0x0 DIO_PRG.o
+ .data          0x00000000        0x0 DIO_PRG.o
+ .bss           0x00000000        0x0 DIO_PRG.o
+ .text.DIO_setPinDirection
+                0x00000000       0xd8 DIO_PRG.o
+ .text.DIO_getPinValue
+                0x00000000       0x7a DIO_PRG.o
+ .text.DIO_setPortValue
+                0x00000000       0x1e DIO_PRG.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
- .text.sendString
-                0x00000000       0x24 main.o
  .text          0x00000000        0x0 USART_PRG.o
  .data          0x00000000        0x0 USART_PRG.o
  .bss           0x00000000        0x0 USART_PRG.o
- .text.USART_Receive
-                0x00000000       0x44 USART_PRG.o
  .text          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
  .data          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
  .bss           0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
@@ -57,6 +65,22 @@ Discarded input sections
                 0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  .text.libgcc.fixed
                 0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.mul
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.div
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
  .text          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
  .data          0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
  .bss           0x00000000        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
@@ -89,6 +113,7 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
+LOAD DIO_PRG.o
 LOAD main.o
 LOAD USART_PRG.o
 START GROUP
@@ -200,7 +225,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x23a
+.text           0x00000000      0x426
  *(.vectors)
  .vectors       0x00000000       0x54 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -241,8 +266,10 @@ END GROUP
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000060       0x10 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                0x00000060                __do_clear_bss
+ .init4         0x00000060       0x16 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+                0x00000060                __do_copy_data
+ .init4         0x00000076       0x10 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
+                0x00000076                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -253,58 +280,70 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000070        0x8 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
+ .init9         0x00000086        0x8 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
  *(.init9)
  *(.text)
- .text          0x00000078        0x4 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
-                0x00000078                __vector_1
-                0x00000078                __vector_12
-                0x00000078                __bad_interrupt
-                0x00000078                __vector_6
-                0x00000078                __vector_3
-                0x00000078                __vector_11
-                0x00000078                __vector_13
-                0x00000078                __vector_17
-                0x00000078                __vector_19
-                0x00000078                __vector_7
-                0x00000078                __vector_5
-                0x00000078                __vector_4
-                0x00000078                __vector_9
-                0x00000078                __vector_2
-                0x00000078                __vector_15
-                0x00000078                __vector_8
-                0x00000078                __vector_14
-                0x00000078                __vector_10
-                0x00000078                __vector_16
-                0x00000078                __vector_18
-                0x00000078                __vector_20
-                0x0000007c                . = ALIGN (0x2)
+ .text          0x0000008e        0x4 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
+                0x0000008e                __vector_1
+                0x0000008e                __vector_12
+                0x0000008e                __bad_interrupt
+                0x0000008e                __vector_6
+                0x0000008e                __vector_3
+                0x0000008e                __vector_11
+                0x0000008e                __vector_13
+                0x0000008e                __vector_17
+                0x0000008e                __vector_19
+                0x0000008e                __vector_7
+                0x0000008e                __vector_5
+                0x0000008e                __vector_4
+                0x0000008e                __vector_9
+                0x0000008e                __vector_2
+                0x0000008e                __vector_15
+                0x0000008e                __vector_8
+                0x0000008e                __vector_14
+                0x0000008e                __vector_10
+                0x0000008e                __vector_16
+                0x0000008e                __vector_18
+                0x0000008e                __vector_20
+                0x00000092                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x0000007c       0x2e main.o
-                0x0000007c                main
+ .text.DIO_setPinValue
+                0x00000092       0xb8 DIO_PRG.o
+                0x00000092                DIO_setPinValue
+ .text.DIO_setPortDirection
+                0x0000014a       0x4e DIO_PRG.o
+                0x0000014a                DIO_setPortDirection
+ .text.sendString
+                0x00000198       0x20 main.o
+                0x00000198                sendString
+ .text.main     0x000001b8       0x94 main.o
+                0x000001b8                main
  .text.USART_SelectDataSize
-                0x000000aa       0x44 USART_PRG.o
+                0x0000024c       0x44 USART_PRG.o
  .text.USART_SetParity
-                0x000000ee       0x26 USART_PRG.o
+                0x00000290       0x26 USART_PRG.o
  .text.USART_SetStopBits
-                0x00000114       0x24 USART_PRG.o
+                0x000002b6       0x24 USART_PRG.o
  .text.USART_Init
-                0x00000138       0x4e USART_PRG.o
-                0x00000138                USART_Init
+                0x000002da       0x4e USART_PRG.o
+                0x000002da                USART_Init
  .text.USART_SetBaudRate
-                0x00000186       0x4c USART_PRG.o
-                0x00000186                USART_SetBaudRate
+                0x00000328       0x4c USART_PRG.o
+                0x00000328                USART_SetBaudRate
+ .text.USART_Receive
+                0x00000374       0x4a USART_PRG.o
+                0x00000374                USART_Receive
  .text.USART_Send
-                0x000001d2       0x20 USART_PRG.o
-                0x000001d2                USART_Send
+                0x000003be       0x20 USART_PRG.o
+                0x000003be                USART_Send
  .text.libgcc.div
-                0x000001f2       0x44 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x000001f2                __udivmodsi4
-                0x00000236                . = ALIGN (0x2)
+                0x000003de       0x44 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x000003de                __udivmodsi4
+                0x00000422                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000236        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000236                _exit
-                0x00000236                exit
+ .fini9         0x00000422        0x0 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000422                _exit
+                0x00000422                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -323,39 +362,47 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000236        0x4 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000422        0x4 d:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000023a                _etext = .
+                0x00000426                _etext = .
 
-.data           0x00800060        0x0 load address 0x0000023a
-                [!provide]                PROVIDE (__data_start, .)
+.data           0x00800060       0x56 load address 0x00000426
+                0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
+ .data.DIO_Registers
+                0x00800060       0x18 DIO_PRG.o
+                0x00800060                DIO_Registers
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
+ .rodata.str1.1
+                0x00800078       0x3d main.o
  *(.gnu.linkonce.r*)
-                0x00800060                . = ALIGN (0x2)
-                0x00800060                _edata = .
-                [!provide]                PROVIDE (__data_end, .)
+                0x008000b6                . = ALIGN (0x2)
+ *fill*         0x008000b5        0x1 
+                0x008000b6                _edata = .
+                0x008000b6                PROVIDE (__data_end, .)
 
-.bss            0x00800060        0x2
-                0x00800060                PROVIDE (__bss_start, .)
+.bss            0x008000b6        0x4
+                0x008000b6                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800060        0x2 USART_PRG.o
-                0x00800060                UCSRC_TEMP
-                0x00800061                global_No_of_Bits
-                0x00800062                PROVIDE (__bss_end, .)
-                0x0000023a                __data_load_start = LOADADDR (.data)
-                0x0000023a                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000b6        0x2 main.o
+                0x008000b6                Data_in
+ COMMON         0x008000b8        0x2 USART_PRG.o
+                0x008000b8                UCSRC_TEMP
+                0x008000b9                global_No_of_Bits
+                0x008000ba                PROVIDE (__bss_end, .)
+                0x00000426                __data_load_start = LOADADDR (.data)
+                0x0000047c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800062        0x0
+.noinit         0x008000ba        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800062                _end = .
+                0x008000ba                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -397,8 +444,9 @@ END GROUP
 
 .comment        0x00000000       0x30
  *(.comment)
- .comment       0x00000000       0x30 main.o
+ .comment       0x00000000       0x30 DIO_PRG.o
                                  0x31 (size before relaxing)
+ .comment       0x00000030       0x31 main.o
  .comment       0x00000030       0x31 USART_PRG.o
 
 .note.gnu.avr.deviceinfo
@@ -421,51 +469,60 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x78
+.debug_aranges  0x00000000       0xb8
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x28 main.o
+                0x00000000       0x40 DIO_PRG.o
  .debug_aranges
-                0x00000028       0x50 USART_PRG.o
+                0x00000040       0x28 main.o
+ .debug_aranges
+                0x00000068       0x50 USART_PRG.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x936
+.debug_info     0x00000000     0x1002
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x4e6 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_info    0x000004e6      0x1bf main.o
- .debug_info    0x000006a5      0x291 USART_PRG.o
+ .debug_info    0x000004e6      0x4b7 DIO_PRG.o
+ .debug_info    0x0000099d      0x3df main.o
+ .debug_info    0x00000d7c      0x286 USART_PRG.o
 
-.debug_abbrev   0x00000000      0x6ca
+.debug_abbrev   0x00000000      0x7d7
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4a3 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_abbrev  0x000004a3      0x13c main.o
- .debug_abbrev  0x000005df       0xeb USART_PRG.o
+ .debug_abbrev  0x000004a3      0x14a DIO_PRG.o
+ .debug_abbrev  0x000005ed       0xff main.o
+ .debug_abbrev  0x000006ec       0xeb USART_PRG.o
 
-.debug_line     0x00000000      0x4a9
+.debug_line     0x00000000      0x6a6
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x116 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_line    0x00000116      0x161 main.o
- .debug_line    0x00000277      0x232 USART_PRG.o
+ .debug_line    0x00000116      0x257 DIO_PRG.o
+ .debug_line    0x0000036d      0x101 main.o
+ .debug_line    0x0000046e      0x238 USART_PRG.o
 
-.debug_frame    0x00000000       0xd0
+.debug_frame    0x00000000      0x134
  *(.debug_frame)
- .debug_frame   0x00000000       0x40 main.o
- .debug_frame   0x00000040       0x90 USART_PRG.o
+ .debug_frame   0x00000000       0x64 DIO_PRG.o
+ .debug_frame   0x00000064       0x40 main.o
+ .debug_frame   0x000000a4       0x90 USART_PRG.o
 
-.debug_str      0x00000000      0x43c
+.debug_str      0x00000000      0x577
  *(.debug_str)
  .debug_str     0x00000000      0x196 D:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.7.374/gcc/dev/atmega32/avr5/crtatmega32.o
- .debug_str     0x00000196      0x1bd main.o
-                                0x1f8 (size before relaxing)
- .debug_str     0x00000353       0xe9 USART_PRG.o
-                                0x269 (size before relaxing)
+ .debug_str     0x00000196      0x2d1 DIO_PRG.o
+                                0x2f1 (size before relaxing)
+ .debug_str     0x00000467       0x6a main.o
+                                0x26b (size before relaxing)
+ .debug_str     0x000004d1       0xa6 USART_PRG.o
+                                0x25a (size before relaxing)
 
-.debug_loc      0x00000000      0x361
+.debug_loc      0x00000000      0x6aa
  *(.debug_loc)
- .debug_loc     0x00000000       0x57 main.o
- .debug_loc     0x00000057      0x30a USART_PRG.o
+ .debug_loc     0x00000000      0x32f DIO_PRG.o
+ .debug_loc     0x0000032f       0x57 main.o
+ .debug_loc     0x00000386      0x324 USART_PRG.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -485,10 +542,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0x58
+.debug_ranges   0x00000000       0x88
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x18 main.o
- .debug_ranges  0x00000018       0x40 USART_PRG.o
+ .debug_ranges  0x00000000       0x30 DIO_PRG.o
+ .debug_ranges  0x00000030       0x18 main.o
+ .debug_ranges  0x00000048       0x40 USART_PRG.o
 
 .debug_macro
  *(.debug_macro)

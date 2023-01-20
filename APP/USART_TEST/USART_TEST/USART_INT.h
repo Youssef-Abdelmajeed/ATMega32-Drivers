@@ -73,13 +73,13 @@ uint8_t USART_SetBaudRate(uint16_t baudRate) ;
  * @param result the received data 
  * @return uint8_t error state 
  */
-uint8_t USART_Receive(int16_t *result); 
+uint8_t USART_Receive(uint16_t *data);
 /**
  * @brief Send data using USART protocol 
  * 
  * @param data data to be send
  * @return uint8_t error state 
  */
-uint8_t USART_Send(int16_t data); 
+uint8_t USART_Send(uint16_t data);
 
 #endif /*USART_INT_H_*/
