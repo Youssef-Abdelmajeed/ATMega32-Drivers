@@ -58,16 +58,20 @@ static uint8_t USART_SetParity(uint8_t parityMode)
 static uint8_t USART_SetStopBits(uint8_t StopBits)
 {
     uint8_t errorState  ; 
-    if(StopBits>1)
-    {
-        errorState = WRONG_STOP_BITS ; 
-    }
-    else
-    {
-        /* set stop bit in UCSRC placeholder bit 3 */
-        UCSRC_TEMP |=(StopBits<<3) ;
-        errorState = UART_OK ; 
-    }
+	if (StopBits==oneStopBit)
+	{
+		clearBit(UCSRC_TEMP,UCSRC_USBS) ;
+		errorState = UART_OK ; 
+	}
+	else if (StopBits==twoStopBits)
+	{
+		setBit(UCSRC_TEMP,UCSRC_USBS) ; 
+		errorState = UART_OK ; 
+	}
+	else
+	{
+		errorState = WRONG_STOP_BITS ; 
+	}
     return errorState ; 
 }
 uint8_t USART_Init(uint8_t dataSize, uint8_t parityMode, uint8_t stopBits)

@@ -70,7 +70,7 @@ uint8_t USART_SetBaudRate(uint16_t baudRate) ;
 /**
  * @brief Receive data using USART protocol 
  * 
- * @param data the received data 
+ * @param result the received data 
  * @return uint8_t error state 
  */
 uint8_t USART_Receive(uint16_t *data);
