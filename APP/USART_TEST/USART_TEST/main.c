@@ -8,7 +8,7 @@ void sendString(int8_t * string) ;
 uint16_t Data_in ; 
 int main(void)
 {
-    USART_Init(USART_8bit,disableParity,oneStopBit);
+    USART_Init(USART_8bit,evenParity,twoStopBits);
 	
 	USART_SetBaudRate(9600); 
 	 

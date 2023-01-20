@@ -3,31 +3,31 @@ USART_TEST.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000426  00000000  00000000  00000094  2**1
+  0 .text         0000042a  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000056  00800060  00000426  000004ba  2**0
+  1 .data         00000056  00800060  0000042a  000004be  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000004  008000b6  008000b6  00000510  2**0
+  2 .bss          00000004  008000b6  008000b6  00000514  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  00000510  2**0
+  3 .comment      00000030  00000000  00000000  00000514  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000540  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000544  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 000000b8  00000000  00000000  0000057c  2**0
+  5 .debug_aranges 000000b8  00000000  00000000  00000580  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001002  00000000  00000000  00000634  2**0
+  6 .debug_info   00001002  00000000  00000000  00000638  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000007d7  00000000  00000000  00001636  2**0
+  7 .debug_abbrev 000007d7  00000000  00000000  0000163a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000006a6  00000000  00000000  00001e0d  2**0
+  8 .debug_line   000006b8  00000000  00000000  00001e11  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000134  00000000  00000000  000024b4  2**2
+  9 .debug_frame  00000134  00000000  00000000  000024cc  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000577  00000000  00000000  000025e8  2**0
+ 10 .debug_str    00000577  00000000  00000000  00002600  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000006aa  00000000  00000000  00002b5f  2**0
+ 11 .debug_loc    000006cf  00000000  00000000  00002b77  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000088  00000000  00000000  00003209  2**0
+ 12 .debug_ranges 00000088  00000000  00000000  00003246  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,7 +67,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e6 e2       	ldi	r30, 0x26	; 38
+  66:	ea e2       	ldi	r30, 0x2A	; 42
   68:	f4 e0       	ldi	r31, 0x04	; 4
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -90,7 +90,7 @@ Disassembly of section .text:
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 dc 00 	call	0x1b8	; 0x1b8 <main>
-  8a:	0c 94 11 02 	jmp	0x422	; 0x422 <_exit>
+  8a:	0c 94 13 02 	jmp	0x426	; 0x426 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -275,7 +275,7 @@ void sendString(int8_t * string)
 	{
 		if (USART_Send(*string)==UART_OK)
  1a0:	90 e0       	ldi	r25, 0x00	; 0
- 1a2:	0e 94 df 01 	call	0x3be	; 0x3be <USART_Send>
+ 1a2:	0e 94 e1 01 	call	0x3c2	; 0x3c2 <USART_Send>
  1a6:	82 30       	cpi	r24, 0x02	; 2
  1a8:	09 f4       	brne	.+2      	; 0x1ac <sendString+0x14>
 		{
@@ -305,22 +305,22 @@ void sendString(int8_t * string) ;
 uint16_t Data_in ; 
 int main(void)
 {
-    USART_Init(USART_8bit,disableParity,oneStopBit);
- 1b8:	40 e0       	ldi	r20, 0x00	; 0
- 1ba:	60 e0       	ldi	r22, 0x00	; 0
+    USART_Init(USART_8bit,evenParity,twoStopBits);
+ 1b8:	41 e0       	ldi	r20, 0x01	; 1
+ 1ba:	62 e0       	ldi	r22, 0x02	; 2
  1bc:	83 e0       	ldi	r24, 0x03	; 3
- 1be:	0e 94 6d 01 	call	0x2da	; 0x2da <USART_Init>
+ 1be:	0e 94 6f 01 	call	0x2de	; 0x2de <USART_Init>
 	
 	USART_SetBaudRate(9600); 
  1c2:	80 e8       	ldi	r24, 0x80	; 128
  1c4:	95 e2       	ldi	r25, 0x25	; 37
- 1c6:	0e 94 94 01 	call	0x328	; 0x328 <USART_SetBaudRate>
+ 1c6:	0e 94 96 01 	call	0x32c	; 0x32c <USART_SetBaudRate>
 	 
 	DIO_setPortDirection(PORTA,OUTPUT) ;
  1ca:	61 e0       	ldi	r22, 0x01	; 1
  1cc:	80 e0       	ldi	r24, 0x00	; 0
  1ce:	0e 94 a5 00 	call	0x14a	; 0x14a <DIO_setPortDirection>
-		sendString("HI Iam youssef :)") ;
+		sendString("HI I am Youssef :)") ;
 		sendString("\r\n") ;
 		sendString("HI in new line ");
 		sendString("\r\n") ;
@@ -328,7 +328,7 @@ int main(void)
 		USART_Receive(&Data_in) ; 
  1d2:	86 eb       	ldi	r24, 0xB6	; 182
  1d4:	90 e0       	ldi	r25, 0x00	; 0
- 1d6:	0e 94 ba 01 	call	0x374	; 0x374 <USART_Receive>
+ 1d6:	0e 94 bc 01 	call	0x378	; 0x378 <USART_Receive>
 		if (Data_in=='A')
  1da:	80 91 b6 00 	lds	r24, 0x00B6	; 0x8000b6 <__data_end>
  1de:	90 91 b7 00 	lds	r25, 0x00B7	; 0x8000b7 <__data_end+0x1>
@@ -507,363 +507,359 @@ static uint8_t USART_SetParity(uint8_t parityMode)
 static uint8_t USART_SetStopBits(uint8_t StopBits)
 {
     uint8_t errorState  ; 
-    if(StopBits>1)
- 2b6:	82 30       	cpi	r24, 0x02	; 2
- 2b8:	70 f4       	brcc	.+28     	; 0x2d6 <USART_SetStopBits+0x20>
-        errorState = WRONG_STOP_BITS ; 
-    }
-    else
-    {
-        /* set stop bit in UCSRC placeholder bit 3 */
-        UCSRC_TEMP |=(StopBits<<3) ;
- 2ba:	90 e0       	ldi	r25, 0x00	; 0
- 2bc:	88 0f       	add	r24, r24
- 2be:	99 1f       	adc	r25, r25
- 2c0:	88 0f       	add	r24, r24
- 2c2:	99 1f       	adc	r25, r25
- 2c4:	88 0f       	add	r24, r24
- 2c6:	99 1f       	adc	r25, r25
- 2c8:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <UCSRC_TEMP>
- 2cc:	89 2b       	or	r24, r25
- 2ce:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <UCSRC_TEMP>
-        errorState = UART_OK ; 
- 2d2:	82 e0       	ldi	r24, 0x02	; 2
- 2d4:	08 95       	ret
-static uint8_t USART_SetStopBits(uint8_t StopBits)
-{
-    uint8_t errorState  ; 
-    if(StopBits>1)
-    {
-        errorState = WRONG_STOP_BITS ; 
- 2d6:	84 e0       	ldi	r24, 0x04	; 4
-        /* set stop bit in UCSRC placeholder bit 3 */
-        UCSRC_TEMP |=(StopBits<<3) ;
-        errorState = UART_OK ; 
-    }
+	if (StopBits==oneStopBit)
+ 2b6:	81 11       	cpse	r24, r1
+ 2b8:	07 c0       	rjmp	.+14     	; 0x2c8 <USART_SetStopBits+0x12>
+	{
+		clearBit(UCSRC_TEMP,UCSRC_USBS) ;
+ 2ba:	80 91 b8 00 	lds	r24, 0x00B8	; 0x8000b8 <UCSRC_TEMP>
+ 2be:	87 7f       	andi	r24, 0xF7	; 247
+ 2c0:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <UCSRC_TEMP>
+		errorState = UART_OK ; 
+ 2c4:	82 e0       	ldi	r24, 0x02	; 2
+ 2c6:	08 95       	ret
+	}
+	else if (StopBits==twoStopBits)
+ 2c8:	81 30       	cpi	r24, 0x01	; 1
+ 2ca:	39 f4       	brne	.+14     	; 0x2da <USART_SetStopBits+0x24>
+	{
+		setBit(UCSRC_TEMP,UCSRC_USBS) ; 
+ 2cc:	80 91 b8 00 	lds	r24, 0x00B8	; 0x8000b8 <UCSRC_TEMP>
+ 2d0:	88 60       	ori	r24, 0x08	; 8
+ 2d2:	80 93 b8 00 	sts	0x00B8, r24	; 0x8000b8 <UCSRC_TEMP>
+		errorState = UART_OK ; 
+ 2d6:	82 e0       	ldi	r24, 0x02	; 2
+ 2d8:	08 95       	ret
+	}
+	else
+	{
+		errorState = WRONG_STOP_BITS ; 
+ 2da:	84 e0       	ldi	r24, 0x04	; 4
+	}
     return errorState ; 
 }
- 2d8:	08 95       	ret
+ 2dc:	08 95       	ret
 
-000002da <USART_Init>:
+000002de <USART_Init>:
 uint8_t USART_Init(uint8_t dataSize, uint8_t parityMode, uint8_t stopBits)
 {
- 2da:	cf 93       	push	r28
- 2dc:	df 93       	push	r29
- 2de:	c6 2f       	mov	r28, r22
- 2e0:	d4 2f       	mov	r29, r20
+ 2de:	cf 93       	push	r28
+ 2e0:	df 93       	push	r29
+ 2e2:	c6 2f       	mov	r28, r22
+ 2e4:	d4 2f       	mov	r29, r20
     /* initialized UCSRC placeholder and select UCSRC */
     UCSRC_TEMP = 0 ;
 	/* Select UCSRC Register */ 
 	setBit(UCSRC_TEMP,UCSRC_URSEL) ;
- 2e2:	90 e8       	ldi	r25, 0x80	; 128
- 2e4:	90 93 b8 00 	sts	0x00B8, r25	; 0x8000b8 <UCSRC_TEMP>
+ 2e6:	90 e8       	ldi	r25, 0x80	; 128
+ 2e8:	90 93 b8 00 	sts	0x00B8, r25	; 0x8000b8 <UCSRC_TEMP>
 	/* TX enable */
 	setBit(UCSRB,UCSRB_TXEN) ;
- 2e8:	9a b1       	in	r25, 0x0a	; 10
- 2ea:	98 60       	ori	r25, 0x08	; 8
- 2ec:	9a b9       	out	0x0a, r25	; 10
+ 2ec:	9a b1       	in	r25, 0x0a	; 10
+ 2ee:	98 60       	ori	r25, 0x08	; 8
+ 2f0:	9a b9       	out	0x0a, r25	; 10
 	/* RX enable */
 	setBit(UCSRB,UCSRB_RXEN) ;
- 2ee:	9a b1       	in	r25, 0x0a	; 10
- 2f0:	90 61       	ori	r25, 0x10	; 16
- 2f2:	9a b9       	out	0x0a, r25	; 10
+ 2f2:	9a b1       	in	r25, 0x0a	; 10
+ 2f4:	90 61       	ori	r25, 0x10	; 16
+ 2f6:	9a b9       	out	0x0a, r25	; 10
 
     if(USART_SelectDataSize(dataSize)!=UART_OK)
- 2f4:	0e 94 26 01 	call	0x24c	; 0x24c <USART_SelectDataSize>
- 2f8:	82 30       	cpi	r24, 0x02	; 2
- 2fa:	71 f4       	brne	.+28     	; 0x318 <USART_Init+0x3e>
+ 2f8:	0e 94 26 01 	call	0x24c	; 0x24c <USART_SelectDataSize>
+ 2fc:	82 30       	cpi	r24, 0x02	; 2
+ 2fe:	71 f4       	brne	.+28     	; 0x31c <USART_Init+0x3e>
     {
         return WRONG_SIZE ;
     }
     if(USART_SetParity(parityMode)!=UART_OK)
- 2fc:	8c 2f       	mov	r24, r28
- 2fe:	0e 94 48 01 	call	0x290	; 0x290 <USART_SetParity>
- 302:	82 30       	cpi	r24, 0x02	; 2
- 304:	59 f4       	brne	.+22     	; 0x31c <USART_Init+0x42>
+ 300:	8c 2f       	mov	r24, r28
+ 302:	0e 94 48 01 	call	0x290	; 0x290 <USART_SetParity>
+ 306:	82 30       	cpi	r24, 0x02	; 2
+ 308:	59 f4       	brne	.+22     	; 0x320 <USART_Init+0x42>
     {
         return WRONG_Parity; 
     }
     if(USART_SetStopBits(stopBits)!=UART_OK)
- 306:	8d 2f       	mov	r24, r29
- 308:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <USART_SetStopBits>
- 30c:	82 30       	cpi	r24, 0x02	; 2
- 30e:	41 f4       	brne	.+16     	; 0x320 <USART_Init+0x46>
+ 30a:	8d 2f       	mov	r24, r29
+ 30c:	0e 94 5b 01 	call	0x2b6	; 0x2b6 <USART_SetStopBits>
+ 310:	82 30       	cpi	r24, 0x02	; 2
+ 312:	41 f4       	brne	.+16     	; 0x324 <USART_Init+0x46>
     {
        return WRONG_STOP_BITS ;  
     }
     
     /* Set all selected configuration */
     UCSRC = UCSRC_TEMP ; 
- 310:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <UCSRC_TEMP>
- 314:	90 bd       	out	0x20, r25	; 32
+ 314:	90 91 b8 00 	lds	r25, 0x00B8	; 0x8000b8 <UCSRC_TEMP>
+ 318:	90 bd       	out	0x20, r25	; 32
 	
 	return UART_OK ; 
- 316:	05 c0       	rjmp	.+10     	; 0x322 <USART_Init+0x48>
+ 31a:	05 c0       	rjmp	.+10     	; 0x326 <USART_Init+0x48>
 	/* RX enable */
 	setBit(UCSRB,UCSRB_RXEN) ;
 
     if(USART_SelectDataSize(dataSize)!=UART_OK)
     {
         return WRONG_SIZE ;
- 318:	81 e0       	ldi	r24, 0x01	; 1
- 31a:	03 c0       	rjmp	.+6      	; 0x322 <USART_Init+0x48>
+ 31c:	81 e0       	ldi	r24, 0x01	; 1
+ 31e:	03 c0       	rjmp	.+6      	; 0x326 <USART_Init+0x48>
     }
     if(USART_SetParity(parityMode)!=UART_OK)
     {
         return WRONG_Parity; 
- 31c:	83 e0       	ldi	r24, 0x03	; 3
- 31e:	01 c0       	rjmp	.+2      	; 0x322 <USART_Init+0x48>
+ 320:	83 e0       	ldi	r24, 0x03	; 3
+ 322:	01 c0       	rjmp	.+2      	; 0x326 <USART_Init+0x48>
     }
     if(USART_SetStopBits(stopBits)!=UART_OK)
     {
        return WRONG_STOP_BITS ;  
- 320:	84 e0       	ldi	r24, 0x04	; 4
+ 324:	84 e0       	ldi	r24, 0x04	; 4
     
     /* Set all selected configuration */
     UCSRC = UCSRC_TEMP ; 
 	
 	return UART_OK ; 
 }
- 322:	df 91       	pop	r29
- 324:	cf 91       	pop	r28
- 326:	08 95       	ret
+ 326:	df 91       	pop	r29
+ 328:	cf 91       	pop	r28
+ 32a:	08 95       	ret
 
-00000328 <USART_SetBaudRate>:
+0000032c <USART_SetBaudRate>:
 uint8_t USART_SetBaudRate(uint16_t baudRate)
 {   uint8_t errorState  ; 
     uint16_t UBRR_Value = ((FOSC/(16UL*baudRate))-1UL); 
- 328:	a0 e0       	ldi	r26, 0x00	; 0
- 32a:	b0 e0       	ldi	r27, 0x00	; 0
- 32c:	88 0f       	add	r24, r24
- 32e:	99 1f       	adc	r25, r25
- 330:	aa 1f       	adc	r26, r26
- 332:	bb 1f       	adc	r27, r27
- 334:	88 0f       	add	r24, r24
- 336:	99 1f       	adc	r25, r25
- 338:	aa 1f       	adc	r26, r26
- 33a:	bb 1f       	adc	r27, r27
- 33c:	9c 01       	movw	r18, r24
- 33e:	ad 01       	movw	r20, r26
- 340:	22 0f       	add	r18, r18
- 342:	33 1f       	adc	r19, r19
- 344:	44 1f       	adc	r20, r20
- 346:	55 1f       	adc	r21, r21
- 348:	22 0f       	add	r18, r18
- 34a:	33 1f       	adc	r19, r19
- 34c:	44 1f       	adc	r20, r20
- 34e:	55 1f       	adc	r21, r21
- 350:	60 e0       	ldi	r22, 0x00	; 0
- 352:	72 e1       	ldi	r23, 0x12	; 18
- 354:	8a e7       	ldi	r24, 0x7A	; 122
- 356:	90 e0       	ldi	r25, 0x00	; 0
- 358:	0e 94 ef 01 	call	0x3de	; 0x3de <__udivmodsi4>
- 35c:	21 50       	subi	r18, 0x01	; 1
- 35e:	31 09       	sbc	r19, r1
+ 32c:	a0 e0       	ldi	r26, 0x00	; 0
+ 32e:	b0 e0       	ldi	r27, 0x00	; 0
+ 330:	88 0f       	add	r24, r24
+ 332:	99 1f       	adc	r25, r25
+ 334:	aa 1f       	adc	r26, r26
+ 336:	bb 1f       	adc	r27, r27
+ 338:	88 0f       	add	r24, r24
+ 33a:	99 1f       	adc	r25, r25
+ 33c:	aa 1f       	adc	r26, r26
+ 33e:	bb 1f       	adc	r27, r27
+ 340:	9c 01       	movw	r18, r24
+ 342:	ad 01       	movw	r20, r26
+ 344:	22 0f       	add	r18, r18
+ 346:	33 1f       	adc	r19, r19
+ 348:	44 1f       	adc	r20, r20
+ 34a:	55 1f       	adc	r21, r21
+ 34c:	22 0f       	add	r18, r18
+ 34e:	33 1f       	adc	r19, r19
+ 350:	44 1f       	adc	r20, r20
+ 352:	55 1f       	adc	r21, r21
+ 354:	60 e0       	ldi	r22, 0x00	; 0
+ 356:	72 e1       	ldi	r23, 0x12	; 18
+ 358:	8a e7       	ldi	r24, 0x7A	; 122
+ 35a:	90 e0       	ldi	r25, 0x00	; 0
+ 35c:	0e 94 f1 01 	call	0x3e2	; 0x3e2 <__udivmodsi4>
+ 360:	21 50       	subi	r18, 0x01	; 1
+ 362:	31 09       	sbc	r19, r1
     if (UBRR_Value>4095)
- 360:	21 15       	cp	r18, r1
- 362:	80 e1       	ldi	r24, 0x10	; 16
- 364:	38 07       	cpc	r19, r24
- 366:	20 f4       	brcc	.+8      	; 0x370 <USART_SetBaudRate+0x48>
+ 364:	21 15       	cp	r18, r1
+ 366:	80 e1       	ldi	r24, 0x10	; 16
+ 368:	38 07       	cpc	r19, r24
+ 36a:	20 f4       	brcc	.+8      	; 0x374 <USART_SetBaudRate+0x48>
     }
     else
     {
         errorState = UART_OK ;
         /* Set LSB */ 
         UBRRL = (uint8_t)UBRR_Value ; 
- 368:	29 b9       	out	0x09, r18	; 9
+ 36c:	29 b9       	out	0x09, r18	; 9
         /* Set MSB */
         UBRRH = (uint8_t)UBRR_Value>>8 ;
- 36a:	10 bc       	out	0x20, r1	; 32
+ 36e:	10 bc       	out	0x20, r1	; 32
     {
         errorState = WRONG_BAUD_RATE ; 
     }
     else
     {
         errorState = UART_OK ;
- 36c:	82 e0       	ldi	r24, 0x02	; 2
- 36e:	08 95       	ret
+ 370:	82 e0       	ldi	r24, 0x02	; 2
+ 372:	08 95       	ret
 uint8_t USART_SetBaudRate(uint16_t baudRate)
 {   uint8_t errorState  ; 
     uint16_t UBRR_Value = ((FOSC/(16UL*baudRate))-1UL); 
     if (UBRR_Value>4095)
     {
         errorState = WRONG_BAUD_RATE ; 
- 370:	85 e0       	ldi	r24, 0x05	; 5
+ 374:	85 e0       	ldi	r24, 0x05	; 5
         UBRRL = (uint8_t)UBRR_Value ; 
         /* Set MSB */
         UBRRH = (uint8_t)UBRR_Value>>8 ;
     }
     return errorState ; 
 }
- 372:	08 95       	ret
+ 376:	08 95       	ret
 
-00000374 <USART_Receive>:
+00000378 <USART_Receive>:
 uint8_t USART_Receive(uint16_t *data)
 {
     /* wait for data */
     while (!getBit(UCSRA,UCSRA_RXC)) ; 
- 374:	5f 9b       	sbis	0x0b, 7	; 11
- 376:	fe cf       	rjmp	.-4      	; 0x374 <USART_Receive>
+ 378:	5f 9b       	sbis	0x0b, 7	; 11
+ 37a:	fe cf       	rjmp	.-4      	; 0x378 <USART_Receive>
   
     if(getBit(UCSRA,UCSRA_PE))
- 378:	5a 99       	sbic	0x0b, 2	; 11
- 37a:	19 c0       	rjmp	.+50     	; 0x3ae <USART_Receive+0x3a>
+ 37c:	5a 99       	sbic	0x0b, 2	; 11
+ 37e:	19 c0       	rjmp	.+50     	; 0x3b2 <USART_Receive+0x3a>
     {
         /* Parity Error */
         return PARITY_ERROR ;
     }
     if(getBit(UCSRA,UCSRA_DOR))
- 37c:	5b 99       	sbic	0x0b, 3	; 11
- 37e:	19 c0       	rjmp	.+50     	; 0x3b2 <USART_Receive+0x3e>
+ 380:	5b 99       	sbic	0x0b, 3	; 11
+ 382:	19 c0       	rjmp	.+50     	; 0x3b6 <USART_Receive+0x3e>
     {
         /* Data OverRun */
         return DATA_OVER_RUN ; 
     }
     if(getBit(UCSRA,UCSRA_FE))
- 380:	5c 99       	sbic	0x0b, 4	; 11
- 382:	19 c0       	rjmp	.+50     	; 0x3b6 <USART_Receive+0x42>
+ 384:	5c 99       	sbic	0x0b, 4	; 11
+ 386:	19 c0       	rjmp	.+50     	; 0x3ba <USART_Receive+0x42>
    {
 		/* Frame Error */
         return FRAME_ERROR ; 
    }
    
    *data = UDR ; 
- 384:	3c b1       	in	r19, 0x0c	; 12
- 386:	23 2f       	mov	r18, r19
- 388:	30 e0       	ldi	r19, 0x00	; 0
- 38a:	fc 01       	movw	r30, r24
- 38c:	31 83       	std	Z+1, r19	; 0x01
- 38e:	20 83       	st	Z, r18
+ 388:	3c b1       	in	r19, 0x0c	; 12
+ 38a:	23 2f       	mov	r18, r19
+ 38c:	30 e0       	ldi	r19, 0x00	; 0
+ 38e:	fc 01       	movw	r30, r24
+ 390:	31 83       	std	Z+1, r19	; 0x01
+ 392:	20 83       	st	Z, r18
    if(global_No_of_Bits==USART_9bit)
- 390:	40 91 b9 00 	lds	r20, 0x00B9	; 0x8000b9 <global_No_of_Bits>
- 394:	47 30       	cpi	r20, 0x07	; 7
- 396:	89 f4       	brne	.+34     	; 0x3ba <USART_Receive+0x46>
+ 394:	40 91 b9 00 	lds	r20, 0x00B9	; 0x8000b9 <global_No_of_Bits>
+ 398:	47 30       	cpi	r20, 0x07	; 7
+ 39a:	89 f4       	brne	.+34     	; 0x3be <USART_Receive+0x46>
    {
 		/* Get the ninth data bit of the received character */
 		*data |= (getBit(UCSRB,UCSRB_RXB8)<<8);
- 398:	4a b1       	in	r20, 0x0a	; 10
- 39a:	46 95       	lsr	r20
- 39c:	41 70       	andi	r20, 0x01	; 1
- 39e:	74 2f       	mov	r23, r20
- 3a0:	60 e0       	ldi	r22, 0x00	; 0
- 3a2:	26 2b       	or	r18, r22
- 3a4:	37 2b       	or	r19, r23
- 3a6:	31 83       	std	Z+1, r19	; 0x01
- 3a8:	20 83       	st	Z, r18
+ 39c:	4a b1       	in	r20, 0x0a	; 10
+ 39e:	46 95       	lsr	r20
+ 3a0:	41 70       	andi	r20, 0x01	; 1
+ 3a2:	74 2f       	mov	r23, r20
+ 3a4:	60 e0       	ldi	r22, 0x00	; 0
+ 3a6:	26 2b       	or	r18, r22
+ 3a8:	37 2b       	or	r19, r23
+ 3aa:	31 83       	std	Z+1, r19	; 0x01
+ 3ac:	20 83       	st	Z, r18
    }
  
    return UART_OK ; 
- 3aa:	82 e0       	ldi	r24, 0x02	; 2
- 3ac:	08 95       	ret
+ 3ae:	82 e0       	ldi	r24, 0x02	; 2
+ 3b0:	08 95       	ret
     while (!getBit(UCSRA,UCSRA_RXC)) ; 
   
     if(getBit(UCSRA,UCSRA_PE))
     {
         /* Parity Error */
         return PARITY_ERROR ;
- 3ae:	88 e0       	ldi	r24, 0x08	; 8
- 3b0:	08 95       	ret
+ 3b2:	88 e0       	ldi	r24, 0x08	; 8
+ 3b4:	08 95       	ret
     }
     if(getBit(UCSRA,UCSRA_DOR))
     {
         /* Data OverRun */
         return DATA_OVER_RUN ; 
- 3b2:	87 e0       	ldi	r24, 0x07	; 7
- 3b4:	08 95       	ret
+ 3b6:	87 e0       	ldi	r24, 0x07	; 7
+ 3b8:	08 95       	ret
     }
     if(getBit(UCSRA,UCSRA_FE))
    {
 		/* Frame Error */
         return FRAME_ERROR ; 
- 3b6:	89 e0       	ldi	r24, 0x09	; 9
- 3b8:	08 95       	ret
+ 3ba:	89 e0       	ldi	r24, 0x09	; 9
+ 3bc:	08 95       	ret
    {
 		/* Get the ninth data bit of the received character */
 		*data |= (getBit(UCSRB,UCSRB_RXB8)<<8);
    }
  
    return UART_OK ; 
- 3ba:	82 e0       	ldi	r24, 0x02	; 2
+ 3be:	82 e0       	ldi	r24, 0x02	; 2
 }
- 3bc:	08 95       	ret
+ 3c0:	08 95       	ret
 
-000003be <USART_Send>:
+000003c2 <USART_Send>:
 uint8_t USART_Send(uint16_t data)
 {
     /* wait till data register is empty */
     while (!getBit(UCSRA,UCSRA_UDRE)); 
- 3be:	5d 9b       	sbis	0x0b, 5	; 11
- 3c0:	fe cf       	rjmp	.-4      	; 0x3be <USART_Send>
+ 3c2:	5d 9b       	sbis	0x0b, 5	; 11
+ 3c4:	fe cf       	rjmp	.-4      	; 0x3c2 <USART_Send>
 
     if(global_No_of_Bits==USART_9bit)
- 3c2:	20 91 b9 00 	lds	r18, 0x00B9	; 0x8000b9 <global_No_of_Bits>
- 3c6:	27 30       	cpi	r18, 0x07	; 7
- 3c8:	39 f4       	brne	.+14     	; 0x3d8 <USART_Send+0x1a>
+ 3c6:	20 91 b9 00 	lds	r18, 0x00B9	; 0x8000b9 <global_No_of_Bits>
+ 3ca:	27 30       	cpi	r18, 0x07	; 7
+ 3cc:	39 f4       	brne	.+14     	; 0x3dc <USART_Send+0x1a>
     {
         /*clear the ninth data bit of data*/
         UCSRB &= UCSRB_TXB8_MASK ; 
- 3ca:	2a b1       	in	r18, 0x0a	; 10
- 3cc:	2e 7f       	andi	r18, 0xFE	; 254
- 3ce:	2a b9       	out	0x0a, r18	; 10
+ 3ce:	2a b1       	in	r18, 0x0a	; 10
+ 3d0:	2e 7f       	andi	r18, 0xFE	; 254
+ 3d2:	2a b9       	out	0x0a, r18	; 10
         
         /* Set the new ninth data bit */
         UCSRB|= getBit(data,8) ; 
- 3d0:	2a b1       	in	r18, 0x0a	; 10
- 3d2:	91 70       	andi	r25, 0x01	; 1
- 3d4:	92 2b       	or	r25, r18
- 3d6:	9a b9       	out	0x0a, r25	; 10
+ 3d4:	2a b1       	in	r18, 0x0a	; 10
+ 3d6:	91 70       	andi	r25, 0x01	; 1
+ 3d8:	92 2b       	or	r25, r18
+ 3da:	9a b9       	out	0x0a, r25	; 10
     }
 
     /* send the first 8 bit of data */
     UDR = (uint8_t)data ;  
- 3d8:	8c b9       	out	0x0c, r24	; 12
+ 3dc:	8c b9       	out	0x0c, r24	; 12
 
 	return UART_OK ; 
- 3da:	82 e0       	ldi	r24, 0x02	; 2
- 3dc:	08 95       	ret
+ 3de:	82 e0       	ldi	r24, 0x02	; 2
+ 3e0:	08 95       	ret
 
-000003de <__udivmodsi4>:
- 3de:	a1 e2       	ldi	r26, 0x21	; 33
- 3e0:	1a 2e       	mov	r1, r26
- 3e2:	aa 1b       	sub	r26, r26
- 3e4:	bb 1b       	sub	r27, r27
- 3e6:	fd 01       	movw	r30, r26
- 3e8:	0d c0       	rjmp	.+26     	; 0x404 <__udivmodsi4_ep>
+000003e2 <__udivmodsi4>:
+ 3e2:	a1 e2       	ldi	r26, 0x21	; 33
+ 3e4:	1a 2e       	mov	r1, r26
+ 3e6:	aa 1b       	sub	r26, r26
+ 3e8:	bb 1b       	sub	r27, r27
+ 3ea:	fd 01       	movw	r30, r26
+ 3ec:	0d c0       	rjmp	.+26     	; 0x408 <__udivmodsi4_ep>
 
-000003ea <__udivmodsi4_loop>:
- 3ea:	aa 1f       	adc	r26, r26
- 3ec:	bb 1f       	adc	r27, r27
- 3ee:	ee 1f       	adc	r30, r30
- 3f0:	ff 1f       	adc	r31, r31
- 3f2:	a2 17       	cp	r26, r18
- 3f4:	b3 07       	cpc	r27, r19
- 3f6:	e4 07       	cpc	r30, r20
- 3f8:	f5 07       	cpc	r31, r21
- 3fa:	20 f0       	brcs	.+8      	; 0x404 <__udivmodsi4_ep>
- 3fc:	a2 1b       	sub	r26, r18
- 3fe:	b3 0b       	sbc	r27, r19
- 400:	e4 0b       	sbc	r30, r20
- 402:	f5 0b       	sbc	r31, r21
+000003ee <__udivmodsi4_loop>:
+ 3ee:	aa 1f       	adc	r26, r26
+ 3f0:	bb 1f       	adc	r27, r27
+ 3f2:	ee 1f       	adc	r30, r30
+ 3f4:	ff 1f       	adc	r31, r31
+ 3f6:	a2 17       	cp	r26, r18
+ 3f8:	b3 07       	cpc	r27, r19
+ 3fa:	e4 07       	cpc	r30, r20
+ 3fc:	f5 07       	cpc	r31, r21
+ 3fe:	20 f0       	brcs	.+8      	; 0x408 <__udivmodsi4_ep>
+ 400:	a2 1b       	sub	r26, r18
+ 402:	b3 0b       	sbc	r27, r19
+ 404:	e4 0b       	sbc	r30, r20
+ 406:	f5 0b       	sbc	r31, r21
 
-00000404 <__udivmodsi4_ep>:
- 404:	66 1f       	adc	r22, r22
- 406:	77 1f       	adc	r23, r23
- 408:	88 1f       	adc	r24, r24
- 40a:	99 1f       	adc	r25, r25
- 40c:	1a 94       	dec	r1
- 40e:	69 f7       	brne	.-38     	; 0x3ea <__udivmodsi4_loop>
- 410:	60 95       	com	r22
- 412:	70 95       	com	r23
- 414:	80 95       	com	r24
- 416:	90 95       	com	r25
- 418:	9b 01       	movw	r18, r22
- 41a:	ac 01       	movw	r20, r24
- 41c:	bd 01       	movw	r22, r26
- 41e:	cf 01       	movw	r24, r30
- 420:	08 95       	ret
+00000408 <__udivmodsi4_ep>:
+ 408:	66 1f       	adc	r22, r22
+ 40a:	77 1f       	adc	r23, r23
+ 40c:	88 1f       	adc	r24, r24
+ 40e:	99 1f       	adc	r25, r25
+ 410:	1a 94       	dec	r1
+ 412:	69 f7       	brne	.-38     	; 0x3ee <__udivmodsi4_loop>
+ 414:	60 95       	com	r22
+ 416:	70 95       	com	r23
+ 418:	80 95       	com	r24
+ 41a:	90 95       	com	r25
+ 41c:	9b 01       	movw	r18, r22
+ 41e:	ac 01       	movw	r20, r24
+ 420:	bd 01       	movw	r22, r26
+ 422:	cf 01       	movw	r24, r30
+ 424:	08 95       	ret
 
-00000422 <_exit>:
- 422:	f8 94       	cli
+00000426 <_exit>:
+ 426:	f8 94       	cli
 
-00000424 <__stop_program>:
- 424:	ff cf       	rjmp	.-2      	; 0x424 <__stop_program>
+00000428 <__stop_program>:
+ 428:	ff cf       	rjmp	.-2      	; 0x428 <__stop_program>
