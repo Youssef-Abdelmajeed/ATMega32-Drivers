@@ -5,4 +5,6 @@
 - TimerOne (TIMER1 only postbulid)  
 - EXTI   (External Interrupts)
 - ADC    (Analog to digital converter)
+- USART  (Universal Synchronous ASynchronous Receiver Transmitter Protocol)
+- SPI    (Serial Peripheral Interface Protocol)
 
