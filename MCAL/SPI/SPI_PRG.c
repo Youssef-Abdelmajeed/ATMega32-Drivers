@@ -129,4 +129,13 @@ uint8_t SPI_SlaveReceive(void)
     /* return data*/ 
     return SPDR ; 
 }
+uint8_t SPI_Tranceive(uint8_t data)
+{
+    /*Send Data*/
+    SPDR = data; 
+    /*Wait for data to be transmitted*/
+    while (getBit(SPSR,SPSR_SPIF)!=1) ;
+ /* return received data*/ 
+    return SPDR ;
+}  
 

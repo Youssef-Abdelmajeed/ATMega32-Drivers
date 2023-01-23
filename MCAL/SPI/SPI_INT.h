@@ -106,6 +106,13 @@ uint8_t SPI_MasterSend(uint8_t data) ;
  * @return uint8_t data received 
  */
 uint8_t SPI_SlaveReceive(void) ;  
+/**
+ * @brief A combination of send and receiving data
+ * 
+ * @param data to be send
+ * @return uint8_t data received 
+ */
+uint8_t SPI_Tranceive(uint8_t data);
 
 
 #endif /*SPI_INT_H_*/
