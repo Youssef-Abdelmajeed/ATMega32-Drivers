@@ -131,7 +131,7 @@ uint8_t SPI_Tranceive(uint8_t data)
     SPDR = data; 
     /*Wait for data to be transmitted*/
     while (getBit(SPSR,SPSR_SPIF)!=1) ;
- /* return received data*/ 
+    /* return received data*/ 
     return SPDR ;
 }  
 

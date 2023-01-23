@@ -94,6 +94,7 @@ uint8_t SPI_MasterInit(uint8_t clockRate, uint8_t dataMode,uint8_t dataOrder)
 }
 uint8_t SPI_SlaveInit(uint8_t dataMode,uint8_t dataOrder)
 {
+	
     if(SPI_SetMode(dataMode)!=SPI_OK)
     {
         return WRONG_MODE ; 
@@ -102,6 +103,7 @@ uint8_t SPI_SlaveInit(uint8_t dataMode,uint8_t dataOrder)
     {
         return WRONG_ORDER ; 
     }
+	
     /*Set slave Mode*/
     clearBit(SPCR,SPCR_MSTR) ; 
     /*Set SPI Enable*/
