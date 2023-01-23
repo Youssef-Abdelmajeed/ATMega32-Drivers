@@ -92,7 +92,7 @@ uint8_t SPI_MasterInit(uint8_t clockRate, uint8_t dataMode,uint8_t dataOrder) ;
  * @param dataOrder LSB_FIRST, MSB_FIRST
  * @return uint8_t  Error States 
  */
-uint8_t SPI_SlaveInit(uint8_t clockRate, uint8_t dataMode,uint8_t dataOrder) ; 
+uint8_t SPI_SlaveInit(uint8_t dataMode,uint8_t dataOrder) ; 
 /**
  * @brief Master transmit to slave(s)
  * 

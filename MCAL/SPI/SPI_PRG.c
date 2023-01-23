@@ -92,12 +92,8 @@ uint8_t SPI_MasterInit(uint8_t clockRate, uint8_t dataMode,uint8_t dataOrder)
 
     return SPI_OK ; 
 }
-uint8_t SPI_SlaveInit(uint8_t clockRate, uint8_t dataMode,uint8_t dataOrder)
+uint8_t SPI_SlaveInit(uint8_t dataMode,uint8_t dataOrder)
 {
-    if(SPI_SetClockRate(clockRate)!=SPI_OK)
-    {
-        return WRONG_FREQUENCY ; 
-    }
     if(SPI_SetMode(dataMode)!=SPI_OK)
     {
         return WRONG_MODE ; 
