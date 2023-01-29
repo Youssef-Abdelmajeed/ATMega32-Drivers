@@ -8,7 +8,8 @@
         "bit_math.h": "c",
         "TImerOne_PRG.C": "cpp",
         "gie_reg.h": "c",
-        "dio_int.h": "c"
+        "dio_int.h": "c",
+        "gie_int.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "cSpell.words": [

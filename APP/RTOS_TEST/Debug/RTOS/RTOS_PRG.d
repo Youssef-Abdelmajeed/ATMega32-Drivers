@@ -1,0 +1,18 @@
+RTOS/RTOS_PRG.o RTOS/RTOS_PRG.o: ../RTOS/RTOS_PRG.c \
+  ../RTOS/../LIB/STD_TYPES.h ../RTOS/../LIB/BIT_MATH.h \
+  ../RTOS/../GIE/GIE_INT.h ../RTOS/../TIMERS/TIMERS_INT.h \
+  ../RTOS/RTOS_CONFIG.h ../RTOS/RTOS_Private.h ../RTOS/RTOS_INT.h
+
+../RTOS/../LIB/STD_TYPES.h:
+
+../RTOS/../LIB/BIT_MATH.h:
+
+../RTOS/../GIE/GIE_INT.h:
+
+../RTOS/../TIMERS/TIMERS_INT.h:
+
+../RTOS/RTOS_CONFIG.h:
+
+../RTOS/RTOS_Private.h:
+
+../RTOS/RTOS_INT.h:
