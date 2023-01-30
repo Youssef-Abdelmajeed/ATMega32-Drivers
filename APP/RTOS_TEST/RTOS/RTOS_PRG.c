@@ -35,42 +35,84 @@ void RTOS_Start(void)
 	/*Set output match compare value*/
 	Timer_SetCTCRegister(TIMER_USED,125) ;
 } 
-void RTOS_CreateTask(ST_Task_t * task) 
+uint8_t RTOS_CreateTask(ST_Task_t * task)
 {
-	SystemsTasks[task->Priority] = *task ;
+	uint8_t errorStates = RTOS_OK ;
+	if(SystemsTasks[task->Priority].taskFunction==NULL)
+	{
+		SystemsTasks[task->Priority] = *task ;
+	}
+	else
+	{
+		errorStates = OCCUPATED ;
+	}
+	return errorStates ;
 }
-void RTOS_SuspendTask(ST_Task_t * task)
+uint8_t RTOS_SuspendTask(ST_Task_t * task)
 {
-	SuspendedTasks[task->Priority] = 1 ;
+	uint8_t errorStates = RTOS_OK ;
+	if(SuspendedTasks[task->Priority] == 0 )
+	{
+		SuspendedTasks[task->Priority] = 1 ;
+	}
+	else
+	{
+		errorStates = SUSPENDED_BEFORE ;
+	}
+	return errorStates ;
 }
 
-void RTOS_ResumeTask(ST_Task_t *task)
+uint8_t RTOS_ResumeTask(ST_Task_t *task)
 {
-	SuspendedTasks[task->Priority] = 0 ;
+	uint8_t errorStates = RTOS_OK ;
+	if(SuspendedTasks[task->Priority] == 1 )
+	{
+		SuspendedTasks[task->Priority] = 0 ;
+	}
+	else
+	{
+		errorStates = RUNNING_BEFORE ;
+	}
+	return errorStates ;
+}
+uint8_t RTOS_DeleteTask(ST_Task_t  *task)
+{
+	uint8_t errorStates;
+	if(SystemsTasks[task->Priority].taskFunction!=NULL)
+	{
+		SystemsTasks[task->Priority].taskFunction=NULL ;
+		errorStates = RTOS_OK ;
+	}
+	else
+	{
+		errorStates = EMPTY_BEFORE ;
+	}
+	return errorStates ;
 }
 void Scheduler(void)
 {
-	static uint32_t tickCounter= 0 ;
-	tickCounter++ ;
 	uint16_t TaskCounter ;
 	for(TaskCounter=0 ; TaskCounter<TASK_NUM;TaskCounter++)
 	{
 		/*check if the task is suspended*/
-		if(SuspendedTasks[TaskCounter]!=1)
+		if(SuspendedTasks[SystemsTasks[TaskCounter].Priority]!=1)
 		{
 			/*if it time for the task*/
-			if( tickCounter % (SystemsTasks[TaskCounter].Periodicity)==0)
+			if(SystemsTasks[TaskCounter].firstDelay==0)
 			{
 
 				if(SystemsTasks[TaskCounter].taskFunction!=NULL)
 				{
 					/*run task*/
 					SystemsTasks[TaskCounter].taskFunction() ;
+					/*set first delay to be equal to task periodicity -1 */
+					SystemsTasks[TaskCounter].firstDelay = SystemsTasks[TaskCounter].Periodicity -1  ;
 				}
-				else
-				{
-					/*do nothing*/
-				}
+			}
+			else
+			{
+				/*decrement first delay*/
+				SystemsTasks[TaskCounter].firstDelay-- ;
 			}
 		}
 		else
