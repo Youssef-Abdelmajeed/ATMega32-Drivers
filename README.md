@@ -1,5 +1,5 @@
 # ATMega32-Drivers
-## MACAL 
+## MCAL 
 - DIO    (Digital Input/Output)
 - GIE    (Global Interrupt Enable)
 - TIMERS (TIMER0 ,TIMER2 postbuild) , (TIMER0 prebulid)
